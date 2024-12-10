@@ -1,0 +1,27 @@
+.cell-table {
+    color: rgba(102, 112, 133, 1);
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 18px;
+    letter-spacing: 0em;    
+    justify-content: center;
+    text-align: center;
+  }
+  
+  .cell-table td {
+    
+    text-transform: capitalize;
+    margin-left: auto;
+  }
+  
+  .cell-table th {
+    
+    text-transform: capitalize;
+    margin-left: auto;
+  }
+  
+  .cell-table tr {
+    
+    text-transform: capitalize;
+    margin-left: auto;
+  }

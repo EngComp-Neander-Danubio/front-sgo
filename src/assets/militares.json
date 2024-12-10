@@ -1,0 +1,967 @@
+[
+  {
+    "lotacao": "1",
+    "nome_completo": "ALISSON GOMES CORREIA",
+    "matricula": "30040740",
+    "grad": "Al Sd PM"
+  },
+  {
+    "lotacao": "1",
+    "nome_completo": "CARLOS MATHEUS DA SILVA NASCIMENTO",
+    "matricula": "30040856",
+    "grad": "Al Sd PM"
+  },
+  {
+    "lotacao": "1",
+    "nome_completo": "CARLOS RENER DA SILVA CARNEIRO",
+    "matricula": "30041046",
+    "grad": "Al Sd PM"
+  },
+  {
+    "lotacao": "1",
+    "nome_completo": "DAYANE HELLEN DA SILVA CAVALCANTE",
+    "matricula": "30041100",
+    "grad": "Al Sd PM"
+  },
+  {
+    "lotacao": "1",
+    "nome_completo": "DEBORA DA COSTA ARAUJO SANTOS",
+    "matricula": "30026098",
+    "grad": "Al Sd PM"
+  },
+  {
+    "lotacao": "1",
+    "nome_completo": "DENILSON OLIVEIRA DA SILVA",
+    "matricula": "30041208",
+    "grad": "Al Sd PM"
+  },
+  {
+    "lotacao": "1",
+    "nome_completo": "EMANUEL DE CASTRO SILVA",
+    "matricula": "30041356",
+    "grad": "Al Sd PM"
+  },
+  {
+    "lotacao": "1",
+    "nome_completo": "FRANCISCO JOSE DE SOUSA FILHO",
+    "matricula": "30041445",
+    "grad": "Al Sd PM"
+  },
+  {
+    "lotacao": "1",
+    "nome_completo": "FRANCISCO SANTIAGO BATISTA DE SOUZA",
+    "matricula": "3004150X",
+    "grad": "Al Sd PM"
+  },
+  {
+    "lotacao": "1",
+    "nome_completo": "GUNNAVINGREN DE SOUSA RODRIGUES",
+    "matricula": "30041585",
+    "grad": "Al Sd PM"
+  },
+  {
+    "lotacao": "1",
+    "nome_completo": "ISAQUE SALDANHA DOS SANTOS",
+    "matricula": "30041771",
+    "grad": "Al Sd PM"
+  },
+  {
+    "lotacao": "1",
+    "nome_completo": "JOAO EMANUEL PEREIRA DE ABREU",
+    "matricula": "30041798",
+    "grad": "Al Sd PM"
+  },
+  {
+    "lotacao": "1",
+    "nome_completo": "JUAN DA SILVA MORAIS",
+    "matricula": "30041836",
+    "grad": "Al Sd PM"
+  },
+  {
+    "lotacao": "1",
+    "nome_completo": "LUAN ROLIM NUNES",
+    "matricula": "30041844",
+    "grad": "Al Sd PM"
+  },
+  {
+    "lotacao": "1",
+    "nome_completo": "MATHEUS ALVES GOMES",
+    "matricula": "30042409",
+    "grad": "Al Sd PM"
+  },
+  {
+    "lotacao": "1",
+    "nome_completo": "MATHEUS SOUSA MENDES",
+    "matricula": "3004245X",
+    "grad": "Al Sd PM"
+  },
+  {
+    "lotacao": "1",
+    "nome_completo": "RAQUEL DE LIMA CORREIA",
+    "matricula": "3001796X",
+    "grad": "Al Sd PM"
+  },
+  {
+    "lotacao": "1",
+    "nome_completo": "RAYAN SILVA LAURINDO",
+    "matricula": "30042468",
+    "grad": "Al Sd PM"
+  },
+  {
+    "lotacao": "1",
+    "nome_completo": "THIAGO VINICIUS PEREIRA COELHO",
+    "matricula": "3004830X",
+    "grad": "Al Sd PM"
+  },
+  {
+    "lotacao": "1",
+    "nome_completo": "TIAGO LIMA DA SILVA",
+    "matricula": "30042492",
+    "grad": "Al Sd PM"
+  },
+  {
+    "lotacao": "2",
+    "nome_completo": "ADRIANO MENDES LUZ",
+    "matricula": "30042530",
+    "grad": "Al Sd PM"
+  },
+  {
+    "lotacao": "2",
+    "nome_completo": "CARLOS WITALO SANTIAGO DOS REIS",
+    "matricula": "30044053",
+    "grad": "Al Sd PM"
+  },
+  {
+    "lotacao": "2",
+    "nome_completo": "FRANCISCO DE ASSIS DA SILVA",
+    "matricula": "30044061",
+    "grad": "Al Sd PM"
+  },
+  {
+    "lotacao": "2",
+    "nome_completo": "FRANCISCO FABIO MATIAS MOURA",
+    "matricula": "30044096",
+    "grad": "Al Sd PM"
+  },
+  {
+    "lotacao": "2",
+    "nome_completo": "FRANCISCO RENE SALES HERCULANO",
+    "matricula": "3004410X",
+    "grad": "Al Sd PM"
+  },
+  {
+    "lotacao": "2",
+    "nome_completo": "FRANCISCO WALBERSON GONCALVES FERREIRA",
+    "matricula": "30044134",
+    "grad": "Al Sd PM"
+  },
+  {
+    "lotacao": "2",
+    "nome_completo": "GABRIEL SANDER RODRIGUES COELHO",
+    "matricula": "30044142",
+    "grad": "Al Sd PM"
+  },
+  {
+    "lotacao": "2",
+    "nome_completo": "HASLLEY PASSOS DA SILVA",
+    "matricula": "30044177",
+    "grad": "Al Sd PM"
+  },
+  {
+    "lotacao": "2",
+    "nome_completo": "IARLEY OLIVEIRA RODRIGUES",
+    "matricula": "30044193",
+    "grad": "Al Sd PM"
+  },
+  {
+    "lotacao": "2",
+    "nome_completo": "JOAO VICTOR MEIRELES DA SILVA",
+    "matricula": "30044207",
+    "grad": "Al Sd PM"
+  },
+  {
+    "lotacao": "2",
+    "nome_completo": "JOEDSON BATISTA DE PONTES",
+    "matricula": "3004424X",
+    "grad": "Al Sd PM"
+  },
+  {
+    "lotacao": "2",
+    "nome_completo": "JOSE AUGUSTO FRANCA PEREIRA",
+    "matricula": "30044258",
+    "grad": "Al Sd PM"
+  },
+  {
+    "grad": "Al Sd PM",
+    "lotacao": "24",
+    "nome_completo": "JOSE ADAUTO ALMEIDA JOSUE FILHO",
+    "matricula": "30042107"
+  },
+  {
+    "grad": "Al Sd PM",
+    "lotacao": "24",
+    "nome_completo": "JOSE VINICIUS DE CARVALHO OLIVEIRA",
+    "matricula": "30042700"
+  },
+  {
+    "grad": "Al Sd PM",
+    "lotacao": "24",
+    "nome_completo": "LEONARDO MOURA PEIXOTO NETO",
+    "matricula": "30042727"
+  },
+  {
+    "grad": "Al Sd PM",
+    "lotacao": "24",
+    "nome_completo": "LUANA NAYARA LEMOS GOMES",
+    "matricula": "3004276X"
+  },
+  {
+    "grad": "Al Sd PM",
+    "lotacao": "24",
+    "nome_completo": "LUCAS FARIAS SARAIVA LEAO",
+    "matricula": "30042786"
+  },
+  {
+    "grad": "Al Sd PM",
+    "lotacao": "24",
+    "nome_completo": "MARCELO ALEXANDRE DA SILVA NUNES",
+    "matricula": "30042808"
+  },
+  {
+    "grad": "Al Sd PM",
+    "lotacao": "24",
+    "nome_completo": "MARIA CLAUDIA ANDRADE DA SILVA",
+    "matricula": "30042824"
+  },
+  {
+    "grad": "Al Sd PM",
+    "lotacao": "30",
+    "nome_completo": "GILBERTO VASCONCELOS OLIVEIRA",
+    "matricula": "30043960"
+  },
+  {
+    "grad": "Al Sd PM",
+    "lotacao": "30",
+    "nome_completo": "GILMARCOS ARAUJO LIMA",
+    "matricula": "30043979"
+  },
+  {
+    "grad": "Al Sd PM",
+    "lotacao": "30",
+    "nome_completo": "GLEILSON DA SILVA PORTELA",
+    "matricula": "30043987"
+  },
+  {
+    "grad": "Al Sd PM",
+    "lotacao": "30",
+    "nome_completo": "ISAEL FERREIRA BERNARDINO",
+    "matricula": "30044495"
+  },
+  {
+    "grad": "Al Sd PM",
+    "lotacao": "30",
+    "nome_completo": "JARDEL RODRIGUES DE SOUZA",
+    "matricula": "30044533"
+  },
+  {
+    "grad": "Al Sd PM",
+    "lotacao": "30",
+    "nome_completo": "JEREMIAS DE OLIVEIRA SOUSA",
+    "matricula": "30044584"
+  },
+  {
+    "grad": "Al Sd PM",
+    "lotacao": "24",
+    "nome_completo": "AILA DALVA ELLIS ANGELA GOMES SAMPAIO DE ARAUJO",
+    "matricula": "30041224"
+  },
+  {
+    "grad": "Al Sd PM",
+    "lotacao": "24",
+    "nome_completo": "ARTHUR VITOR MACIEL DE OLIVEIRA",
+    "matricula": "30041321"
+  },
+  {
+    "grad": "Al Sd PM",
+    "lotacao": "24",
+    "nome_completo": "CINTIA CAMPOS NASCIMENTO",
+    "matricula": "30041372"
+  },
+  {
+    "grad": "Al Sd PM",
+    "lotacao": "24",
+    "nome_completo": "CRISTIANA ARAUJO CASTRO",
+    "matricula": "30041461"
+  },
+  {
+    "grad": "Al Sd PM",
+    "lotacao": "24",
+    "nome_completo": "EWERTON MAGNO MAIA SILVA",
+    "matricula": "30041607"
+  },
+  {
+    "grad": "Al Sd PM",
+    "lotacao": "24",
+    "nome_completo": "FRANCISCO WAGNER DANTAS ALVES SOBRINHO",
+    "matricula": "30041992"
+  },
+  {
+    "grad": "Al Sd PM",
+    "lotacao": "24",
+    "nome_completo": "HADRIAN RIBEIRO PIMENTEL",
+    "matricula": "30042042"
+  },
+  {
+    "grad": "Al Sd PM",
+    "lotacao": "24",
+    "nome_completo": "JOSE ADAUTO ALMEIDA JOSUE FILHO",
+    "matricula": "30042107"
+  },
+  {
+    "grad": "Al Sd PM",
+    "lotacao": "24",
+    "nome_completo": "JOSE VINICIUS DE CARVALHO OLIVEIRA",
+    "matricula": "30042700"
+  },
+  {
+    "grad": "Al Sd PM",
+    "lotacao": "24",
+    "nome_completo": "LEONARDO MOURA PEIXOTO NETO",
+    "matricula": "30042727"
+  },
+  {
+    "grad": "Al Sd PM",
+    "lotacao": "24",
+    "nome_completo": "LUANA NAYARA LEMOS GOMES",
+    "matricula": "3004276X"
+  },
+  {
+    "grad": "Al Sd PM",
+    "lotacao": "24",
+    "nome_completo": "LUCAS FARIAS SARAIVA LEAO",
+    "matricula": "30042786"
+  },
+  {
+    "grad": "Al Sd PM",
+    "lotacao": "24",
+    "nome_completo": "MARCELO ALEXANDRE DA SILVA NUNES",
+    "matricula": "30042808"
+  },
+  {
+    "grad": "Al Sd PM",
+    "lotacao": "24",
+    "nome_completo": "MARIA CLAUDIA ANDRADE DA SILVA",
+    "matricula": "30042824"
+  },
+  {
+    "grad": "Al Sd PM",
+    "lotacao": "24",
+    "nome_completo": "MARIA IASMIM SILVA ANDRADE",
+    "matricula": "30042867"
+  },
+  {
+    "grad": "Al Sd PM",
+    "lotacao": "24",
+    "nome_completo": "MATEUS DA SILVA OLIVEIRA",
+    "matricula": "30051149"
+  },
+  {
+    "grad": "Al Sd PM",
+    "lotacao": "24",
+    "nome_completo": "MATHEUS FRANKLIN BRAGA",
+    "matricula": "30043170"
+  },
+  {
+    "grad": "Al Sd PM",
+    "lotacao": "24",
+    "nome_completo": "MICHEL RODRIGO CARDOSO",
+    "matricula": "30051203"
+  },
+
+  {
+    "grad": "3º Sgt PM",
+    "nome_completo": "Plínio Georgio da Silva Freitas",
+    "matricula": "135.753-1-2",
+    "lotacao": "1ªCia/9ºBPM"
+  },
+  {
+    "grad": "Cb PM",
+    "nome_completo": "Leonardo Gonçalves de Almeida",
+    "matricula": "300.470-1-X",
+    "lotacao": "1ªCia/3ºBPCOM"
+  },
+  {
+    "grad": "Cb PM",
+    "nome_completo": "André Avelino Alves Neto",
+    "matricula": "300.625-1-5",
+    "lotacao": "1ªCia/8ºBPM"
+  },
+  {
+    "grad": "Cb PM",
+    "nome_completo": "José Alysson Silva do Prado",
+    "matricula": "300.997-1-0",
+    "lotacao": "1ªCia/4ºBPM"
+  },
+  {
+    "grad": "Sd PM",
+    "nome_completo": "Erivelton da Silva Pereira",
+    "matricula": "304.406-1-7",
+    "lotacao": "BPRE"
+  },
+  {
+    "grad": "Sd PM",
+    "nome_completo": "Rafael Barbosa Mendes",
+    "matricula": "587.863-1-4",
+    "lotacao": "1ªCia/9ºBPM"
+  },
+  {
+    "grad": "Sd PM",
+    "nome_completo": "Hebeson Silva dos Santos",
+    "matricula": "305.534-1-1",
+    "lotacao": "8ªCia/2ºBPCOM"
+  },
+  {
+    "grad": "Sd PM",
+    "nome_completo": "John Freud Dantas da Silva",
+    "matricula": "305.749-1-5",
+    "lotacao": "2ªCia/15ºBPM"
+  },
+  {
+    "grad": "Sd PM",
+    "nome_completo": "Bruno Silva Santos",
+    "matricula": "305.390-1-X",
+    "lotacao": "4ªCia/BPTUR"
+  },
+  {
+    "grad": "Sd PM",
+    "nome_completo": "José Maycon Simões Sampaio",
+    "matricula": "300.248-1-8",
+    "lotacao": "4ªCia/2ºBPCOM"
+  },
+  {
+    "grad": "Sd PM",
+    "nome_completo": "Cristiano de Lima Cordeiro",
+    "matricula": "305.493-1-7",
+    "lotacao": "4ªCia/BPTUR"
+  },
+  {
+    "grad": "Sd PM",
+    "nome_completo": "Francisco Adriano de Sousa Sampaio",
+    "matricula": "307.923-1-9",
+    "lotacao": "2ªCia/8ºBPM"
+  },
+  {
+    "grad": "Sd PM",
+    "nome_completo": "Fabrício Fragoso da Silva",
+    "matricula": "300.104-1-8",
+    "lotacao": "5ªCia/2ºBPCOM"
+  },
+  {
+    "grad": "Sd PM",
+    "nome_completo": "André de Freitas Sampaio",
+    "matricula": "305.839-1-4",
+    "lotacao": "3ªCia/17ºBPM"
+  },
+  {
+    "grad": "Sd PM",
+    "nome_completo": "Antônio Hércules Leite Freire da Silva",
+    "matricula": "305.867-1-9",
+    "lotacao": "2ªCia/5ºBPM"
+  },
+  {
+    "grad": "Sd PM",
+    "nome_completo": "Laércio Domingos de Sousa",
+    "matricula": "306.401-1-X",
+    "lotacao": "8ªCia/2ºBPCOM"
+  },
+  {
+    "grad": "Sd PM",
+    "nome_completo": "José Paulo Vieira Neto",
+    "matricula": "306.337-1-7",
+    "lotacao": "RPMONT"
+  },
+  {
+    "grad": "Sd PM",
+    "nome_completo": "Carlos Diego de Lima Ferreira",
+    "matricula": "306.950-1-1",
+    "lotacao": "BPRE"
+  },
+  {
+    "grad": "Sd PM",
+    "nome_completo": "Felipe da Silva Queiroga",
+    "matricula": "307.400-1-7",
+    "lotacao": "1ªCia/8ºBPM"
+  },
+  {
+    "grad": "Sd PM",
+    "nome_completo": "Francisco Stênio dos Santos Nogueira",
+    "matricula": "306.960-1-8",
+    "lotacao": "3ªCia/7ºBPM"
+  },
+  {
+    "grad": "Sd PM",
+    "nome_completo": "Antônio Marcos Brito Teles",
+    "matricula": "307.596-1-3",
+    "lotacao": "3ªCia/7ºBPM"
+  },
+  {
+    "grad": "Sd PM",
+    "nome_completo": "Marciano Fidelis da Silva",
+    "matricula": "307.381-1-X",
+    "lotacao": "4ªCia/2ºBPM"
+  },
+  {
+    "grad": "Sd PM",
+    "nome_completo": "Saulo Vieira Ribeiro",
+    "matricula": "307.327-1-5",
+    "lotacao": "3ªCia/7ºBPM"
+  },
+  {
+    "grad": "Sd PM",
+    "nome_completo": "Daniel Cavalcante Alves",
+    "matricula": "306.834-1-2",
+    "lotacao": "RPMONT"
+  },
+  {
+    "grad": "Sd PM",
+    "nome_completo": "Francisco de Assis Silveira Santos",
+    "matricula": "307.314-1-7",
+    "lotacao": "3ªCia/7ºBPM"
+  },
+  {
+    "grad": "Sd PM",
+    "nome_completo": "Robson do Nascimento",
+    "matricula": "308.332-1-X",
+    "lotacao": "1ªCia/8ºBPM"
+  },
+  {
+    "grad": "Sd PM",
+    "nome_completo": "Rodney da Costa Ferreira",
+    "matricula": "308.333-1-7",
+    "lotacao": "8ºBPM"
+  },
+  {
+    "grad": "Sd PM",
+    "nome_completo": "Rodrigo Aguiar Braga",
+    "matricula": "308.334-1-4",
+    "lotacao": "2ªCia/16ºBPM"
+  },
+
+  {
+    "grad": "3º Sgt PM",
+    "nome_completo": "José Clayton Sousa e Silva",
+    "matricula": "134.286-1-1",
+    "lotacao": "BPRE 2ªCia/6ºBPM"
+  },
+  {
+    "grad": "Sd PM",
+    "nome_completo": "Helder Ferreira de Albuquerque",
+    "matricula": "151.741-1-0",
+    "lotacao": "BPRE 1ªCia/5ºBPM"
+  },
+  {
+    "grad": "Sd PM",
+    "nome_completo": "Diego Rodrigues de Sousa",
+    "matricula": "306.921-1-X",
+    "lotacao": "BPRE 3ªCia/BPGEP"
+  },
+  {
+    "grad": "Sd PM",
+    "nome_completo": "Elvis Costa Sales",
+    "matricula": "307.635-1-3",
+    "lotacao": "3ªCia/BPGEP BPRE"
+  },
+  {
+    "grad": "Sd PM",
+    "nome_completo": "Wesley Carlos Alves",
+    "matricula": "302.918-1-6",
+    "lotacao": "2ªCia/6ºBPM BPRE"
+  },
+  {
+    "grad": "Sd PM",
+    "nome_completo": "Antônio Fábio Lima de Souza",
+    "matricula": "305.864-1-7",
+    "lotacao": "1ªCia/5ºBPM BPRE"
+  },
+
+  {
+    "grad": "1º Ten",
+    "nome_completo": "Alzirene Holanda de Moura",
+    "matricula": "304.707-1-0",
+    "lotacao": "14º BPM"
+  },
+  {
+    "grad": "Cadete",
+    "nome_completo": "José de Araújo Dantas Filho",
+    "matricula": "136.356-1-7",
+    "lotacao": "Ag. Classificação CGP"
+  },
+  {
+    "grad": "St PM",
+    "nome_completo": "Francisco Vidal Parente Miranda",
+    "matricula": "036.958-1-6",
+    "lotacao": "Ag. Classificação CGP"
+  },
+  {
+    "grad": "1º Sgt",
+    "nome_completo": "Antônio Cláudio Cassiano Forte",
+    "matricula": "099.980-1-2",
+    "lotacao": "Ag. Classificação CGP"
+  },
+  {
+    "grad": "Sd PM",
+    "nome_completo": "José Oliveira Rodrigues Júnior",
+    "matricula": "105.338-1-3",
+    "lotacao": "Ag. Classificação CGP"
+  },
+  {
+    "grad": "Sd PM",
+    "nome_completo": "José Gracivam de Matos",
+    "matricula": "308.597-1-5",
+    "lotacao": "Ag. Classificação CGP"
+  },
+  {
+    "grad": "Sd PM",
+    "nome_completo": "Francisco Vladimir Pontes da Silva",
+    "matricula": "308.595-1-0",
+    "lotacao": "Ag. Classificação CGP"
+  },
+  {
+    "grad": "1º Ten",
+    "nome_completo": "Alzirene Holanda de Moura",
+    "matricula": "304.707-1-0",
+    "lotacao": "14º BPM"
+  },
+  {
+    "grad": "Cadete",
+    "nome_completo": "José de Araújo Dantas Filho",
+    "matricula": "136.356-1-7",
+    "lotacao": "Ag. Classificação CGP"
+  },
+  {
+    "grad": "ST",
+    "nome_completo": "Francisco Vidal Parente Miranda",
+    "matricula": "036.958-1-6",
+    "lotacao": "Ag. Classificação CGP"
+  },
+  {
+    "grad": "1º Sgt",
+    "nome_completo": "Antônio Cláudio Cassiano Forte",
+    "matricula": "099.980-1-2",
+    "lotacao": "Ag. Classificação CGP"
+  },
+  {
+    "grad": "Sd PM",
+    "nome_completo": "José Oliveira Rodrigues Júnior",
+    "matricula": "105.338-1-3",
+    "lotacao": "Ag. Classificação CGP"
+  },
+  {
+    "grad": "Sd PM",
+    "nome_completo": "José Gracivam de Matos",
+    "matricula": "308.597-1-5",
+    "lotacao": "Ag. Classificação CGP"
+  },
+  {
+    "grad": "Sd PM",
+    "nome_completo": "Francisco Vladimir Pontes da Silva",
+    "matricula": "308.595-1-0",
+    "lotacao": "Ag. Classificação CGP"
+  },
+  {
+    "grad": "Sd PM",
+    "nome_completo": "Marcos José Lima da Fonseca",
+    "matricula": "308.596-1-8",
+    "lotacao": "Ag. Classificação CGP"
+  },
+  {
+    "grad": "Sd PM",
+    "nome_completo": "Oriel Vieira de Sousa Júnior",
+    "matricula": "308.590-1-4",
+    "lotacao": "Ag. Classificação CGP"
+  },
+  {
+    "grad": "Sd PM",
+    "nome_completo": "Marijésimo Vieira Lima",
+    "matricula": "308.591-1-1",
+    "lotacao": "Ag. Classificação CGP"
+  },
+  {
+    "grad": "Sd PM",
+    "nome_completo": "Francisco de Assis Pereira dos Santos",
+    "matricula": "308.592-1-9",
+    "lotacao": "Ag. Classificação CGP"
+  },
+  {
+    "grad": "Sd PM",
+    "nome_completo": "Cleverton Rodrigues da Rocha",
+    "matricula": "308.593-1-6",
+    "lotacao": "Ag. Classificação CGP"
+  },
+  {
+    "grad": "Sd PM",
+    "nome_completo": "Marcelo Pires Uchoa",
+    "matricula": "308.594-1-3",
+    "lotacao": "Ag. Classificação CGP"
+  },
+
+  {
+    "grad": "Sd PM",
+    "nome_completo": "IGOR CRISTIANO DOS SANTOS ROCHA",
+    "matricula": "30006828",
+    "lotacao": "1ªCIA/18ºBPM"
+  },
+  {
+    "grad": "Sd PM",
+    "nome_completo": "JOSÉ JEFFERSON DE LIMA NOBRE",
+    "matricula": "30007166",
+    "lotacao": "1ªCIA/18ºBPM"
+  },
+  {
+    "grad": "Sd PM",
+    "nome_completo": "JOSÉ JEFFERSON DE LIMA NOBRE",
+    "matricula": "30007166",
+    "lotacao": "1ªCIA/18ºBPM"
+  },
+  {
+    "grad": "Cb PM",
+    "nome_completo": "LEANDRO COSME DE OLIVEIRA",
+    "matricula": "30518810",
+    "lotacao": "1ªCIA/18ºBPM"
+  },
+  {
+    "grad": "Cb PM",
+    "nome_completo": "DANIEL BRANDAO BARROSO",
+    "matricula": "30353714",
+    "lotacao": "1ªCIA/18ºBPM"
+  },
+  {
+    "grad": "Sd PM",
+    "nome_completo": "DIEGO RODRIGUES DO NASCIMENTO",
+    "matricula": "30012356",
+    "lotacao": "1ªCIA/18ºBPM"
+  },
+  {
+    "grad": "Sd PM",
+    "nome_completo": "MATHEUS CORDEIRO",
+    "matricula": "30009029",
+    "lotacao": "1ªCIA/18ºBPM"
+  },
+  {
+    "grad": "Sd PM",
+    "nome_completo": "MATHEUS CORDEIRO",
+    "matricula": "30009029",
+    "lotacao": "1ªCIA/18ºBPM"
+  },
+  {
+    "grad": "Sd PM",
+    "nome_completo": "THIAGO MOURA E SILVA",
+    "matricula": "30872819",
+    "lotacao": "1ªCIA/18ºBPM"
+  },
+  {
+    "grad": "Sd PM",
+    "nome_completo": "YAGO TOMAZ DE ALENCAR",
+    "matricula": "30024141",
+    "lotacao": "1ªCIA/18ºBPM"
+  },
+  {
+    "grad": "Sd PM",
+    "nome_completo": "THALLES YAGO SILVA DE OLIVEIRA TEIXEIRA",
+    "matricula": "30872495",
+    "lotacao": "1ªCIA/18ºBPM"
+  },
+  {
+    "grad": "Sd PM",
+    "nome_completo": "BRUNO MACAMBIRA",
+    "matricula": "30898605",
+    "lotacao": "1ªCIA/18ºBPM"
+  },
+  {
+    "grad": "Sd PM",
+    "nome_completo": "GABRIEL LUCINDO DE ANDRADE",
+    "matricula": "30331915",
+    "lotacao": "1ªCIA/18ºBPM"
+  },
+  {
+    "grad": "Sd PM",
+    "nome_completo": "MATEUS FERREIRA DOS SANTOS MOREIRA",
+    "matricula": "30007484",
+    "lotacao": "1ªCIA/18ºBPM"
+  },
+  {
+    "grad": "Sd PM",
+    "nome_completo": "MATEUS DA SILVA MONTEIRO",
+    "matricula": "30908937",
+    "lotacao": "1ªCIA/18ºBPM"
+  },
+  {
+    "grad": "Sd PM",
+    "nome_completo": "DOUGLAS AMORIM DE OLIVEIRA",
+    "matricula": "30026934",
+    "lotacao": "1ªCIA/18ºBPM"
+  },
+  {
+    "grad": "Sd PM",
+    "nome_completo": "MATEUS FERREIRA DOS SANTOS MOREIRA",
+    "matricula": "30007484",
+    "lotacao": "1ªCIA/18ºBPM"
+  },
+  {
+    "grad": "Sd PM",
+    "nome_completo": "MATEUS DA SILVA MONTEIRO",
+    "matricula": "30908937",
+    "lotacao": "1ªCIA/18ºBPM"
+  },
+  {
+    "grad": "Sd PM",
+    "nome_completo": "JEFFERSON ARAUJO PAIVA",
+    "matricula": "30902602",
+    "lotacao": "1ªCIA/18ºBPM"
+  },
+  {
+    "grad": "3° Sgt PM",
+    "nome_completo": "PAULO HENRIQUE FERREIRA MARQUES",
+    "matricula": "13602212",
+    "lotacao": "1ªCIA/18ºBPM"
+  },
+  {
+    "grad": "Sd PM",
+    "nome_completo": "THALES ANTONELLI HOLANDA CASTRO",
+    "matricula": "3002723",
+    "lotacao": "1ªCIA/18ºBPM"
+  },
+  {
+    "grad": "3° Sgt PM",
+    "nome_completo": "FRANCISCO SÁVIO DE OLIVEIRA SÁ",
+    "matricula": "30340116",
+    "lotacao": "1ªCIA/18ºBPM"
+  },
+  {
+    "grad": "Sd PM",
+    "nome_completo": "BRUNO COSTA MACAMBIRA",
+    "matricula": "30898605",
+    "lotacao": "1ªCIA/18ºBPM"
+  },
+  {
+    "grad": "Sd PM",
+    "nome_completo": "PEDRO LUCAS SOUZA MONTENEGRO",
+    "matricula": "30888065",
+    "lotacao": "1ªCIA/18ºBPM"
+  },
+  {
+    "grad": "Sd PM",
+    "nome_completo": "MATEUS FERREIRA DOS SANTOS MOREIRA",
+    "matricula": "30007484",
+    "lotacao": "1ªCIA/18ºBPM"
+  },
+  {
+    "grad": "3° Sgt PM",
+    "nome_completo": "PAULO HENRIQUE FERREIRA MARQUES",
+    "matricula": "13602212",
+    "lotacao": "1ªCIA/18ºBPM"
+  },
+  {
+    "grad": "Sd PM",
+    "nome_completo": "THALES ANTONELLI HOLANDA CASTRO",
+    "matricula": "3002723",
+    "lotacao": "1ªCIA/18ºBPM"
+  },
+  {
+    "grad": "Sd PM",
+    "nome_completo": "PATROCINIO MATHEUS FREIRE MAGALHAES",
+    "matricula": "30026608",
+    "lotacao": "1ªCIA/18ºBPM"
+  },
+
+  {
+    "grad": "Sd PM",
+    "nome_completo": "CARLOS WELLINGTON MOURA DA SILVA",
+    "matricula": "30007093",
+    "lotacao": "1ªCIA/18ºBPM"
+  },
+  {
+    "grad": "Sd PM",
+    "nome_completo": "JOAO PEDRO FEIJO FARIAS",
+    "matricula": "30007832",
+    "lotacao": "1ªCIA/18ºBPM"
+  },
+  {
+    "grad": "Cb PM",
+    "nome_completo": "ADIONDAS BARBOSA GOMES",
+    "matricula": "30316010",
+    "lotacao": "1ªCIA/18ºBPM"
+  },
+  {
+    "grad": "Sd PM",
+    "nome_completo": "DAVID ALISSON DOS SANTOS SANTIAGO",
+    "matricula": "30898532",
+    "lotacao": "1ªCIA/18ºBPM"
+  },
+  {
+    "grad": "Sd PM",
+    "nome_completo": "JOSE WANDERLEI PEREIRA DE OLIVEIRA",
+    "matricula": "30036778",
+    "lotacao": "1ªCIA/18ºBPM"
+  },
+  {
+    "grad": "Sd PM",
+    "nome_completo": "JOSE WANDERLEI PEREIRA DE OLIVEIRA",
+    "matricula": "30036778",
+    "lotacao": "1ªCIA/18ºBPM"
+  },
+  {
+    "grad": "Sd PM",
+    "nome_completo": "GLEYSON ANDERSON OLIVEIRA PEREIRA",
+    "matricula": "30888200",
+    "lotacao": "1ªCIA/18ºBPM"
+  },
+  {
+    "grad": "3° Sgt PM",
+    "nome_completo": "CAMILO GONCALVES DE SOUSA",
+    "matricula": "30039017",
+    "lotacao": "1ªCIA/18ºBPM"
+  },
+  {
+    "grad": "Cb PM",
+    "nome_completo": "ANDRE DE FREITAS SAMPAIO",
+    "matricula": "30583914",
+    "lotacao": "1ªCIA/18ºBPM"
+  },
+  {
+    "grad": "Sd PM",
+    "nome_completo": "JEFFERSON ARAUJO PAIVA",
+    "matricula": "30902602",
+    "lotacao": "1ªCIA/18ºBPM"
+  },
+  {
+    "grad": "Sd PM",
+    "nome_completo": "PAULO SERGIO VIANA MARQUES ANDRADE",
+    "matricula": "3001183",
+    "lotacao": "1ªCIA/18ºBPM"
+  },
+  {
+    "grad": "Sd PM",
+    "nome_completo": "THALLES YAGO SILVA DE OLIVEIRA TEIXEIRA",
+    "matricula": "30872495",
+    "lotacao": "1ªCIA/18ºBPM"
+  },
+  {
+    "grad": "Sd PM",
+    "nome_completo": "THALLES YAGO SILVA DE OLIVEIRA TEIXEIRA",
+    "matricula": "30872495",
+    "lotacao": "1ªCIA/18ºBPM"
+  },
+  {
+    "grad": "Sd PM",
+    "nome_completo": "WILBON PAULO DA SILVA",
+    "matricula": "3002169",
+    "lotacao": "1ªCIA/18ºBPM"
+  },
+  {
+    "grad": "Sd PM",
+    "nome_completo": "FRANCISCO RAFAEL VENÂNCIO DA SILVA",
+    "matricula": "30004345",
+    "lotacao": "1ªCIA/18ºBPM"
+  }
+]

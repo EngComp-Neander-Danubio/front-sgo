@@ -1,0 +1,255 @@
+[
+  {
+    "solicitacao": "Solicitação 01",
+    "prazoInicial": "20/09/2024",
+    "prazoFinal": "25/09/2024",
+    "qtd_efetivo": 10,
+    "qtd_parcial_efetivo": 8,
+    "status": "Pendente",
+    "operacao": "Operação Alfa"
+  },
+  {
+    "solicitacao": "Solicitação 02",
+    "prazoInicial": "21/09/2024",
+    "prazoFinal": "26/09/2024",
+    "qtd_efetivo": 12,
+    "qtd_parcial_efetivo": 10,
+    "status": "Pendente",
+    "operacao": "Operação Beta"
+  },
+  {
+    "solicitacao": "Solicitação 03",
+    "prazoInicial": "22/09/2024",
+    "prazoFinal": "27/09/2024",
+    "qtd_efetivo": 15,
+    "qtd_parcial_efetivo": 15,
+    "status": "Completa",
+    "operacao": "Operação Gama"
+  },
+  {
+    "solicitacao": "Solicitação 04",
+    "prazoInicial": "23/09/2024",
+    "prazoFinal": "28/09/2024",
+    "qtd_efetivo": 8,
+    "qtd_parcial_efetivo": 7,
+    "status": "Alerta",
+    "operacao": "Operação Delta"
+  },
+  {
+    "solicitacao": "Solicitação 05",
+    "prazoInicial": "24/09/2024",
+    "prazoFinal": "29/09/2024",
+    "qtd_efetivo": 20,
+    "qtd_parcial_efetivo": 18,
+    "status": "Alerta",
+    "operacao": "Operação Épsilon"
+  },
+  {
+    "solicitacao": "Solicitação 06",
+    "prazoInicial": "25/09/2024",
+    "prazoFinal": "30/09/2024",
+    "qtd_efetivo": 14,
+    "qtd_parcial_efetivo": 12,
+    "status": "Pendente",
+    "operacao": "Operação Zeta"
+  },
+  {
+    "solicitacao": "Solicitação 07",
+    "prazoInicial": "26/09/2024",
+    "prazoFinal": "01/10/2024",
+    "qtd_efetivo": 18,
+    "qtd_parcial_efetivo": 17,
+    "status": "Alerta",
+    "operacao": "Operação Eta"
+  },
+  {
+    "solicitacao": "Solicitação 08",
+    "prazoInicial": "27/09/2024",
+    "prazoFinal": "02/10/2024",
+    "qtd_efetivo": 11,
+    "qtd_parcial_efetivo": 9,
+    "status": "Pendente",
+    "operacao": "Operação Teta"
+  },
+  {
+    "solicitacao": "Solicitação 09",
+    "prazoInicial": "28/09/2024",
+    "prazoFinal": "03/10/2024",
+    "qtd_efetivo": 9,
+    "qtd_parcial_efetivo": 8,
+    "status": "Pendente",
+    "operacao": "Operação Iota"
+  },
+  {
+    "solicitacao": "Solicitação 10",
+    "prazoInicial": "29/09/2024",
+    "prazoFinal": "04/10/2024",
+    "qtd_efetivo": 16,
+    "qtd_parcial_efetivo": 14,
+    "status": "Pendente",
+    "operacao": "Operação Kappa"
+  },
+  {
+    "solicitacao": "Solicitação 11",
+    "prazoInicial": "30/09/2024",
+    "prazoFinal": "05/10/2024",
+    "qtd_efetivo": 7,
+    "qtd_parcial_efetivo": 6,
+    "status": "Pendente",
+    "operacao": "Operação Lambda"
+  },
+  {
+    "solicitacao": "Solicitação 12",
+    "prazoInicial": "01/10/2024",
+    "prazoFinal": "06/10/2024",
+    "qtd_efetivo": 13,
+    "qtd_parcial_efetivo": 12,
+    "status": "Alerta",
+    "operacao": "Operação Mu"
+  },
+  {
+    "solicitacao": "Solicitação 13",
+    "prazoInicial": "02/10/2024",
+    "prazoFinal": "07/10/2024",
+    "qtd_efetivo": 19,
+    "qtd_parcial_efetivo": 19,
+    "status": "Completa",
+    "operacao": "Operação Nu"
+  },
+  {
+    "solicitacao": "Solicitação 14",
+    "prazoInicial": "03/10/2024",
+    "prazoFinal": "08/10/2024",
+    "qtd_efetivo": 5,
+    "qtd_parcial_efetivo": 4,
+    "status": "Alerta",
+    "operacao": "Operação Xi"
+  },
+  {
+    "solicitacao": "Solicitação 15",
+    "prazoInicial": "04/10/2024",
+    "prazoFinal": "09/10/2024",
+    "qtd_efetivo": 21,
+    "qtd_parcial_efetivo": 20,
+    "status": "Alerta",
+    "operacao": "Operação Omicron"
+  },
+  {
+    "solicitacao": "Solicitação 16",
+    "prazoInicial": "05/10/2024",
+    "prazoFinal": "10/10/2024",
+    "qtd_efetivo": 12,
+    "qtd_parcial_efetivo": 10,
+    "status": "Pendente",
+    "operacao": "Operação Pi"
+  },
+  {
+    "solicitacao": "Solicitação 17",
+    "prazoInicial": "06/10/2024",
+    "prazoFinal": "11/10/2024",
+    "qtd_efetivo": 17,
+    "qtd_parcial_efetivo": 15,
+    "status": "Pendente",
+    "operacao": "Operação Rho"
+  },
+  {
+    "solicitacao": "Solicitação 18",
+    "prazoInicial": "07/10/2024",
+    "prazoFinal": "12/10/2024",
+    "qtd_efetivo": 9,
+    "qtd_parcial_efetivo": 9,
+    "status": "Completa",
+    "operacao": "Operação Sigma"
+  },
+  {
+    "solicitacao": "Solicitação 19",
+    "prazoInicial": "08/10/2024",
+    "prazoFinal": "13/10/2024",
+    "qtd_efetivo": 14,
+    "qtd_parcial_efetivo": 12,
+    "status": "Pendente",
+    "operacao": "Operação Tau"
+  },
+  {
+    "solicitacao": "Solicitação 20",
+    "prazoInicial": "09/10/2024",
+    "prazoFinal": "14/10/2024",
+    "qtd_efetivo": 8,
+    "qtd_parcial_efetivo": 7,
+    "status": "Alerta",
+    "operacao": "Operação Upsilon"
+  },
+  {
+    "solicitacao": "Solicitação 21",
+    "prazoInicial": "10/10/2024",
+    "prazoFinal": "15/10/2024",
+    "qtd_efetivo": 16,
+    "qtd_parcial_efetivo": 15,
+    "status": "Pendente",
+    "operacao": "Operação Phi"
+  },
+  {
+    "solicitacao": "Solicitação 22",
+    "prazoInicial": "11/10/2024",
+    "prazoFinal": "16/10/2024",
+    "qtd_efetivo": 7,
+    "qtd_parcial_efetivo": 7,
+    "status": "Completa",
+    "operacao": "Operação Chi"
+  },
+  {
+    "solicitacao": "Solicitação 23",
+    "prazoInicial": "12/10/2024",
+    "prazoFinal": "17/10/2024",
+    "qtd_efetivo": 20,
+    "qtd_parcial_efetivo": 19,
+    "status": "Alerta",
+    "operacao": ""
+  },
+
+  {
+    "solicitacao": "Solicitação 24",
+    "prazoFinal": "18/10/2024",
+    "prazoInicial": "11/10/2024",
+    "qtd_efetivo": 15,
+    "qtd_parcial_efetivo": 13,
+    "status": "Alerta",
+    "operacao": "Operação Omega"
+  },
+  {
+    "solicitacao": "Solicitação 25",
+    "prazoFinal": "19/10/2024",
+    "prazoInicial": "11/10/2024",
+    "qtd_efetivo": 11,
+    "qtd_parcial_efetivo": 10,
+    "status": "Pendente",
+    "operacao": "Operação Alfa"
+  },
+  {
+    "solicitacao": "Solicitação 26",
+    "prazoFinal": "20/10/2024",
+    "prazoInicial": "11/10/2024",
+    "qtd_efetivo": 18,
+    "qtd_parcial_efetivo": 17,
+    "status": "Pendente",
+    "operacao": "Operação Beta"
+  },
+  {
+    "solicitacao": "Solicitação 27",
+    "prazoFinal": "21/10/2024",
+    "prazoInicial": "11/10/2024",
+    "qtd_efetivo": 6,
+    "qtd_parcial_efetivo": 5,
+    "status": "Completa",
+    "operacao": "Operação Gama"
+  },
+  {
+    "solicitacao": "Solicitação 28",
+    "prazoFinal": "22/10/2024",
+    "prazoInicial": "11/10/2024",
+    "qtd_efetivo": 22,
+    "qtd_parcial_efetivo": 20,
+    "status": "Pendente",
+    "operacao": "Operação Delta"
+  }
+]
