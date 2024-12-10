@@ -14,6 +14,11 @@ import { Militares_service } from '../../../context/requisitosContext/Requisitos
 import { Pagination } from '../pagination/Pagination';
 import { TableSolicitacoes } from '../table-solicitacoes';
 import { useMilitares } from '../../../context/militaresContext/useMilitares';
+import { IconeDeletar, IconeEditar } from '../../ViewLogin';
+import { DataEfetivo } from '../../../types/typesMilitar';
+
+
+import TableMain, { ColumnProps } from '../TableMain/TableMain';
 
 interface IModal {
   isOpen: boolean;
@@ -27,39 +32,8 @@ export const ModalRestantes: React.FC<IModal> = ({
   onClose,
   militaresRestantes,
 }) => {
-  const handleSortByPostoGrad = () => {
-    // Define a ordem hierárquica das graduações (do menor para o maior)
-    const hierarchy = [
-      'Cel PM',
-      'Ten-Cel PM',
-      'Maj PM',
-      'Cap PM',
-      '1º Ten PM',
-      '2º Ten PM',
-      'St PM',
-      '1º Sgt PM',
-      '2º Sgt PM',
-      '3º Sgt PM',
-      'Cb PM',
-      'Sd PM',
-      'Al Sd PM',
-    ];
 
-    // Função de comparação
-    return militaresRestantes.sort((a, b) => {
-      const indexA = hierarchy.indexOf(a.posto_grad);
-      const indexB = hierarchy.indexOf(b.posto_grad);
 
-      // Compara os índices da hierarquia
-      return indexA - indexB;
-    });
-  };
-  const headerKeysMilitar =
-    militaresRestantes.length > 0
-      ? Object.keys(militaresRestantes[0]).filter(key =>
-          ['matricula', 'posto_grad', 'nome_completo', 'opm'].includes(key),
-        )
-      : [];
       const {
         dataPerPage,
         totalData,
@@ -68,7 +42,58 @@ export const ModalRestantes: React.FC<IModal> = ({
         lastDataIndexMilitar,
         loadLessMilitar,
         loadMoreMilitar,
+        deletePMByCGO,
       } = useMilitares();
+      const columns: Array<ColumnProps<DataEfetivo>> = [
+        {
+          key: 'matricula',
+          title: 'Matrícula',
+        },
+        {
+          key: 'posto_grad',
+          title: 'Posto/Graduação',
+        },
+        {
+          key: 'nome_completo',
+          title: 'Nome',
+        },
+        {
+          key: 'opm',
+          title: 'OPM',
+        },
+
+        {
+          key: 'acoes',
+          title: 'Ações',
+          render: (column, record) => {
+            // Encontrar o índice do registro diretamente no array de dados
+            const index = militaresRestantes?.findIndex(item => item === record);
+
+            return (
+              <Flex flexDirection="row" gap={2}>
+                <span key={`delete-${record.id}`}>
+                  <IconeDeletar
+                    label_tooltip={record.nome_completo}
+                    handleDelete={async () => {
+                      if (index !== undefined && index !== -1) {
+                        await deletePMByCGO(record.id, index.toString());
+                      } else {
+                        console.error(
+                          'Índice não encontrado para o registro',
+                          record,
+                        );
+                      }
+                    }}
+                  />
+                </span>
+                <span key={`edit-${column.key}`}>
+                  <IconeEditar label_tooltip={record.nome_completo} />
+                </span>
+              </Flex>
+            );
+          },
+        },
+      ];
   return (
     <>
       <Modal isOpen={isOpen} onClose={onClose}>
@@ -88,20 +113,12 @@ export const ModalRestantes: React.FC<IModal> = ({
           <ModalCloseButton />
           <ModalBody>
             <Flex mt={2} flexDirection={'column'} w={'100%'}>
-              <TableSolicitacoes
-                isOpen={isOpen}
-                isActions
-                isView={true}
-                columns={[
-                  'Matrícula',
-                  'Posto/Graduação',
-                  'Nome Completo',
-                  'Unidade',
-                ]}
-                registers={headerKeysMilitar}
-                label_tooltip="Militar"
-                height={'32vh'}
-              />
+
+
+              <TableMain
+                    data={militaresRestantes}
+                    columns={columns}
+                  />
               {/* Componente de paginação */}
               <Pagination
                 totalPages={totalData}

@@ -36,12 +36,13 @@ export const AccordinCadastro: React.FC<IAccordion> = ({ isOpen }) => {
         <AccordionItemOperacao isEditing={false} />
         {eventById?.id && (
           <>
-            <AccordionItemPostos isEditing={false} />
-            <AccordionItemEfetivo isEditing={false} />
-            <AccordionItemEscala isEditing={false} />
+
             {''}
           </>
         )}
+        <AccordionItemPostos isEditing={false} />
+            <AccordionItemEfetivo isEditing={false} />
+            <AccordionItemEscala isEditing={false} />
       </Accordion>
     </>
   );

@@ -23,9 +23,6 @@ import { DataPostos } from '../../../types/typesPostos';
 import { IconeDeletar, IconeEditar } from '../../ViewLogin';
 import { ModalSolicitacarPostos } from '../modal/ModalSolicitarPostos';
 import { ModalFormAddPosto } from '../modal/ModalFormAddPosto';
-import api from '../../../services/api';
-import { useCallback, useEffect } from 'react';
-import { PostoForm } from '../../../context/postosContext/PostosContex';
 import { optionsModalidade } from '../../../types/typesModalidade';
 import { useEvents } from '../../../context/eventContext/useEvents';
 interface IAccordion {
@@ -40,13 +37,13 @@ export const AccordionItemPostos: React.FC<IAccordion> = ({ isEditing }) => {
     lastDataIndex,
     handleClick,
     handleOnChange,
-    handleOnSubmitP,
+    handleOnSubmit,
     postosLocal,
-    loadPostoForAccordion,
+    loadingOnePostoToTable,
     totalData: totalDataPostosLocal,
     dataPerPage: dataPerPagePostosLocal,
-    deletePostoByOPM,
-    uploadPostoEmLote,
+    deletePostoFromTable,
+    sendPostoToBackendEmLote,
   } = usePostos();
   const {
     isOpen: isOpenFormAddPosto,
@@ -59,9 +56,11 @@ export const AccordionItemPostos: React.FC<IAccordion> = ({ isEditing }) => {
     onClose: onCloseModalSolicitarPostos,
   } = useDisclosure();
   const toast = useToast();
+  const { eventById } = useEvents();
   const handlePostos = async (): Promise<void> => {
-    uploadPostoEmLote(postosLocal);
+    sendPostoToBackendEmLote(postosLocal, eventById?.id ? eventById?.id : '');
   };
+
   const columns: Array<ColumnProps<DataPostos>> = [
     {
       key: 'local',
@@ -90,13 +89,14 @@ export const AccordionItemPostos: React.FC<IAccordion> = ({ isEditing }) => {
         const modalidadeData =
           optionsModalidade.find(m => m.value === record.modalidade)?.label ||
           null;
-        return <>{modalidadeData?.toLowerCase() ?? record.modalidade.toLowerCase()}</>;
+        return <>{(modalidadeData?.toLocaleLowerCase('pt-BR')) ?? (record.modalidade.toLocaleUpperCase('pt-BR'))}
+        </>;
       },
     },
     {
       key: 'acoes',
       title: 'Ações',
-      render: (column, record) => {
+      render: (_, record) => {
         // Encontrar o índice do registro diretamente no array de dados
         const index = postosLocal?.findIndex(item => item === record);
 
@@ -107,7 +107,7 @@ export const AccordionItemPostos: React.FC<IAccordion> = ({ isEditing }) => {
                 label_tooltip={record.local}
                 handleDelete={async () => {
                   if (index !== undefined && index !== -1) {
-                    await deletePostoByOPM(record.id, index.toString()); // Passe o índice diretamente
+                    await deletePostoFromTable(record.id, index.toString()); // Passe o índice diretamente
                   } else {
                     console.error(
                       'Índice não encontrado para o registro',
@@ -187,7 +187,7 @@ export const AccordionItemPostos: React.FC<IAccordion> = ({ isEditing }) => {
                             nameInput="postoInput"
                             handleClick={handleClick}
                             handleOnChange={handleOnChange}
-                            handleOnSubmit={handleOnSubmitP}
+                            handleOnSubmit={handleOnSubmit}
                           />
                         </span>
                       </Tooltip>
@@ -272,7 +272,7 @@ export const AccordionItemPostos: React.FC<IAccordion> = ({ isEditing }) => {
         isOpen={isOpenFormAddPosto}
         onOpen={onOpenFormAddPosto}
         onClose={onCloseFormAddPosto}
-        uploadPosto={loadPostoForAccordion}
+        uploadPosto={loadingOnePostoToTable}
       />
     </>
   );

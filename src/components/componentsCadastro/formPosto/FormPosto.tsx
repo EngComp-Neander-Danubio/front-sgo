@@ -14,7 +14,7 @@ import { SelectPattern } from '../modal/SelectPattern';
 import { FaMinusCircle, FaPlusCircle } from 'react-icons/fa';
 interface IForm {
   local: string;
-  rua: string;
+  endereco: string;
   numero: string;
   bairro: string;
   cidade: string;
@@ -130,9 +130,9 @@ export const FormPosto: React.FC<IModal> = () => {
           />
         </Flex>
         <Flex flexDirection={'column'} gap={1} w={'full'}>
-          <FormLabel>Rua</FormLabel>
+          <FormLabel>Endereço</FormLabel>
           <Controller
-            name={'rua'}
+            name={'endereco'}
             control={control}
             render={({
               field: { onChange, onBlur, value, ref },

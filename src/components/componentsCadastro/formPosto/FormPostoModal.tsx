@@ -4,7 +4,7 @@ import { Controller, useFormContext } from 'react-hook-form';
 import { InputPatternController } from '../inputPatternController/InputPatternController';
 interface IForm {
   local: string;
-  rua: string;
+  endereco: string;
   numero: string;
   bairro: string;
   cidade: string;
@@ -52,33 +52,11 @@ export const FormPostoModal: React.FC<IModal> = ({ ...props }) => {
             )}
           />
         </Flex>
-        {/* <Flex flexDirection={'column'} gap={1} w={'full'}>
-          <FormLabel fontWeight={'bold'}>Modalidade</FormLabel>
-          <Controller
-            name="modalidade"
-            control={control}
-            render={({
-              field: { onChange, onBlur, value, ref },
-              fieldState: { error },
-            }) => (
-              <Flex gap={2} flexDirection={'column'}>
-                <SelectPattern
-                  w={'600px'}
-                  value={value}
-                  options={optionsModalidade}
-                  placeholderSelect="Modalidade"
-                  onChange={onChange}
-                  onBlur={onBlur}
-                  error={error}
-                />
-              </Flex>
-            )}
-          />
-        </Flex> */}
+
         <Flex flexDirection={'column'} gap={1} w={'full'}>
           <FormLabel fontWeight={'bold'}>Rua</FormLabel>
           <Controller
-            name={'rua'}
+            name={'endereco'}
             control={control}
             render={({
               field: { onChange, onBlur, value, ref },

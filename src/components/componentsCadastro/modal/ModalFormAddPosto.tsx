@@ -32,7 +32,7 @@ export const ModalFormAddPosto: React.FC<IModal> = ({
   });
   const { reset } = methodsInput;
   const onSubmit = async (data: PostoForm) => {
-    await uploadPosto(data);
+    uploadPosto(data);
     onClose();
     reset();
   };
