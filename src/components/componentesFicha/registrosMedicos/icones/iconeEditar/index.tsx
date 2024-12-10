@@ -1,6 +1,7 @@
 import { IconProps, Tooltip } from '@chakra-ui/react';
 import React from 'react';
 import { BsPencilSquare } from 'react-icons/bs';
+// import { BsPencilSquare } from 'react-icons/bs';
 interface IIcone extends IconProps {
   label_tooltip?: string;
   isOpen?: boolean;
@@ -13,7 +14,7 @@ export const IconeEditar: React.FC<IIcone> = ({ label_tooltip, onOpen }) => {
         label={`Editar ${label_tooltip}`}
         aria-label="A tooltip"
         placement="top"
-      >
+        >
         <span
           style={{
             cursor: 'pointer',

@@ -14,6 +14,7 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { PostoForm } from '../../../context/postosContext/PostosContex';
 import { postosSchema } from '../../../types/yupPostos/yupPostos';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useEffect } from 'react';
 
 interface IModal {
   isOpen: boolean;
@@ -26,16 +27,18 @@ export const ModalFormAddPosto: React.FC<IModal> = ({
   isOpen,
   onClose,
   uploadPosto,
+
 }) => {
   const methodsInput = useForm<PostoForm>({
     resolver: yupResolver(postosSchema),
   });
-  const { reset } = methodsInput;
+  const { reset, setValue } = methodsInput;
   const onSubmit = async (data: PostoForm) => {
     uploadPosto(data);
     onClose();
     reset();
   };
+
   return (
     <>
       <Modal isOpen={isOpen} onClose={onClose}>

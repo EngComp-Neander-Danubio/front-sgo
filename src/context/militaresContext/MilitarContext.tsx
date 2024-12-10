@@ -31,6 +31,11 @@ export interface IContextMilitaresData {
   militarById: Militar;
   militaresByAPI: Militar[];
   militaresBySAPM: Militar[];
+  currentDataIndex: number;
+  dataPerPage: number;
+  lastDataIndexMilitar: number;
+  firstDataIndexMilitar: number;
+  totalData: number;
   handleClickMilitar: () => void;
   handleOnChangeMilitar: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleOnSubmitMilitar: (e: React.FormEvent) => void;
@@ -44,12 +49,8 @@ export interface IContextMilitaresData {
   uploadMilitaresEmLote: (data: Militares_service[]) => void;
   updateMilitar: (data: Militar, id: string) => Promise<void>;
   loadPMForAccordion: (data: Militar) => Promise<void>;
-  deletePMByCGO: (id?: string, index?: string) => Promise<void>;
-  currentDataIndex: number;
-  dataPerPage: number;
-  lastDataIndexMilitar: number;
-  firstDataIndexMilitar: number;
-  totalData: number;
+  deletePMFromTable: (id?: string, index?: string) => Promise<void>;
+
 }
 
 export const MilitaresContext = createContext<
@@ -77,7 +78,7 @@ export const MilitaresProvider: React.FC<{ children: ReactNode }> = ({
 
   useEffect(() => {
     handleSortByPostoGrad(pms, '1');
-  }, [pms, pmsDaPlanilha]);
+  }, [pms]);
   const loadPMForAccordion = (data: Militar) => {
     console.log(data);
     setPMs(prevArray => [...prevArray, data]);
@@ -159,13 +160,6 @@ export const MilitaresProvider: React.FC<{ children: ReactNode }> = ({
     });
   };
 
-  // Efeito para atualizar PMs ao carregar planilha
-  useEffect(() => {
-    if (pmsDaPlanilha.length > 0) {
-      setPMs(pmsDaPlanilha); // Apenas redefina com os dados atuais
-    }
-  }, [pmsDaPlanilha]);
-
   const loadMoreMilitar = () => {
     if (hasMore) {
       setCurrentDataIndex(prevIndex => prevIndex + 1);
@@ -212,8 +206,6 @@ export const MilitaresProvider: React.FC<{ children: ReactNode }> = ({
     }
   };
 
-  // Verifique as mudanças no estado `pms`
-  useEffect(() => {}, [pms]);
 
   // Função para lidar com o clique no input de arquivo
   const handleClickMilitar = () => {
@@ -370,7 +362,7 @@ export const MilitaresProvider: React.FC<{ children: ReactNode }> = ({
     [],
   );
 
-  const deletePMByCGO = useCallback(
+  const deletePMFromTable = useCallback(
     async (id?: string, index?: string) => {
       setIsLoading(true);
 
@@ -470,7 +462,7 @@ export const MilitaresProvider: React.FC<{ children: ReactNode }> = ({
       loadMilitarById,
       updateMilitar,
       loadPMForAccordion,
-      deletePMByCGO,
+      deletePMFromTable,
       loadPMToPlanilha,
     }),
     [
@@ -496,7 +488,7 @@ export const MilitaresProvider: React.FC<{ children: ReactNode }> = ({
       loadMilitarById,
       updateMilitar,
       loadPMForAccordion,
-      deletePMByCGO,
+      deletePMFromTable,
       loadPMToPlanilha,
     ],
   );

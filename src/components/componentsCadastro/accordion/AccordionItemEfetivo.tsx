@@ -11,14 +11,11 @@ import {
   useDisclosure,
 } from '@chakra-ui/react';
 import { FaFileUpload } from 'react-icons/fa';
-import { HiPencil } from 'react-icons/hi';
 import { BotaoCadastrar } from '../botaoCadastrar';
 import { InputCSVpapparse } from '../inputCSVpapaparse/InputCSVpapaparse';
 import { Pagination } from '../pagination/Pagination';
 import TableMain, { ColumnProps } from '../TableMain/TableMain';
-import { usePostos } from '../../../context/postosContext/usePostos';
 import { useIsOpen } from '../../../context/isOpenContext/useIsOpen';
-import { DataPostos } from '../../../types/typesPostos';
 import { IconeDeletar, IconeEditar } from '../../ViewLogin';
 import { useMilitares } from '../../../context/militaresContext/useMilitares';
 import { ModalSolicitarEfetivo } from '../modal/ModalSolicitarEfetivo';
@@ -45,7 +42,7 @@ export const AccordionItemEfetivo: React.FC<IAccordion> = ({ isEditing }) => {
     handleClickMilitar,
     handleOnChangeMilitar,
     handleOnSubmitMilitar,
-    deletePMByCGO,
+    deletePMFromTable,
     loadPMForAccordion,
   } = useMilitares();
 
@@ -96,7 +93,7 @@ export const AccordionItemEfetivo: React.FC<IAccordion> = ({ isEditing }) => {
                 label_tooltip={record.nome_completo}
                 handleDelete={async () => {
                   if (index !== undefined && index !== -1) {
-                    await deletePMByCGO(record.id, index.toString());
+                    await deletePMFromTable(record.id, index.toString());
                   } else {
                     console.error(
                       'Índice não encontrado para o registro',
