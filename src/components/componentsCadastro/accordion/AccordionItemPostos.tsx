@@ -47,11 +47,18 @@ export const AccordionItemPostos: React.FC<IAccordion> = ({ isEditing }) => {
     dataPerPage: dataPerPagePostosLocal,
     deletePostoFromTable,
     sendPostoToBackendEmLote,
+    loadingOnePostoToEditInTable,
+    editingOnePostoInTable
   } = usePostos();
   const {
     isOpen: isOpenFormAddPosto,
     onOpen: onOpenFormAddPosto,
     onClose: onCloseFormAddPosto,
+  } = useDisclosure();
+  const {
+    isOpen: isOpenFormAddPostoEditing,
+    onOpen: onOpenFormAddPostoEditing,
+    onClose: onCloseFormAddPostoEdting,
   } = useDisclosure();
   const {
     isOpen: isOpenModalSolicitarPostos,
@@ -63,8 +70,7 @@ export const AccordionItemPostos: React.FC<IAccordion> = ({ isEditing }) => {
   const handlePostos = async (): Promise<void> => {
     sendPostoToBackendEmLote(postosLocal, eventById?.id ? eventById?.id : '');
   };
-  const methods = useForm<DataPostos>();
-  const { reset, setValue } = methods;
+
 
   const columns: Array<ColumnProps<DataPostos>> = [
     {
@@ -126,13 +132,8 @@ export const AccordionItemPostos: React.FC<IAccordion> = ({ isEditing }) => {
               <IconeEditar label_tooltip={record.local}
                 onOpen={
                   () => {
-
-                    onOpenFormAddPosto();
-                    setValue('endereco', record?.endereco);
-                    setValue('local', record.local);
-                    setValue('cidade', record.cidade);
-                    setValue('militares_por_posto', record.militares_por_posto);
-                    setValue('numero', record.numero);
+                    onOpenFormAddPostoEditing();
+                    loadingOnePostoToEditInTable(record);
                 }}
               />
             </span>
@@ -285,14 +286,21 @@ export const AccordionItemPostos: React.FC<IAccordion> = ({ isEditing }) => {
         onOpen={onOpenModalSolicitarPostos}
         onClose={onCloseModalSolicitarPostos}
       />
-      <FormProvider {...methods}>
+
               <ModalFormAddPosto
                 isOpen={isOpenFormAddPosto}
                 onOpen={onOpenFormAddPosto}
                 onClose={onCloseFormAddPosto}
                 uploadPosto={loadingOnePostoToTable}
+                isEditing ={ false}
                 />
-        </FormProvider>
+                 <ModalFormAddPosto
+                isOpen={isOpenFormAddPostoEditing}
+                onOpen={onOpenFormAddPostoEditing}
+                onClose={onCloseFormAddPostoEdting}
+                uploadPosto={editingOnePostoInTable}
+                isEditing
+                />
 
     </>
   );

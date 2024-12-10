@@ -15,19 +15,21 @@ import { PostoForm } from '../../../context/postosContext/PostosContex';
 import { postosSchema } from '../../../types/yupPostos/yupPostos';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useEffect } from 'react';
+import { usePostos } from '../../../context/postosContext/usePostos';
 
 interface IModal {
   isOpen: boolean;
   onClose: () => void;
   onOpen: () => void;
   uploadPosto: (data: PostoForm) => void;
+  isEditing: boolean;
 }
 
 export const ModalFormAddPosto: React.FC<IModal> = ({
   isOpen,
   onClose,
   uploadPosto,
-
+  isEditing,
 }) => {
   const methodsInput = useForm<PostoForm>({
     resolver: yupResolver(postosSchema),
@@ -38,7 +40,19 @@ export const ModalFormAddPosto: React.FC<IModal> = ({
     onClose();
     reset();
   };
-
+  const {postoById} = usePostos();
+  useEffect(()=>{
+    console.log(postoById)
+    if(postoById && isEditing){
+      setValue('local', postoById?.local);
+      setValue('endereco', postoById?.endereco);
+      setValue('bairro', postoById?.bairro);
+      setValue('numero', postoById?.numero);
+      setValue('cidade', postoById?.cidade);
+      setValue('militares_por_posto', postoById?.militares_por_posto);
+      setValue('modalidade', postoById?.modalidade);
+    }
+  })
   return (
     <>
       <Modal isOpen={isOpen} onClose={onClose}>

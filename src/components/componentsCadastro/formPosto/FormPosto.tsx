@@ -29,7 +29,7 @@ export const FormPosto: React.FC<IModal> = () => {
     setValue,
   } = useFormContext<IForm>();
   const [quantity, setQuantity] = useState(2);
-  setValue('militares_por_posto', quantity);
+  //setValue('militares_por_posto', quantity);
   const handleQuantityPlus = async () => {
     setQuantity(q => q + 1);
   };

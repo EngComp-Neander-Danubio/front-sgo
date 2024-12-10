@@ -49,7 +49,8 @@ export interface IContextPostoData {
   updatePosto: (data: PostoForm, id: string) => Promise<void>;
   deletePostoFromTable: (id?: string, index?: string) => Promise<void>;
   loadPostosFromToBackend: (id: string) => Promise<void>;
-
+  loadingOnePostoToEditInTable: (data: PostoForm) => void;
+  editingOnePostoInTable: (data: PostoForm) => void;
 }
 
 export const PostosContext = createContext<IContextPostoData | undefined>(
@@ -113,7 +114,10 @@ export const PostosProvider: React.FC<{ children: ReactNode }> = ({
           data.bairro === m.bairro &&
           data.numero === m.numero &&
           data.endereco === m.endereco &&
-          data.cidade === m.cidade,
+          data.cidade === m.cidade &&
+          data.militares_por_posto === m.militares_por_posto
+          && data.modalidade === m.modalidade
+          && data.id === m.id,
       );
 
       if (!postoExists) {
@@ -147,7 +151,78 @@ export const PostosProvider: React.FC<{ children: ReactNode }> = ({
       });
     }
   };
+  const editingOnePostoInTable = (data: PostoForm) => {
+    try {
+      // Buscar pelo ID ou pelos campos adicionais
+      const postoExistsById = postosLocal.find(
+        m =>
+          m.id === data.id || // Busca primeiro pelo id
+          (data.local === m.local &&
+            data.bairro === m.bairro &&
+            data.numero === m.numero &&
+            data.endereco === m.endereco &&
+            data.cidade === m.cidade &&
+            data.modalidade === m.modalidade) // Verificação adicional caso o ID não seja fornecido
+      );
 
+      // Se o posto for encontrado, encontramos o índice correto
+      const postoIndex = postoExistsById
+        ? postosLocal.findIndex(posto => posto.id === data.id || (
+            posto.local === data.local &&
+            posto.bairro === data.bairro &&
+            posto.numero === data.numero &&
+            posto.endereco === data.endereco &&
+            posto.cidade === data.cidade &&
+            posto.modalidade === data.modalidade
+          ))
+        : -1;
+        console.log(postoIndex)
+      // Verifique se o posto existe no array (pelo ID ou pelos outros campos)
+      if (postoIndex !== -1) {
+        // Atualizar o posto no array usando o índice encontrado
+        setPostosLocal(prevArray =>
+          prevArray.map((posto, i) =>
+            i === postoIndex ? { ...posto, ...data } : posto
+          )
+        );
+        toast({
+          title: 'Sucesso',
+          description: 'Posto editado com sucesso',
+          status: 'success',
+          position: 'top-right',
+          duration: 5000,
+          isClosable: true,
+        });
+      } else {
+        // Caso o posto não seja encontrado, adicione um novo posto
+        setPostosLocal(prevArray => [...prevArray, data]);
+        toast({
+          title: 'Sucesso',
+          description: 'Posto adicionado com sucesso',
+          status: 'success',
+          position: 'top-right',
+          duration: 5000,
+          isClosable: true,
+        });
+      }
+    } catch (err) {
+      toast({
+        title: 'Erro',
+        description: 'Falha ao inserir ou editar posto',
+        status: 'error',
+        position: 'top-right',
+        duration: 5000,
+        isClosable: true,
+      });
+    }
+  };
+
+  const loadingOnePostoToEditInTable = async (data: PostoForm) => {
+    try {
+      setPostoById(data)
+    } catch (err) {
+    }
+  };
   // Função para carregar o CSV completo
   // OK
   const loadCompleteCSV = async (text: string) => {
@@ -450,6 +525,7 @@ export const PostosProvider: React.FC<{ children: ReactNode }> = ({
       loadingOnePostoToTable,
       deletePostoFromTable,
       loadPostosFromToBackend,
+      loadingOnePostoToEditInTable,editingOnePostoInTable
     }),
     [
       postosLocal,
@@ -472,6 +548,7 @@ export const PostosProvider: React.FC<{ children: ReactNode }> = ({
       loadingOnePostoToTable,
       deletePostoFromTable,
       loadPostosFromToBackend,
+      loadingOnePostoToEditInTable,editingOnePostoInTable
     ],
   );
 
