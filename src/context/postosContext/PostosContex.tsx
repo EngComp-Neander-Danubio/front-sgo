@@ -365,7 +365,7 @@ export const PostosProvider: React.FC<{ children: ReactNode }> = ({
 
   // OK
   const deletePostoFromTable = useCallback(
-    async (id?: string, index?: number) => {
+    async (id?: string, index?: string) => {
 
       if (id !== undefined && index !== undefined) {
         try {
