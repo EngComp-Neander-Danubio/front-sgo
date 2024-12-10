@@ -13,20 +13,20 @@ import { BiSearch } from 'react-icons/bi';
 
 interface IInput extends InputProps {
   error?: FieldError | { message?: string };
-  icon?: React.ReactNode; // Define a prop children corretamente
+  children?: React.ReactNode; // Define a prop children corretamente
 }
 export const InputPatternController: React.FC<IInput> = ({
   error,
-  icon, // Corrige para "children"
+  children, // Corrige para "children"
   ...props
 }) => {
   return (
     <FormControl flexDirection={'column'} isInvalid={!!error}>
       <InputGroup>
-      {icon && (
+      {children && (
         <InputLeftElement pointerEvents="none">
           {/* <BiSearch color="gray.300" /> */}
-          {icon}
+          {children}
         </InputLeftElement>
       )}
         <Input type={props.type} placeholder={props.placeholder} {...props} />

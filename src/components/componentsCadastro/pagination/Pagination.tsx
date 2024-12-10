@@ -1,4 +1,4 @@
-import { Flex, Button } from '@chakra-ui/react';
+import { Flex, Button, Text } from '@chakra-ui/react';
 
 interface IPagination {
   firstDataIndex: number;
@@ -19,9 +19,12 @@ export const Pagination: React.FC<IPagination> = ({
 }) => {
   return (
     <Flex justify="space-between" mt={-9}>
+      <Text fontSize={'14px'}>
+
       {totalPages ? Number(firstDataIndex) + 1 : 0} a{' '}
       {totalPages < lastDataIndex ? totalPages : lastDataIndex} - Total:{' '}
       {totalPages} Registros
+      </Text>
       <Flex p={0} color="rgba(52, 64, 84, 1)">
         <Button
           mr={2}
