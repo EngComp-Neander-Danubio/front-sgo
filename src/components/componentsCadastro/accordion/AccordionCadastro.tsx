@@ -39,6 +39,7 @@ export const AccordinCadastro: React.FC<IAccordion> = ({ isOpen }) => {
             <AccordionItemPostos isEditing={false} />
             <AccordionItemEfetivo isEditing={false} />
             <AccordionItemEscala isEditing={false} />
+            {''}
           </>
         )}
       </Accordion>
