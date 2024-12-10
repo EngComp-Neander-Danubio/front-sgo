@@ -15,13 +15,15 @@ import { Controller, useFormContext } from 'react-hook-form';
 import { optionsOPMs } from '../../../types/typesOPM';
 import { SelectPattern } from './SelectPattern';
 import { AccordionCheckbox } from '../acordion-checkbox/AccordionCheckbox';
-import { columnsMapMilitar } from '../../../types/typesMilitar';
+import { columnsMapMilitar, DataEfetivo } from '../../../types/typesMilitar';
 import { useSolicitacoesOPMPMs } from '../../../context/solicitacoesOPMPMsContext/useSolicitacoesOPMPMs';
 import { TableSolicitacoes } from '../table-solicitacoes';
 import { Pagination } from '../pagination/Pagination';
 import { useCallback, useEffect, useState } from 'react';
 import api from '../../../services/api';
 import { FormEfetivoBySearch } from '../formEfetivo/FormEfetivoBySearch';
+import { IconeDeletar, IconeEditar } from '../../ViewLogin';
+import TableMain, { ColumnProps } from '../TableMain/TableMain';
 
 interface SolicitacaoForm {
   dataInicio: Date;
@@ -113,15 +115,56 @@ export const ContentModalSAPM: React.FC = () => {
     deletePMByOPM,
   } = useSolicitacoesOPMPMs();
 
-  const transformedMiltitares = pms.map(militar => {
-    const transformedMilitar: {
-      [key: string]: any;
-    } = {};
-    Object.entries(columnsMapMilitar).forEach(([newKey, originalKey]) => {
-      transformedMilitar[newKey] = militar[originalKey];
-    });
-    return transformedMilitar;
-  });
+  const columns: Array<ColumnProps<DataEfetivo>> = [
+    {
+      key: 'matricula',
+      title: 'Matrícula',
+    },
+    {
+      key: 'posto_grad',
+      title: 'Posto/Graduação',
+    },
+    {
+      key: 'nome_completo',
+      title: 'Nome',
+    },
+    {
+      key: 'opm',
+      title: 'OPM',
+    },
+
+    {
+      key: 'acoes',
+      title: 'Ações',
+      render: (column, record) => {
+        // Encontrar o índice do registro diretamente no array de dados
+        const index = pms?.findIndex(item => item === record);
+
+        return (
+          <Flex flexDirection="row" gap={2}>
+            <span key={`delete-${record.id}`}>
+              <IconeDeletar
+                label_tooltip={record.nome_completo}
+                handleDelete={async () => {
+                  if (index !== undefined && index !== -1) {
+                    await deletePMByOPM(record.id, index.toString());
+                  } else {
+                    console.error(
+                      'Índice não encontrado para o registro',
+                      record,
+                    );
+                  }
+                }}
+              />
+            </span>
+            <span key={`edit-${column.key}`}>
+              <IconeEditar label_tooltip={record.nome_completo} />
+            </span>
+          </Flex>
+        );
+      },
+    },
+  ];
   return (
     <FormControl>
       <Tabs variant="enclosed">
@@ -275,22 +318,10 @@ export const ContentModalSAPM: React.FC = () => {
             >
               {/* tabela */}
               <Flex mt={2} flexDirection={'column'} w={'100%'}>
-                <TableSolicitacoes
-                  isActions
-                  isOpen={true}
-                  isView={true}
-                  columns={[
-                    'Matrícula',
-                    'Posto/Graduação',
-                    'Nome Completo',
-                    'Unidade',
-                  ]}
-                  registers={transformedMiltitares}
-                  //registers={handleSortByPostoGrad(transformedMiltitares, '1')}
-                  label_tooltip="Militar"
-                  height={'32vh'}
-                  handleDelete={deletePMByOPM}
-                />
+              <TableMain
+                    data={pms}
+                    columns={columns}
+                  />
                 <Pagination
                   totalPages={totalData}
                   dataPerPage={dataPerPage}

@@ -234,7 +234,7 @@ export const AccordionItemEfetivo: React.FC<IAccordion> = ({ isEditing }) => {
                 <Flex mt={2} flexDirection={'column'} w={'100%'}>
                   <TableMain
                     data={pms}
-                    columns={handleSortByPostoGrad(columns, '1')}
+                    columns={columns}
                   />
                   <Pagination
                     totalPages={totalData}
