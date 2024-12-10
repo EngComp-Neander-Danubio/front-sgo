@@ -251,9 +251,7 @@ export const AccordionItemEfetivo: React.FC<IAccordion> = ({ isEditing }) => {
 
                 <Divider />
                 <BotaoCadastrar
-                  handleSubmit={function(): void {
-                    throw new Error('Function not implemented.');
-                  }}
+                  handleSubmit={() => Promise<void>}
                   label={!isEditing ? 'Salvar' : 'Editar'}
                 />
               </Flex>

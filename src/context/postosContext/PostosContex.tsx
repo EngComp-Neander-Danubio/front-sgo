@@ -16,6 +16,7 @@ export type Posto = {
   registers?: { [key: string]: any }[];
 };
 export interface PostoForm {
+  id?: string;
   local: string;
   endereco: string;
   numero: number;
@@ -23,32 +24,32 @@ export interface PostoForm {
   cidade: string;
   modalidade: string;
   qtd_efetivo?: number;
-  militares_por_posto: number;
+  militares_por_posto?: number;
   [key: string]: any;
 }
 
 export interface IContextPostoData {
   postos: PostoForm[];
   postosLocal: PostoForm[];
-  postoById: PostoForm;
+  postoById: PostoForm | undefined;
   postosByAPI: PostoForm[];
-  handleClick: () => void;
-  handleOnChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  handleOnSubmitP: (e: React.FormEvent) => void;
-  loadMore: () => void;
-  loadLess: () => void;
-  loadPostoForAccordion: (data: PostoForm) => Promise<void>;
-  uploadPosto: (data: PostoForm) => Promise<void>;
-  uploadPostoEmLote: (dados: PostoForm[]) => Promise<void>;
-  loadPostosByAPI: () => Promise<void>;
-  updatePosto: (data: PostoForm, id: string) => Promise<void>;
-  deletePostoByOPM: (id?: string, index?: string) => Promise<void>;
-  loadPostosFromToBackend: (id?: string) => Promise<void>;
   currentDataIndex: number;
   dataPerPage: number;
   lastDataIndex: number;
   firstDataIndex: number;
   totalData: number;
+  handleClick: () => void;
+  handleOnChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleOnSubmit: (e: React.FormEvent) => void;
+  loadMore: () => void;
+  loadLess: () => void;
+  loadingOnePostoToTable: (data: PostoForm) => void;
+  sendPostoToBackendEmLote: (dados: PostoForm[], id: string) => Promise<void>;
+  loadPostosByAPI: (id: string) => Promise<void>;
+  updatePosto: (data: PostoForm, id: string) => Promise<void>;
+  deletePostoFromTable: (id?: string, index?: string) => Promise<void>;
+  loadPostosFromToBackend: (id: string) => Promise<void>;
+
 }
 
 export const PostosContext = createContext<IContextPostoData | undefined>(
@@ -62,9 +63,7 @@ export const PostosProvider: React.FC<{ children: ReactNode }> = ({
   const [file, setFile] = useState<File | null>(null);
   const [postos, setPostos] = useState<PostoForm[]>([]);
   const [postosByAPI, setPostosByAPI] = useState<PostoForm[]>([]);
-  const [postoById, setPostoById] = useState<PostoForm>();
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-
+  const [postoById, setPostoById] = useState<PostoForm | undefined>(undefined);
   const [postosLocal, setPostosLocal] = useState<PostoForm[]>([]);
   const [currentDataIndex, setCurrentDataIndex] = useState(0);
   const [dataPerPage] = useState(5); // Defina o número de registros por página
@@ -75,7 +74,8 @@ export const PostosProvider: React.FC<{ children: ReactNode }> = ({
   const currentData = postosLocal.slice(firstDataIndex, lastDataIndex);
   const hasMore = lastDataIndex < postosLocal.length;
 
-  const loadPostosFromToBackend = async (id?: string) => {
+  // OK
+  const loadPostosFromToBackend = async (id: string) => {
     try {
       const response = await api.get<PostoForm[]>(`/listar-postos`, {
         params: {
@@ -102,7 +102,10 @@ export const PostosProvider: React.FC<{ children: ReactNode }> = ({
       }
     }
   };
-  const loadPostoForAccordion = (data: PostoForm) => {
+
+  //add a posto to comparing with other postos already added
+  // OK
+  const loadingOnePostoToTable = (data: PostoForm) => {
     try {
       const postoExists = postosLocal.some(
         m =>
@@ -146,6 +149,7 @@ export const PostosProvider: React.FC<{ children: ReactNode }> = ({
   };
 
   // Função para carregar o CSV completo
+  // OK
   const loadCompleteCSV = async (text: string) => {
     readString(text, {
       header: true,
@@ -196,7 +200,7 @@ export const PostosProvider: React.FC<{ children: ReactNode }> = ({
       },
     });
   };
-
+  // OK
   const loadMore = () => {
     if (hasMore) {
       setCurrentDataIndex(prevIndex => prevIndex + 1);
@@ -211,7 +215,7 @@ export const PostosProvider: React.FC<{ children: ReactNode }> = ({
       });
     }
   };
-
+  // OK
   const loadLess = () => {
     if (firstDataIndex > 0) {
       setCurrentDataIndex(prevIndex => prevIndex - 1);
@@ -226,8 +230,8 @@ export const PostosProvider: React.FC<{ children: ReactNode }> = ({
       });
     }
   };
-
-  const handleOnSubmitP = (e: React.FormEvent) => {
+  // OK
+  const handleOnSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (file) {
       const fileReader = new FileReader();
@@ -242,10 +246,12 @@ export const PostosProvider: React.FC<{ children: ReactNode }> = ({
     }
   };
 
+  // OK
   const handleClick = () => {
     document.getElementById('postoInput')?.click();
   };
 
+  // OK
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files?.[0]) {
       setFile(e.target.files[0]);
@@ -262,14 +268,13 @@ export const PostosProvider: React.FC<{ children: ReactNode }> = ({
   };
 
   const loadPostosByAPI = useCallback(async (id: string) => {
-    setIsLoading(true);
-    //const parameters = param !== undefined ? param : '';
+
     try {
       const response = await api.get<{ items: PostoForm[] }>(
         `/operacao/${id}/postos`,
       );
       setPostosByAPI((response.data as unknown) as PostoForm[]);
-      console.log(postosByAPI);
+
       toast({
         title: 'Sucesso',
         description: 'Postos carregados com sucesso',
@@ -282,52 +287,16 @@ export const PostosProvider: React.FC<{ children: ReactNode }> = ({
     } catch (error) {
       console.error('Falha ao carregar os Postos:', error);
     } finally {
-      setIsLoading(false);
-    }
-  }, []);
-  const uploadPosto = useCallback(async (data: PostoForm) => {
-    const { rua, bairro, cidade, numero } = data;
-    setIsLoading(true);
-    const dataPosto = {
-      rua,
-      numero,
-      cidade,
-      bairro,
-      operacaoId: 202401,
-      //operacaoId: (eventById?.id as unknown) as number,
-    };
 
-    try {
-      await api.post(`/posto`, dataPosto);
-      //setPosto((response.data as unknown) as Posto[]);
-      toast({
-        title: 'Sucesso',
-        description: 'Posto salvo com sucesso',
-        status: 'success',
-        position: 'top-right',
-        duration: 5000,
-        isClosable: true,
-      });
-    } catch (error) {
-      console.error('Falha ao salvar posto:', error);
-      toast({
-        title: 'Erro',
-        description: 'Falha ao salvar o posto',
-        status: 'error',
-        position: 'top-right',
-        duration: 5000,
-        isClosable: true,
-      });
-    } finally {
-      setIsLoading(false);
     }
   }, []);
-  const uploadPostoEmLote = useCallback(async (dados: PostoForm[]) => {
+
+  const sendPostoToBackendEmLote = useCallback(async (dados: PostoForm[], id: string) => {
     const postos_servicos = {
       postos_servicos: dados.map(
         ({ militares_por_posto, numero, modalidade, ...rest }) => ({
           ...rest,
-          operacao_id: '06/2024',
+          operacao_id: id,
           militares_por_posto: Number(militares_por_posto),
           numero: Number(numero),
           modalidade:
@@ -363,7 +332,7 @@ export const PostosProvider: React.FC<{ children: ReactNode }> = ({
 
   const updatePosto = useCallback(
     async (data: PostoForm, id: string) => {
-      setIsLoading(true);
+
       try {
         await api.put(`/posto/${id}`, data);
         // await loadTasks();
@@ -387,47 +356,17 @@ export const PostosProvider: React.FC<{ children: ReactNode }> = ({
           isClosable: true,
         });
       } finally {
-        setIsLoading(false);
+
       }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [],
   );
 
-  const deletePosto = useCallback(
-    async (id: string) => {
-      setIsLoading(true);
-      try {
-        await api.delete(`/posto/${id}`);
-        // await loadTasks();
-        toast({
-          title: 'Sucesso',
-          description: 'Posto deletada com sucesso',
-          status: 'success',
-          position: 'top-right',
-          duration: 9000,
-          isClosable: true,
-        });
-      } catch (error) {
-        console.error('Falha ao deletar a posto:', error);
-        toast({
-          title: 'Erro',
-          description: 'Falha ao deletar a posto',
-          status: 'error',
-          position: 'top-right',
-          duration: 9000,
-          isClosable: true,
-        });
-      } finally {
-        setIsLoading(false);
-      }
-    },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [],
-  );
-  const deletePostoByOPM = useCallback(
+  // OK
+  const deletePostoFromTable = useCallback(
     async (id?: string, index?: number) => {
-      setIsLoading(true);
+
       if (id !== undefined && index !== undefined) {
         try {
           console.log('delete com id');
@@ -451,7 +390,7 @@ export const PostosProvider: React.FC<{ children: ReactNode }> = ({
             isClosable: true,
           });
         } finally {
-          setIsLoading(false);
+
         }
       } else if (index) {
         console.log('delete com index');
@@ -467,7 +406,7 @@ export const PostosProvider: React.FC<{ children: ReactNode }> = ({
             isClosable: true,
             position: 'top-right',
           });
-          setIsLoading(false);
+
           return;
         }
         const updatedOpm = postosLocal.filter((_, i) => i !== indexDeletedOpm);
@@ -483,7 +422,7 @@ export const PostosProvider: React.FC<{ children: ReactNode }> = ({
             position: 'top-right',
           });
         }
-        setIsLoading(false);
+
       }
     },
     [postosLocal, currentDataIndex, currentData.length],
@@ -504,14 +443,12 @@ export const PostosProvider: React.FC<{ children: ReactNode }> = ({
       loadMore,
       loadLess,
       handleOnChange,
-      handleOnSubmitP,
-      uploadPosto,
-      uploadPostoEmLote,
-      deletePosto,
+      handleOnSubmit,
+      sendPostoToBackendEmLote,
       updatePosto,
       loadPostosByAPI,
-      loadPostoForAccordion,
-      deletePostoByOPM,
+      loadingOnePostoToTable,
+      deletePostoFromTable,
       loadPostosFromToBackend,
     }),
     [
@@ -528,14 +465,12 @@ export const PostosProvider: React.FC<{ children: ReactNode }> = ({
       loadMore,
       loadLess,
       handleOnChange,
-      handleOnSubmitP,
-      uploadPosto,
-      uploadPostoEmLote,
-      deletePosto,
+      handleOnSubmit,
+      sendPostoToBackendEmLote,
       updatePosto,
       loadPostosByAPI,
-      loadPostoForAccordion,
-      deletePostoByOPM,
+      loadingOnePostoToTable,
+      deletePostoFromTable,
       loadPostosFromToBackend,
     ],
   );
