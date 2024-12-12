@@ -86,8 +86,8 @@ export const AccordionItemEscala: React.FC<IAccordion> = ({ isEditing }) => {
   const { reset } = methodsInput;
 
   const onSubmit = async (data: IForm) => {
-    await uploadEvent(data);
-    //reset();
+    //await uploadEvent(data);
+    reset();
   };
   return (
     <>
@@ -109,10 +109,9 @@ export const AccordionItemEscala: React.FC<IAccordion> = ({ isEditing }) => {
             <AccordionPanel
               pb={4}
               w={{
-                xl: isOpen ? '84vw' : '91vw',
-                lg: isOpen ? '84vw' : '91vw',
-                md: isOpen ? '84vw' : '91vw',
-                sm: isOpen ? '84vw' : '91vw',
+                lg: isOpen ? '80vw' : '91vw',
+                md: isOpen ? '80vw' : '91vw',
+                sm: isOpen ? '80vw' : '91vw',
               }}
               transitionDuration="1.0s"
               //border={'1px solid black'}
@@ -129,9 +128,9 @@ export const AccordionItemEscala: React.FC<IAccordion> = ({ isEditing }) => {
                   //border={'1px solid black'}
                   justifyContent={'space-between'}
                   w={{
-                    lg: isOpen ? '85vw' : '88vw',
-                    md: isOpen ? '85vw' : '88vw',
-                    sm: isOpen ? '85vw' : '88vw',
+                    lg: isOpen ? '82vw' : '88vw',
+                    md: isOpen ? '82vw' : '88vw',
+                    sm: isOpen ? '82vw' : '88vw',
                   }}
                   transitionDuration="1.0s"
                   gap={2}
@@ -151,7 +150,7 @@ export const AccordionItemEscala: React.FC<IAccordion> = ({ isEditing }) => {
                     }}
                     transitionDuration="1.0s"
                     //pr={7}
-                    ml={4}
+                    ml={6}
                   >
                     <Flex gap={2} pl={!isOpen ? 0 : 2}>
                       <Text fontWeight={'bold'}>Total:</Text>
@@ -208,9 +207,7 @@ export const AccordionItemEscala: React.FC<IAccordion> = ({ isEditing }) => {
 
                 <Flex>
                   <BotaoCadastrar
-                    handleSubmit={function(): void {
-                      throw new Error('Function not implemented.');
-                    }}
+                    handleSubmit={() => Promise<void>}
                     label={!isEditing ? 'Salvar' : 'Editar'}
                   />
                 </Flex>

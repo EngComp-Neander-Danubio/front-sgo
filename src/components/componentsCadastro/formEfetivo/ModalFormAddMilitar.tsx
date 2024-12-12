@@ -57,7 +57,7 @@ export const ModalFormAddMilitar: React.FC<IModal> = ({
           <FormProvider {...methodsInput}>
             <form onSubmit={methodsInput.handleSubmit(onSubmit)}>
               <ModalHeader color={'rgba(0, 0, 0, 0.48)'}
-            fontWeight={'700'}>Adicionar Policial Militar</ModalHeader>
+            fontWeight={'700'}>{isEditing ? `Editar` : `Adicionar`} Policial Militar</ModalHeader>
               <ModalCloseButton />
               <ModalBody>
                 <FormEfetivoBySearch />
