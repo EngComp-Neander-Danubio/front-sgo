@@ -151,33 +151,21 @@ export const PostosProvider: React.FC<{ children: ReactNode }> = ({
       });
     }
   };
-  const editingOnePostoInTable = (data: PostoForm) => {
+  const editingOnePostoInTable = async (data: PostoForm) => {
     try {
-      // Buscar pelo ID ou pelos campos adicionais
-      const postoExistsById = postosLocal.find(
-        m =>
-          m.id === data.id || // Busca primeiro pelo id
-          (data.local === m.local &&
-            data.bairro === m.bairro &&
-            data.numero === m.numero &&
-            data.endereco === m.endereco &&
-            data.cidade === m.cidade &&
-            data.modalidade === m.modalidade) // Verificação adicional caso o ID não seja fornecido
-      );
+      if(data.id)
+       await api.put<PostoForm[]>(`/editar-postos`, data, {
+        params: {
+          id: data.id,
+        },
+      });
 
-      // Se o posto for encontrado, encontramos o índice correto
-      const postoIndex = postoExistsById
-        ? postosLocal.findIndex(posto => posto.id === data.id || (
-            posto.local === data.local &&
-            posto.bairro === data.bairro &&
-            posto.numero === data.numero &&
-            posto.endereco === data.endereco &&
-            posto.cidade === data.cidade &&
-            posto.modalidade === data.modalidade
-          ))
+      const postoIndex = postoById
+        ? postosLocal.findIndex(posto =>
+            posto === postoById
+          )
         : -1;
         console.log(postoIndex)
-      // Verifique se o posto existe no array (pelo ID ou pelos outros campos)
       if (postoIndex !== -1) {
         // Atualizar o posto no array usando o índice encontrado
         setPostosLocal(prevArray =>
@@ -217,6 +205,7 @@ export const PostosProvider: React.FC<{ children: ReactNode }> = ({
     }
   };
 
+  // OK
   const loadingOnePostoToEditInTable = async (data: PostoForm) => {
     try {
       setPostoById(data)

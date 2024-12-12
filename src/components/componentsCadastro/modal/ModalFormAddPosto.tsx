@@ -42,7 +42,6 @@ export const ModalFormAddPosto: React.FC<IModal> = ({
   };
   const {postoById} = usePostos();
   useEffect(()=>{
-    console.log(postoById)
     if(postoById && isEditing){
       setValue('local', postoById?.local);
       setValue('endereco', postoById?.endereco);
@@ -89,7 +88,7 @@ export const ModalFormAddPosto: React.FC<IModal> = ({
                   onClick={() => reset}
                   type="submit"
                 >
-                  Adicionar
+                  {!isEditing ? `Salvar` : `Editar`}
                 </Button>
               </ModalFooter>
             </form>
