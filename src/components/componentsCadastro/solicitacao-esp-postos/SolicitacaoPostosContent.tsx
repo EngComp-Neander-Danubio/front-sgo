@@ -9,25 +9,19 @@ import { DashButtons } from '../../componentesFicha/registrosMedicos/header';
 import { TitlePerfil } from '../../componentesFicha/dadosDaFicha/titlePerfil';
 import { TitleSolicitacoes } from '../../componentesFicha/registrosMedicos/title';
 import {
-  BotaoAlert,
   DadosFicha,
   IconeDeletar,
   IconeEditar,
 } from '../../ViewLogin';
 import { ModalFormAddPosto } from '../modal/ModalFormAddPosto';
-import { TableSolicitacoes } from '../table-solicitacoes';
-import { columnsMapPostos } from '../../../types/yupPostos/yupPostos';
 import { Pagination } from '../pagination/Pagination';
 import { IoIosSend } from 'react-icons/io';
 import { useSolicitacoesPostos } from '../../../context/solicitacoesPostosContext/useSolicitacoesPostos';
 import api from '../../../services/api';
 import { optionsModalidade } from '../../../types/typesModalidade';
 import { useCallback, useEffect, useState } from 'react';
-import { PostoForm } from '../../../context/solicitacoesOPMPostosContext/SolicitacoesOPMPostosContext';
 import { readString } from 'react-papaparse';
 import TableMain, { ColumnProps } from '../TableMain/TableMain';
-import { IconeRedistribuir } from '../../componentesFicha/registrosMedicos/icones/iconeRedistribuir';
-import { IconeVisualizar } from '../../componentesFicha/registrosMedicos/icones/iconeVisualizarSolicitacao';
 import { useNavigate } from 'react-router-dom';
 import { DataPostos } from '../../../types/typesPostos';
 interface ISolicitacaoPostosContent {
@@ -551,7 +545,7 @@ export const SolicitacaoPostosContent: React.FC<ISolicitacaoPostosContent> = pro
         onOpen={onOpenFormAddPosto}
         onClose={onCloseFormAddPosto}
         uploadPosto={loadPostoByOPM}
-      />
+        isEditing={false}      />
     </>
   );
 };

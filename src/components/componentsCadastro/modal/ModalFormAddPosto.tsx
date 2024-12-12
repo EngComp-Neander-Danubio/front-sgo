@@ -16,6 +16,7 @@ import { postosSchema } from '../../../types/yupPostos/yupPostos';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useEffect } from 'react';
 import { usePostos } from '../../../context/postosContext/usePostos';
+import { optionsModalidade } from '../../../types/typesModalidade';
 
 interface IModal {
   isOpen: boolean;
@@ -36,22 +37,29 @@ export const ModalFormAddPosto: React.FC<IModal> = ({
   });
   const { reset, setValue } = methodsInput;
   const onSubmit = async (data: PostoForm) => {
+    console.log(data)
     uploadPosto(data);
     onClose();
     reset();
   };
   const {postoById} = usePostos();
-  useEffect(()=>{
-    if(postoById && isEditing){
+  useEffect(() => {
+    console.log(postoById)
+    if (postoById && isEditing) {
       setValue('local', postoById?.local);
       setValue('endereco', postoById?.endereco);
       setValue('bairro', postoById?.bairro);
       setValue('numero', postoById?.numero);
       setValue('cidade', postoById?.cidade);
       setValue('militares_por_posto', postoById?.militares_por_posto);
-      setValue('modalidade', postoById?.modalidade);
+
+      const modalidade = optionsModalidade.find(m => m.label === postoById.modalidade);
+      if (modalidade) {
+        setValue('modalidade', modalidade.value);
+      }
     }
-  })
+  }, [postoById, isEditing, optionsModalidade, setValue]); // Dependency array
+
   return (
     <>
       <Modal isOpen={isOpen} onClose={onClose}>

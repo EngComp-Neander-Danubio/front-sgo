@@ -57,7 +57,7 @@ export const FormGrandeEvento: React.FC<IFormProps> = ({
         })); */
 
       cache.set(pes_nome, filteredOptions);
-      return filteredOptions;
+      return filteredOptions ?? "militar";
     } catch (error) {
       console.error('Error fetching data:', error);
       return [];

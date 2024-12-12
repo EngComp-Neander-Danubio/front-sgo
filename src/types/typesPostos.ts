@@ -15,6 +15,5 @@ export type DataPostos = {
   bairro: string;
   cidade: string;
   modalidade: string;
-  qtd_efetivo?: number;
-  militares_por_posto?: number;
+  militares_por_posto: number;
 };

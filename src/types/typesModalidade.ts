@@ -1,4 +1,4 @@
-export type OptionType = { label: string; value: string | number };
+export type OptionType = { label: string; value: string };
 
 export enum Modalidade {
   "A PÉ" = '1',

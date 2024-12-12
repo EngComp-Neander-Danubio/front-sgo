@@ -64,7 +64,7 @@ export const MilitaresProvider: React.FC<{ children: ReactNode }> = ({
   const [file, setFile] = useState<File | null>(null);
   const [militares, setMilitares] = useState<Militares_service[]>([]);
   const [militaresByAPI, setMilitaresByAPI] = useState<Militar[]>([]);
-  const [militarById, setMilitarById] = useState<Militar |undefined>(undefined);
+  const [militarById, setMilitarById] = useState<Militar | undefined>(undefined);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [pms, setPMs] = useState<Militar[]>([]);
 

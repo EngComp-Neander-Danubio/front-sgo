@@ -16,15 +16,14 @@ export type Posto = {
   registers?: { [key: string]: any }[];
 };
 export interface PostoForm {
-  id?: string;
+  //id?: string;
   local: string;
   endereco: string;
   numero: number;
   bairro: string;
   cidade: string;
   modalidade: string;
-  qtd_efetivo?: number;
-  militares_por_posto?: number;
+  militares_por_posto: number;
   [key: string]: any;
 }
 
@@ -64,7 +63,7 @@ export const PostosProvider: React.FC<{ children: ReactNode }> = ({
   const [file, setFile] = useState<File | null>(null);
   const [postos, setPostos] = useState<PostoForm[]>([]);
   const [postosByAPI, setPostosByAPI] = useState<PostoForm[]>([]);
-  const [postoById, setPostoById] = useState<PostoForm | undefined>(undefined);
+  const [postoById, setPostoById] = useState<PostoForm >();
   const [postosLocal, setPostosLocal] = useState<PostoForm[]>([]);
   const [currentDataIndex, setCurrentDataIndex] = useState(0);
   const [dataPerPage] = useState(5); // Defina o número de registros por página

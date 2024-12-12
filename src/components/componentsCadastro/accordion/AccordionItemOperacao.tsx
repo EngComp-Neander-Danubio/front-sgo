@@ -19,6 +19,7 @@ import { formatDate, normalizeDate } from '../../../utils/utils';
 import { usePostos } from '../../../context/postosContext/usePostos';
 
 type IForm = {
+  id?: string;
   comandante: string;
   dataFinal: Date;
   dataInicio: Date;
@@ -45,6 +46,10 @@ export const AccordionItemOperacao: React.FC<IAccordion> = ({ isEditing }) => {
 
   const methodsInput = useForm<IForm>({
     resolver: yupResolver(eventoSchema),
+    defaultValues: {
+      comandante: "militar"
+    }
+
   });
   const { uploadEvent, eventById } = useEvents();
 
