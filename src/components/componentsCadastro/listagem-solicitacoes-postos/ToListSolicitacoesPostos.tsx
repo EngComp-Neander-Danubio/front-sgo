@@ -16,6 +16,7 @@ export const ToListSolicitacoesPostos: React.FC<IInterface> = ({
       //h={'full'}
       h={'100%'}
       flexDirection={'column'}
+      transitionDuration="1.0s"
       gap={2}
     >
       <BreadCrumb />

@@ -59,7 +59,8 @@ export const ModalFormAddPosto: React.FC<IModal> = ({
         <ModalContent>
           <FormProvider {...methodsInput}>
             <form onSubmit={methodsInput.handleSubmit(onSubmit)}>
-              <ModalHeader>Adicionar Posto de Serviço</ModalHeader>
+              <ModalHeader color={'rgba(0, 0, 0, 0.48)'}
+            fontWeight={'700'}>Adicionar Posto de Serviço</ModalHeader>
               <ModalCloseButton />
               <ModalBody>
                 <FormPosto />

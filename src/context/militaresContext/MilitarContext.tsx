@@ -30,7 +30,7 @@ export interface IContextMilitaresData {
   militares: Militares_service[];
   militarById: Militar;
   militaresByAPI: Militar[];
-  militaresBySAPM: Militar[];
+  //militaresBySAPM: Militar[];
   currentDataIndex: number;
   dataPerPage: number;
   lastDataIndexMilitar: number;
@@ -50,7 +50,7 @@ export interface IContextMilitaresData {
   updateMilitar: (data: Militar, id: string) => Promise<void>;
   loadPMForAccordion: (data: Militar) => Promise<void>;
   deletePMFromTable: (id?: string, index?: string) => Promise<void>;
-
+  loadingOnePMToEditInTable: (data: Militar) => void;
 }
 
 export const MilitaresContext = createContext<
@@ -67,7 +67,7 @@ export const MilitaresProvider: React.FC<{ children: ReactNode }> = ({
   const [militarById, setMilitarById] = useState<Militar>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [pms, setPMs] = useState<Militar[]>([]);
-  const [pmsDaPlanilha, setPMsDaPlanilha] = useState<Militar[]>([]);
+
   const [currentDataIndex, setCurrentDataIndex] = useState(0);
   const [dataPerPage] = useState(5); // Defina o número de registros por página
   const lastDataIndexMilitar = (currentDataIndex + 1) * dataPerPage;
@@ -119,6 +119,58 @@ export const MilitaresProvider: React.FC<{ children: ReactNode }> = ({
     }
   };
 
+  const editingOnePostoInTable = async (data: Militar) => {
+    try {
+      if(data.id)
+       await api.put<Militar[]>(`/editar-postos`, data, {
+        params: {
+          id: data.id,
+        },
+      });
+
+      const postoIndex = militarById
+        ? pms.findIndex(pm =>
+            pm === militarById
+          )
+        : -1;
+        console.log(postoIndex)
+      if (postoIndex !== -1) {
+        // Atualizar o pm no array usando o índice encontrado
+        setPMs(prevArray =>
+          prevArray.map((pm, i) =>
+            i === postoIndex ? { ...pm, ...data } : pm
+          )
+        );
+        toast({
+          title: 'Sucesso',
+          description: 'Posto editado com sucesso',
+          status: 'success',
+          position: 'top-right',
+          duration: 5000,
+          isClosable: true,
+        });
+      } else {
+        setPMs(prevArray => [...prevArray, data]);
+        toast({
+          title: 'Sucesso',
+          description: 'PM adicionado com sucesso',
+          status: 'success',
+          position: 'top-right',
+          duration: 5000,
+          isClosable: true,
+        });
+      }
+    } catch (err) {
+      toast({
+        title: 'Erro',
+        description: 'Falha ao inserir ou editar PM',
+        status: 'error',
+        position: 'top-right',
+        duration: 5000,
+        isClosable: true,
+      });
+    }
+  };
   // Função para carregar o CSV completo
   const loadCompleteCSV = (text: string) => {
     readString(text, {
@@ -235,6 +287,12 @@ export const MilitaresProvider: React.FC<{ children: ReactNode }> = ({
     },
     [militares],
   );
+  const loadingOnePMToEditInTable = async (data: Militar) => {
+    try {
+      setMilitarById(data)
+    } catch (err) {
+    }
+  };
   const loadMilitaresByAPI = useCallback(async (id: string) => {
     setIsLoading(true);
     //const parameters = param !== undefined ? param : '';
@@ -464,6 +522,7 @@ export const MilitaresProvider: React.FC<{ children: ReactNode }> = ({
       loadPMForAccordion,
       deletePMFromTable,
       loadPMToPlanilha,
+      loadingOnePMToEditInTable
     }),
     [
       militares,
@@ -490,6 +549,7 @@ export const MilitaresProvider: React.FC<{ children: ReactNode }> = ({
       loadPMForAccordion,
       deletePMFromTable,
       loadPMToPlanilha,
+      loadingOnePMToEditInTable
     ],
   );
 

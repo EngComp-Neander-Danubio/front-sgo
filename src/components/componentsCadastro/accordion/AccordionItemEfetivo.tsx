@@ -44,6 +44,7 @@ export const AccordionItemEfetivo: React.FC<IAccordion> = ({ isEditing }) => {
     handleOnSubmitMilitar,
     deletePMFromTable,
     loadPMForAccordion,
+    loadingOnePMToEditInTable,
   } = useMilitares();
 
   const {
@@ -60,6 +61,11 @@ export const AccordionItemEfetivo: React.FC<IAccordion> = ({ isEditing }) => {
     isOpen: isOpenFormAddMilitar,
     onOpen: onOpenFormAddMilitar,
     onClose: onCloseFormAddMilitar,
+  } = useDisclosure();
+  const {
+    isOpen: isOpenFormAddMilitarEditing,
+    onOpen: onOpenFormAddMilitarEditing,
+    onClose: onCloseFormAddMilitarEditing,
   } = useDisclosure();
   const columns: Array<ColumnProps<DataEfetivo>> = [
     {
@@ -104,7 +110,14 @@ export const AccordionItemEfetivo: React.FC<IAccordion> = ({ isEditing }) => {
               />
             </span>
             <span key={`edit-${column.key}`}>
-              <IconeEditar label_tooltip={record.nome_completo} />
+              <IconeEditar label_tooltip={record.nome_completo}
+              onOpen={
+                () => {
+                  onOpenFormAddMilitarEditing();
+                  loadingOnePMToEditInTable(record)
+
+              }}
+              />
             </span>
           </Flex>
         );
@@ -272,6 +285,14 @@ export const AccordionItemEfetivo: React.FC<IAccordion> = ({ isEditing }) => {
         onOpen={onOpenFormAddMilitar}
         onClose={onCloseFormAddMilitar}
         uploadPM={loadPMForAccordion}
+        isEditing ={ false}
+      />
+      <ModalFormAddMilitar
+        isOpen={isOpenFormAddMilitarEditing}
+        onOpen={onOpenFormAddMilitarEditing}
+        onClose={onCloseFormAddMilitarEditing}
+        uploadPM={loadPMForAccordion}
+        isEditing
       />
     </>
   );

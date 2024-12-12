@@ -10,10 +10,9 @@ interface IInterface {
 }
 export const ToListSolicitacoesPMs: React.FC<IInterface> = ({
   isOpen,
-  handleToggle,
 }) => {
   return (
-    <Flex h={'100%'} flexDirection={'column'} gap={2}>
+    <Flex h={'100%'} flexDirection={'column'} transitionDuration="1.0s"gap={2}>
       <BreadCrumb />
       <Flex
         pl={2}
