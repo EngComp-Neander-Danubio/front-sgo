@@ -11,6 +11,7 @@ import { useToast } from '@chakra-ui/react';
 import { readString } from 'react-papaparse';
 import api from '../../services/api';
 import { optionsModalidade } from '../../types/typesModalidade';
+import { useEvents } from '../eventContext/useEvents';
 export type Posto = {
   columns?: string[];
   registers?: { [key: string]: any }[];
@@ -94,6 +95,7 @@ export const PostosProvider: React.FC<{ children: ReactNode }> = ({
           ),
       );
       setPostosLocal(newPostos);
+
     } catch (err) {
       if (err instanceof Error) {
         console.error(`Erro ao carregar postos: ${err.message}`);
@@ -357,16 +359,22 @@ export const PostosProvider: React.FC<{ children: ReactNode }> = ({
   const sendPostoToBackendEmLote = useCallback(async (dados: PostoForm[], id: string) => {
     const postos_servicos = {
       postos_servicos: dados.map(
-        ({ militares_por_posto, numero, modalidade, ...rest }) => ({
-          ...rest,
-          operacao_id: id,
-          militares_por_posto: Number(militares_por_posto),
-          numero: Number(numero),
-          modalidade:
-            optionsModalidade.find(m => m.value === modalidade)?.label || null,
-        }),
+        ({ militares_por_posto, numero, modalidade, id: postoId, ...rest }) => {
+           if (postoId) {
+            return {
+              ...rest,
+              operacao_id: id,
+              militares_por_posto: Number(militares_por_posto),
+              numero: Number(numero),
+              modalidade:
+                optionsModalidade.find(m => m.value === modalidade)?.label || null,
+            };
+          }
+        }
       ),
     };
+    console.log(postos_servicos);
+
     try {
       await api.post('/criar-postos', postos_servicos);
       toast({
@@ -380,7 +388,6 @@ export const PostosProvider: React.FC<{ children: ReactNode }> = ({
     } catch (error) {
       console.error('Falha ao salvar postos:', error);
 
-      // Exibe uma notificação de erro
       toast({
         title: 'Erro',
         description: 'Falha ao salvar os postos',
@@ -389,9 +396,9 @@ export const PostosProvider: React.FC<{ children: ReactNode }> = ({
         duration: 9000,
         isClosable: true,
       });
-    } finally {
     }
-  }, []);
+  }, [optionsModalidade, api, toast]);
+
 
   const updatePosto = useCallback(
     async (data: PostoForm, id: string) => {

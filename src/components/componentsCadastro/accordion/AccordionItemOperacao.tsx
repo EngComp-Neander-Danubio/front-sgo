@@ -51,10 +51,14 @@ export const AccordionItemOperacao: React.FC<IAccordion> = ({ isEditing }) => {
     }
 
   });
-  const { uploadEvent, eventById } = useEvents();
+  const { uploadEvent, updateEvent , eventById } = useEvents();
 
   const onSubmit = async (data: IForm) => {
-    await uploadEvent(data);
+    if(!isEditing) {
+      await uploadEvent(data);
+    }else{
+      await updateEvent(data, eventById?.id)
+    }
     //reset();
   };
 
@@ -96,12 +100,12 @@ export const AccordionItemOperacao: React.FC<IAccordion> = ({ isEditing }) => {
             <AccordionPanel
               pb={4}
               w={{
-                lg: isOpen ? '85vw' : '90vw',
-                md: isOpen ? '85vw' : '90vw',
-                sm: isOpen ? '85vw' : '90vw',
+                lg: isOpen ? '82vw' : '91vw',
+                md: isOpen ? '82vw' : '91vw',
+                sm: isOpen ? '82vw' : '91vw',
               }}
               transitionDuration="1.0s"
-              minH={'fit-content'}
+              minH={'20vh'}
             >
               <FormProvider {...methodsInput}>
                 <form onSubmit={methodsInput.handleSubmit(onSubmit)}>
@@ -117,7 +121,7 @@ export const AccordionItemOperacao: React.FC<IAccordion> = ({ isEditing }) => {
                     <FormGrandeEvento />
                     <BotaoCadastrar
                       type="submit"
-                      /* handleSubmit={() => onSubmit} */
+                      handleSubmit={onSubmit}
                       label={!isEditing ? 'Salvar' : 'Editar'}
                     />
                   </Flex>

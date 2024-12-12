@@ -65,10 +65,11 @@ export const AccordionItemPostos: React.FC<IAccordion> = ({ isEditing }) => {
     onOpen: onOpenModalSolicitarPostos,
     onClose: onCloseModalSolicitarPostos,
   } = useDisclosure();
-  const toast = useToast();
+
   const { eventById } = useEvents();
   const handlePostos = async (): Promise<void> => {
     sendPostoToBackendEmLote(postosLocal, eventById?.id ? eventById?.id : '');
+
   };
 
 
@@ -164,12 +165,12 @@ export const AccordionItemPostos: React.FC<IAccordion> = ({ isEditing }) => {
             <AccordionPanel
               pb={4}
               w={{
-                lg: isOpen ? '84vw' : '91vw',
-                md: isOpen ? '84vw' : '91vw',
-                sm: isOpen ? '84vw' : '91vw',
+                lg: isOpen ? '82vw' : '91vw',
+                md: isOpen ? '82vw' : '91vw',
+                sm: isOpen ? '82vw' : '91vw',
               }}
               transitionDuration="1.0s"
-              minH={postosLocal.length > 0 ? '50vh' : '20vh'}
+              minH={postosLocal.length > 0 ? '20vh' : '20vh'}
               overflowY={'auto'}
             >
               <Flex
@@ -194,21 +195,14 @@ export const AccordionItemPostos: React.FC<IAccordion> = ({ isEditing }) => {
                   <Flex></Flex>
                   <Flex gap={2}>
                     <Flex flexDirection={'column'}>
-                      <Tooltip
-                        label={`Campos essencias: Local, Rua, Número, Bairro, Cidade, Modalidade`}
-                        aria-label="A tooltip"
-                        placement="top"
-                        borderRadius={'5px'}
-                      >
-                        <span>
+
                           <InputCSVpapparse
                             nameInput="postoInput"
                             handleClick={handleClick}
                             handleOnChange={handleOnChange}
                             handleOnSubmit={handleOnSubmit}
                           />
-                        </span>
-                      </Tooltip>
+
                     </Flex>
                     <Button
                       //color={'white'}

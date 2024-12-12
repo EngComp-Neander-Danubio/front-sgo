@@ -26,6 +26,7 @@ import {
 } from '../../../types/typesMilitar';
 import { ModalFormAddMilitar } from '../formEfetivo/ModalFormAddMilitar';
 import React from 'react';
+import { useEvents } from '../../../context/eventContext/useEvents';
 interface IAccordion {
   isEditing: boolean;
 }
@@ -44,7 +45,7 @@ export const AccordionItemEfetivo: React.FC<IAccordion> = ({ isEditing }) => {
     handleOnSubmitMilitar,
     deletePMFromTable,
     loadPMForAccordion,
-    loadingOnePMToEditInTable,
+    loadingOnePMToEditInTable,sendPMToBackendEmLote
   } = useMilitares();
 
   const {
@@ -67,6 +68,10 @@ export const AccordionItemEfetivo: React.FC<IAccordion> = ({ isEditing }) => {
     onOpen: onOpenFormAddMilitarEditing,
     onClose: onCloseFormAddMilitarEditing,
   } = useDisclosure();
+  const { eventById } = useEvents();
+  const handlePM = async () : Promise<void> => {
+    sendPMToBackendEmLote(pms, eventById?.id ? eventById?.id : '')
+  }
   const columns: Array<ColumnProps<DataEfetivo>> = [
     {
       key: 'matricula',
@@ -144,13 +149,13 @@ export const AccordionItemEfetivo: React.FC<IAccordion> = ({ isEditing }) => {
             <AccordionPanel
               pb={4}
               w={{
-                lg: isOpen ? '84vw' : '91vw',
-                md: isOpen ? '84vw' : '91vw',
-                sm: isOpen ? '84vw' : '91vw',
+                lg: isOpen ? '82vw' : '91vw',
+                md: isOpen ? '82vw' : '91vw',
+                sm: isOpen ? '82vw' : '91vw',
               }}
               transitionDuration="1.0s"
               //maxH={'48vh'}
-              minH={pms.length > 0 ? '50vh' : '20vh'}
+              minH={pms.length > 0 ? '20vh' : '20vh'}
               //overflowY={'auto'}
             >
               <Flex
@@ -180,21 +185,12 @@ export const AccordionItemEfetivo: React.FC<IAccordion> = ({ isEditing }) => {
                       align={'center'}
                       justifyContent={'space-between'}
                     >
-                      <Tooltip
-                        label={`Campos essencias: Posto/Graduação, Matrícula, OPM, Nome Completo`}
-                        aria-label="A tooltip"
-                        placement="top"
-                        borderRadius={'5px'}
-                      >
-                        <span>
                           <InputCSVpapparse
                             nameInput="militarInput"
                             handleClick={handleClickMilitar}
                             handleOnChange={handleOnChangeMilitar}
                             handleOnSubmit={handleOnSubmitMilitar}
                           />
-                        </span>
-                      </Tooltip>
                     </Flex>
                     <Button
                       //color={'white'}
@@ -261,8 +257,9 @@ export const AccordionItemEfetivo: React.FC<IAccordion> = ({ isEditing }) => {
 
                 <Divider />
                 <BotaoCadastrar
-                  handleSubmit={() => Promise<void>}
+                  handleSubmit={handlePM}
                   label={!isEditing ? 'Salvar' : 'Editar'}
+                  type="submit"
                 />
               </Flex>
             </AccordionPanel>

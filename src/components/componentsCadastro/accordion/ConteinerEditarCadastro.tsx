@@ -15,7 +15,7 @@ export const ConteinerEditarCadastro: React.FC<IFlexCadastrar> = ({
   handleToggle,
 }) => {
   return (
-    <Flex h={'80vh'} flexDirection={'column'} gap={2}>
+    <Flex h={'100vh'} flexDirection={'column'} gap={2}>
       <BreadCrumb />
       <Flex
         pl={2}
@@ -23,7 +23,7 @@ export const ConteinerEditarCadastro: React.FC<IFlexCadastrar> = ({
         //border={'1px solid black'}
         borderRadius={'8px'}
         borderTopLeftRadius={0}
-        w={isOpen ? '87vw' : '94vw'}
+        w={isOpen ? '86vw' : '94vw'}
         transitionDuration="1.0s"
         h={'80vh'}
         position="relative"

@@ -51,6 +51,8 @@ export interface IContextMilitaresData {
   loadPMForAccordion: (data: Militar) => Promise<void>;
   deletePMFromTable: (id?: string, index?: string) => Promise<void>;
   loadingOnePMToEditInTable: (data: Militar) => void;
+  sendPMToBackendEmLote: (dados: Militar[], id: string) => Promise<void>;
+  loadPMsFromToBackend: (id: string) => Promise<void>;
 }
 
 export const MilitaresContext = createContext<
@@ -79,6 +81,35 @@ export const MilitaresProvider: React.FC<{ children: ReactNode }> = ({
   useEffect(() => {
     handleSortByPostoGrad(pms, '1');
   }, [pms]);
+
+  // OK
+  const loadPMsFromToBackend = async (id: string) => {
+    try {
+      const response = await api.get<Militar[]>(`/listar-pms`, {
+        params: {
+          id: id,
+        },
+      });
+      const newPMs: Militar[] = response.data.filter(
+        novoPM =>
+          !pms.some(
+            pms =>
+              novoPM.matricula === pms.matricula &&
+              novoPM.nome_completo === pms.nome_completo &&
+              novoPM.opm === pms.opm &&
+              novoPM.posto_grad === pms.posto_grad
+          ),
+      );
+      setPMs(newPMs);
+
+    } catch (err) {
+      if (err instanceof Error) {
+        console.error(`Erro ao carregar PPMM: ${err.message}`);
+      } else {
+        console.error('Erro desconhecido ao carregar PPMM:', err);
+      }
+    }
+  };
   const loadPMForAccordion = (data: Militar) => {
     console.log(data);
     setPMs(prevArray => [...prevArray, data]);
@@ -119,6 +150,43 @@ export const MilitaresProvider: React.FC<{ children: ReactNode }> = ({
     }
   };
 
+  const sendPMToBackendEmLote = useCallback(async (dados: Militar[], id: string) => {
+    const militares = {
+      militares: dados.map(
+        ({ ...rest }) => {
+
+            return {
+              ...rest,
+              operacao_id: id,
+              };
+                  }
+      ),
+    };
+    console.log(militares);
+
+    try {
+      await api.post('/salvar-pms', militares);
+      toast({
+        title: 'Sucesso',
+        description: 'PPMM salvos com sucesso',
+        status: 'success',
+        position: 'top-right',
+        duration: 9000,
+        isClosable: true,
+      });
+    } catch (error) {
+      console.error('Falha ao salvar PPMM:', error);
+
+      toast({
+        title: 'Erro',
+        description: 'Falha ao salvar os PPMM',
+        status: 'error',
+        position: 'top-right',
+        duration: 9000,
+        isClosable: true,
+      });
+    }
+  }, []);
   const editingOnePostoInTable = async (data: Militar) => {
     try {
       if(data.id)
@@ -292,7 +360,9 @@ export const MilitaresProvider: React.FC<{ children: ReactNode }> = ({
       setMilitarById(data)
     } catch (err) {
     }
+
   };
+
   const loadMilitaresByAPI = useCallback(async (id: string) => {
     setIsLoading(true);
     //const parameters = param !== undefined ? param : '';
@@ -316,6 +386,7 @@ export const MilitaresProvider: React.FC<{ children: ReactNode }> = ({
       setIsLoading(false);
     }
   }, []);
+
   const loadMilitarBySAPM = useCallback(async (param?: string) => {
     setIsLoading(true);
     const parameters = param !== undefined ? param : '';
@@ -522,7 +593,8 @@ export const MilitaresProvider: React.FC<{ children: ReactNode }> = ({
       loadPMForAccordion,
       deletePMFromTable,
       loadPMToPlanilha,
-      loadingOnePMToEditInTable
+      loadingOnePMToEditInTable,
+      sendPMToBackendEmLote,loadPMsFromToBackend
     }),
     [
       militares,
@@ -549,7 +621,8 @@ export const MilitaresProvider: React.FC<{ children: ReactNode }> = ({
       loadPMForAccordion,
       deletePMFromTable,
       loadPMToPlanilha,
-      loadingOnePMToEditInTable
+      loadingOnePMToEditInTable,
+      sendPMToBackendEmLote,loadPMsFromToBackend
     ],
   );
 

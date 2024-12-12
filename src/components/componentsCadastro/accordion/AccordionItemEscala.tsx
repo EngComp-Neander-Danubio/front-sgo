@@ -17,13 +17,18 @@ import { useEffect } from 'react';
 import { useEvents } from '../../../context/eventContext/useEvents';
 import { useRequisitos } from '../../../context/requisitosContext/useRequesitos';
 import { eventoSchema } from '../../../types/yupEvento/yupEvento';
-import { IForm } from '../modal/FormSelectRequesistos';
 import { BiPencil } from 'react-icons/bi';
 import { CiCircleList } from 'react-icons/ci';
 import { ModalRelatorio } from '../modal/ModalRelatorio';
 import { ModalRequesitos } from '../modal/ModalRequesitos';
 import { ModalRestantes } from '../modal/ModalRestantes';
 import { ModalServices } from '../modal/ModalServices';
+type IForm = {
+  comandante: string;
+  dataFinal: Date;
+  dataInicio: Date;
+  nomeOperacao: string;
+};
 interface IAccordion {
   isEditing: boolean;
 }
