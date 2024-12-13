@@ -36,13 +36,14 @@ export const ModalFormAddPosto: React.FC<IModal> = ({
     resolver: yupResolver(postosSchema),
   });
   const { reset, setValue } = methodsInput;
+  const {postoById} = usePostos();
   const onSubmit = async (data: PostoForm) => {
-    console.log(data)
+    console.log('postos',data)
     uploadPosto(data);
     onClose();
     reset();
   };
-  const {postoById} = usePostos();
+
   useEffect(() => {
     console.log(postoById)
     if (postoById && isEditing) {

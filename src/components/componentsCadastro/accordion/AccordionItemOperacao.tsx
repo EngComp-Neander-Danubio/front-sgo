@@ -11,12 +11,17 @@ import { useIsOpen } from '../../../context/isOpenContext/useIsOpen';
 import { FormProvider, useForm } from 'react-hook-form';
 import { FormGrandeEvento } from '../formGrandeEvento/FormGrandeEvento';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useEvents } from '../../../context/eventContext/useEvents';
 import { useRequisitos } from '../../../context/requisitosContext/useRequesitos';
 import { eventoSchema } from '../../../types/yupEvento/yupEvento';
 import { formatDate, normalizeDate } from '../../../utils/utils';
 import { usePostos } from '../../../context/postosContext/usePostos';
+import { parseISO } from 'date-fns';
+import debounce from 'debounce-promise';
+import { OptionsOrGroups, GroupBase } from 'react-select';
+import api from '../../../services/api';
+
 
 type IForm = {
   id?: string;
@@ -27,6 +32,12 @@ type IForm = {
 };
 interface IAccordion {
   isEditing: boolean;
+}
+interface Militar {
+  pes_codigo: number;
+  pes_nome: string;
+  gra_nome: string;
+  unidade_uni_sigla: string;
 }
 export const AccordionItemOperacao: React.FC<IAccordion> = ({ isEditing }) => {
   const { isOpen } = useIsOpen();
@@ -61,23 +72,21 @@ export const AccordionItemOperacao: React.FC<IAccordion> = ({ isEditing }) => {
     }
     //reset();
   };
+  const cache = new Map<string, any>();
+const { setValue } = methodsInput;
 
-  const { setValue } = methodsInput;
   useEffect(() => {
-    console.log(eventById);
     if (eventById && isEditing) {
-      setValue('comandante', (eventById?.comandante as unknown) as string);
-      setValue('nomeOperacao', eventById?.nomeOperacao);
-      setValue(
-        'dataInicio',
-        new Date(normalizeDate((eventById?.dataInicio as unknown) as string)),
-      );
-      setValue(
-        'dataFinal',
-        new Date(normalizeDate((eventById?.dataFinal as unknown) as string)),
-      );
+        setValue('nomeOperacao', eventById?.nomeOperacao);
+        if (eventById?.dataInicio) {
+          setValue('dataInicio', parseISO(eventById?.dataInicio).getTime());
+        }
+        if (eventById?.dataFinal) {
+          setValue('dataFinal', parseISO(eventById?.dataFinal).getTime());
+        }
+      }
     }
-  }, [eventById, setValue]);
+  , []);
 
   return (
     <>
@@ -118,7 +127,7 @@ export const AccordionItemOperacao: React.FC<IAccordion> = ({ isEditing }) => {
                     h={'100%'}
                     //border={'1px solid green'}
                   >
-                    <FormGrandeEvento />
+                    <FormGrandeEvento name_militar={eventById?.comandante as unknown as string }/>
                     <BotaoCadastrar
                       type="submit"
                       handleSubmit={onSubmit}

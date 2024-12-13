@@ -4,12 +4,10 @@ import {
   AccordionIcon,
   AccordionPanel,
   Flex,
-  Tooltip,
   Button,
   Divider,
   AccordionItem,
   useDisclosure,
-  useToast,
 } from '@chakra-ui/react';
 import { FaFileUpload } from 'react-icons/fa';
 import { HiPencil } from 'react-icons/hi';
@@ -25,13 +23,12 @@ import { ModalSolicitacarPostos } from '../modal/ModalSolicitarPostos';
 import { ModalFormAddPosto } from '../modal/ModalFormAddPosto';
 import { optionsModalidade } from '../../../types/typesModalidade';
 import { useEvents } from '../../../context/eventContext/useEvents';
-import { FormProvider, useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { useState,useEffect } from 'react';
+import { useEffect, useState } from 'react';
 interface IAccordion {
   isEditing: boolean;
 }
 export const AccordionItemPostos: React.FC<IAccordion> = ({ isEditing }) => {
+  const [isLoading, setIsLoading] = useState(false);
   const { isOpen } = useIsOpen();
   const {
     loadMore,
@@ -50,6 +47,7 @@ export const AccordionItemPostos: React.FC<IAccordion> = ({ isEditing }) => {
     loadingOnePostoToEditInTable,
     editingOnePostoInTable
   } = usePostos();
+
   const {
     isOpen: isOpenFormAddPosto,
     onOpen: onOpenFormAddPosto,
@@ -67,11 +65,10 @@ export const AccordionItemPostos: React.FC<IAccordion> = ({ isEditing }) => {
   } = useDisclosure();
 
   const { eventById } = useEvents();
+
   const handlePostos = async (): Promise<void> => {
     sendPostoToBackendEmLote(postosLocal, eventById?.id ? eventById?.id : '');
-
   };
-
 
   const columns: Array<ColumnProps<DataPostos>> = [
     {
@@ -120,6 +117,7 @@ export const AccordionItemPostos: React.FC<IAccordion> = ({ isEditing }) => {
                 handleDelete={async () => {
                   if (index !== undefined && index !== -1) {
                     await deletePostoFromTable(record.id, index.toString()); // Passe o índice diretamente
+                    setIsLoading(!isLoading)
                   } else {
                     console.error(
                       'Índice não encontrado para o registro',

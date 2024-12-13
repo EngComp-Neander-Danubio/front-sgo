@@ -183,7 +183,24 @@ export const EventsProvider: React.FC<{ children: ReactNode }> = ({
     async (data: Event, id: string) => {
       setIsLoading(true);
       try {
-        await api.put(`/operacao/${id}`, data);
+        const dados = {
+          ...data,
+          dataFinal: new Date(data.dataFinal).toLocaleDateString('pt-BR', {
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric',
+          }),
+          dataInicio: new Date(data.dataInicio).toLocaleDateString('pt-BR', {
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric',
+          }),
+
+        }
+        await api.put(`/edit-operacao`, dados, {
+          params: {
+            id: id,
+          }});
         // await loadTasks();
         toast({
           title: 'Sucesso',

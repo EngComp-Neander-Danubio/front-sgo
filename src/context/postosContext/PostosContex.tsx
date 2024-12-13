@@ -74,7 +74,7 @@ export const PostosProvider: React.FC<{ children: ReactNode }> = ({
   const totalData = postosLocal.length;
   const currentData = postosLocal.slice(firstDataIndex, lastDataIndex);
   const hasMore = lastDataIndex < postosLocal.length;
-
+  useEffect(() => {},[currentData, firstDataIndex, lastDataIndex])
   // OK
   const loadPostosFromToBackend = async (id: string) => {
     try {
@@ -360,7 +360,7 @@ export const PostosProvider: React.FC<{ children: ReactNode }> = ({
     const postos_servicos = {
       postos_servicos: dados.map(
         ({ militares_por_posto, numero, modalidade, id: postoId, ...rest }) => {
-           if (postoId) {
+
             return {
               ...rest,
               operacao_id: id,
@@ -369,11 +369,10 @@ export const PostosProvider: React.FC<{ children: ReactNode }> = ({
               modalidade:
                 optionsModalidade.find(m => m.value === modalidade)?.label || null,
             };
-          }
+
         }
       ),
     };
-    console.log(postos_servicos);
 
     try {
       await api.post('/criar-postos', postos_servicos);
@@ -440,7 +439,7 @@ export const PostosProvider: React.FC<{ children: ReactNode }> = ({
       if (id !== undefined && index !== undefined) {
         try {
           console.log('delete com id');
-          await api.delete(`/delete-postos/${id}`);
+          await api.delete(`/deletar-posto/${id}`);
           toast({
             title: 'Sucesso',
             description: 'Posto deletado com sucesso',

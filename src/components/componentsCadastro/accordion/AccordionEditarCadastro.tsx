@@ -17,12 +17,7 @@ interface IAccordion extends AccordionProps {
   handleToggle: () => void;
 }
 
-interface IForm extends FlexboxProps {
-  nomeOperacao: string;
-  comandante: string;
-  dataInicio: Date;
-  dataFinal: Date;
-}
+
 export const AccordinEditarCadastro: React.FC<IAccordion> = ({ isOpen }) => {
   const { eventById } = useEvents();
   const {postosLocal} = usePostos();

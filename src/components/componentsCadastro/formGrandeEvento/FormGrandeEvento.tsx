@@ -13,6 +13,7 @@ interface IFormProps extends FlexboxProps {
   widthSelect?: string;
   isLoadingRequest?: boolean;
   isEditing?: boolean;
+  name_militar: string;
 }
 interface Militar {
   pes_codigo: number;
@@ -22,6 +23,7 @@ interface Militar {
 }
 export const FormGrandeEvento: React.FC<IFormProps> = ({
   widthSelect,
+  name_militar,
   ...props
 }) => {
   const { control } = useFormContext();
@@ -40,7 +42,7 @@ export const FormGrandeEvento: React.FC<IFormProps> = ({
     }
     try {
       const response = await api.get<Militar[]>(`/policiais`, {
-        params: { pes_nome: pes_nome },
+        params: { pes_nome: pes_nome},
       });
 
       const filteredOptions = response.data
