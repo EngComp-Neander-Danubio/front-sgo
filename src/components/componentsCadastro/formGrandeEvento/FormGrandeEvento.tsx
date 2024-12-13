@@ -118,6 +118,7 @@ export const FormGrandeEvento: React.FC<IFormProps> = ({
                 <AsyncSelectComponent
                   placeholder="Informe o Comandante"
                   nameLabel=""
+                  {...field}
                   onChange={field.onChange}
                   error={error}
                   isOverwriting

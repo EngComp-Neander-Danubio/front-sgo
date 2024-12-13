@@ -98,7 +98,7 @@ export const AccordionItemPostos: React.FC<IAccordion> = ({ isEditing }) => {
         const modalidadeData =
           optionsModalidade.find(m => m.value === record.modalidade)?.label ||
           null;
-        return <>{(modalidadeData?.toLocaleLowerCase('pt-BR')) ?? (record.modalidade.toLocaleUpperCase('pt-BR'))}
+        return <>{(modalidadeData) ?? (record.modalidade)}
         </>;
       },
     },

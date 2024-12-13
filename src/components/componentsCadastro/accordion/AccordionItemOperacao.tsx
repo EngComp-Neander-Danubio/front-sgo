@@ -54,15 +54,13 @@ export const AccordionItemOperacao: React.FC<IAccordion> = ({ isEditing }) => {
       clearTimeout(handler);
     };
   }, [inputUser]);
-
+  const { uploadEvent, updateEvent , eventById } = useEvents();
   const methodsInput = useForm<IForm>({
     resolver: yupResolver(eventoSchema),
     defaultValues: {
-      comandante: "militar"
+      comandante: isEditing ? (eventById?.comandante as unknown as string) : " "
     }
-
   });
-  const { uploadEvent, updateEvent , eventById } = useEvents();
 
   const onSubmit = async (data: IForm) => {
     if(!isEditing) {
@@ -73,16 +71,17 @@ export const AccordionItemOperacao: React.FC<IAccordion> = ({ isEditing }) => {
     //reset();
   };
   const cache = new Map<string, any>();
-const { setValue } = methodsInput;
+  const { setValue } = methodsInput;
 
   useEffect(() => {
     if (eventById && isEditing) {
         setValue('nomeOperacao', eventById?.nomeOperacao);
+        setValue('comandante', eventById?.comandante as unknown as string);
         if (eventById?.dataInicio) {
-          setValue('dataInicio', parseISO(eventById?.dataInicio).getTime());
+          setValue('dataInicio', new Date());
         }
         if (eventById?.dataFinal) {
-          setValue('dataFinal', parseISO(eventById?.dataFinal).getTime());
+          setValue('dataFinal', new Date());
         }
       }
     }

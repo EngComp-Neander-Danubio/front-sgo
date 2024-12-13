@@ -29,7 +29,6 @@ export interface PostoForm {
 }
 
 export interface IContextPostoData {
-  postos: PostoForm[];
   postosLocal: PostoForm[];
   postoById: PostoForm | undefined;
   postosByAPI: PostoForm[];
@@ -62,7 +61,6 @@ export const PostosProvider: React.FC<{ children: ReactNode }> = ({
 }) => {
   const toast = useToast();
   const [file, setFile] = useState<File | null>(null);
-  const [postos, setPostos] = useState<PostoForm[]>([]);
   const [postosByAPI, setPostosByAPI] = useState<PostoForm[]>([]);
   const [postoById, setPostoById] = useState<PostoForm >();
   const [postosLocal, setPostosLocal] = useState<PostoForm[]>([]);
@@ -74,7 +72,7 @@ export const PostosProvider: React.FC<{ children: ReactNode }> = ({
   const totalData = postosLocal.length;
   const currentData = postosLocal.slice(firstDataIndex, lastDataIndex);
   const hasMore = lastDataIndex < postosLocal.length;
-  useEffect(() => {},[currentData, firstDataIndex, lastDataIndex])
+
   // OK
   const loadPostosFromToBackend = async (id: string) => {
     try {
@@ -500,7 +498,7 @@ export const PostosProvider: React.FC<{ children: ReactNode }> = ({
   const contextValue = useMemo(
     () => ({
       postosLocal: currentData,
-      postos,
+
       postosByAPI,
       postoById,
       totalData,
@@ -523,7 +521,7 @@ export const PostosProvider: React.FC<{ children: ReactNode }> = ({
     }),
     [
       postosLocal,
-      postos,
+
       postosByAPI,
       postoById,
       totalData,

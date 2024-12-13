@@ -54,7 +54,7 @@ export const ModalFormAddPosto: React.FC<IModal> = ({
       setValue('cidade', postoById?.cidade);
       setValue('militares_por_posto', postoById?.militares_por_posto);
 
-      const modalidade = optionsModalidade.find(m => m.label === postoById.modalidade);
+      const modalidade = optionsModalidade.find(m => m.label.includes(postoById.modalidade));
       if (modalidade) {
         setValue('modalidade', modalidade.value);
       }
