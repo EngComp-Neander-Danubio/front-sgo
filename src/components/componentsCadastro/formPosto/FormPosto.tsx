@@ -13,6 +13,7 @@ import { optionsModalidade } from '../../../types/typesModalidade';
 import { SelectPattern } from '../modal/SelectPattern';
 import { FaMinusCircle, FaPlusCircle } from 'react-icons/fa';
 interface IForm {
+  id?: string;
   local: string;
   endereco: string;
   numero: string;

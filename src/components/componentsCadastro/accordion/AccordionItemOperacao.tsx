@@ -60,18 +60,17 @@ export const AccordionItemOperacao: React.FC<IAccordion> = ({ isEditing }) => {
   });
 
   const onSubmit = async (data: IForm) => {
-    // if(!isEditing) {
-    //   await uploadEvent(data);
-    // }else{
-    //   await updateEvent(data, eventById?.id)
-    // }
-    //reset();
+    if(!isEditing) {
+      await uploadEvent(data);
+    }else{
+      await updateEvent(data, eventById?.id)
+    }
+    reset();
   };
   const cache = new Map<string, any>();
   const { setValue } = methodsInput;
 
   useEffect(() => {
-    console.log(eventById)
     if (eventById && isEditing) {
         setValue('nomeOperacao', eventById?.nomeOperacao);
         //setValue('comandante', { label: eventById.comandante, value: eventById.comandante });

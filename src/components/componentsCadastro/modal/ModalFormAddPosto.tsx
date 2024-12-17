@@ -17,12 +17,13 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useEffect } from 'react';
 import { usePostos } from '../../../context/postosContext/usePostos';
 import { optionsModalidade } from '../../../types/typesModalidade';
+import { useEvents } from '../../../context/eventContext/useEvents';
 
 interface IModal {
   isOpen: boolean;
   onClose: () => void;
   onOpen: () => void;
-  uploadPosto: (data: PostoForm) => void;
+  uploadPosto: (data: PostoForm, id: number, operacao_id: string) => void;
   isEditing: boolean;
 }
 
@@ -37,23 +38,25 @@ export const ModalFormAddPosto: React.FC<IModal> = ({
   });
   const { reset, setValue } = methodsInput;
   const {postoById} = usePostos();
+  const { eventById } = useEvents();
   const onSubmit = async (data: PostoForm) => {
-    console.log('postos',data)
-    uploadPosto(data);
+    console.log('postos', data)
+    if(postoById?.id && eventById?.id && isEditing)
+       uploadPosto(data, Number(postoById.id), eventById?.id);
     onClose();
     reset();
   };
 
   useEffect(() => {
-    console.log(postoById)
+
     if (postoById && isEditing) {
+      setValue('id', postoById.id);
       setValue('local', postoById?.local);
       setValue('endereco', postoById?.endereco);
       setValue('bairro', postoById?.bairro);
       setValue('numero', postoById?.numero);
       setValue('cidade', postoById?.cidade);
-      setValue('militares_por_posto', postoById?.militares_por_posto);
-
+      setValue('militares_por_posto', Number(postoById?.militares_por_posto));
       const modalidade = optionsModalidade.find(m => m.label.includes(postoById.modalidade));
       if (modalidade) {
         setValue('modalidade', modalidade.value);

@@ -17,7 +17,7 @@ export type Posto = {
   registers?: { [key: string]: any }[];
 };
 export interface PostoForm {
-  //id?: string;
+  id?: string;
   local: string;
   endereco: string;
   numero: number;
@@ -25,6 +25,9 @@ export interface PostoForm {
   cidade: string;
   modalidade: string;
   militares_por_posto: number;
+  operacao_id?: number | null;
+  solicitacao_id?: number | null;
+  uni_codigo?: number | null;
   [key: string]: any;
 }
 
@@ -49,7 +52,7 @@ export interface IContextPostoData {
   deletePostoFromTable: (id?: string, index?: string) => Promise<void>;
   loadPostosFromToBackend: (id: string) => Promise<void>;
   loadingOnePostoToEditInTable: (data: PostoForm) => void;
-  editingOnePostoInTable: (data: PostoForm) => void;
+  editingOnePostoInTable: (data: PostoForm, id: number,  operacao_id: string) => void;
 }
 
 export const PostosContext = createContext<IContextPostoData | undefined>(
@@ -106,6 +109,7 @@ export const PostosProvider: React.FC<{ children: ReactNode }> = ({
   //add a posto to comparing with other postos already added
   // OK
   const loadingOnePostoToTable = (data: PostoForm) => {
+    console.log(data)
     try {
       const postoExists = postosLocal.some(
         m =>
@@ -150,15 +154,41 @@ export const PostosProvider: React.FC<{ children: ReactNode }> = ({
       });
     }
   };
-  const editingOnePostoInTable = async (data: PostoForm) => {
+  const editingOnePostoInTable = async (data: PostoForm, id: number,  operacao_id: string) => {
+    //console.log('edit dados', data)
     try {
-      if(data.id)
-       await api.put<PostoForm[]>(`/editar-postos`, data, {
-        params: {
-          id: data.id,
-        },
-      });
+      if(id){
+        const EditPostoServico = {
+          editPostoServico: {
+            militares_por_posto: Number(data.militares_por_posto),
+            local: data.local,
+            modalidade: optionsModalidade.find(m => m.value === data.modalidade)?.label || null,
+            cidade: data.cidade,
+            endereco: data.endereco,
+            numero: Number(data.numero),
+            bairro: data.bairro,
+            uni_codigo: null,
+            operacao_id: operacao_id,
+            solicitacao_id: null,
+            id: data.id,
+          }
 
+        };
+        // await api.put<PostoForm[]>(`/editar-posto`, EditPostoServico, {
+        //   params: {
+        //     id: id,
+        //   },
+        // });
+        await api.put<PostoForm[]>(`/editar-posto/${id}`, EditPostoServico);
+        toast({
+          title: 'Sucesso',
+          description: 'Posto editado com sucesso',
+          status: 'success',
+          position: 'top-right',
+          duration: 5000,
+          isClosable: true,
+        });
+      }
       const postoIndex = postoById
         ? postosLocal.findIndex(posto =>
             posto === postoById
@@ -195,7 +225,7 @@ export const PostosProvider: React.FC<{ children: ReactNode }> = ({
     } catch (err) {
       toast({
         title: 'Erro',
-        description: 'Falha ao inserir ou editar posto',
+        description: 'Falha ao editar posto',
         status: 'error',
         position: 'top-right',
         duration: 5000,
@@ -355,23 +385,22 @@ export const PostosProvider: React.FC<{ children: ReactNode }> = ({
   }, []);
 
   const sendPostoToBackendEmLote = useCallback(async (dados: PostoForm[], id: string) => {
+    const DadosFiltered = dados.filter((d) => !('id' in d));
+    //console.log('dados',dados);
+    //console.log('dados',DadosFiltered);
     const postos_servicos = {
-      postos_servicos: dados.map(
+      postos_servicos: DadosFiltered.map(
         ({ militares_por_posto, numero, modalidade, id: postoId, ...rest }) => {
-
-            return {
-              ...rest,
-              operacao_id: id,
-              militares_por_posto: Number(militares_por_posto),
-              numero: Number(numero),
-              modalidade:
-                optionsModalidade.find(m => m.value === modalidade)?.label || null,
-            };
-
+          return {
+            ...rest,
+            operacao_id: id,
+            militares_por_posto: Number(militares_por_posto),
+            numero: Number(numero),
+            modalidade: optionsModalidade.find(m => m.value === modalidade)?.label || null,
+          };
         }
       ),
     };
-
     try {
       await api.post('/criar-postos', postos_servicos);
       toast({

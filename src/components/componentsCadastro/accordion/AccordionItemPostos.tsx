@@ -92,6 +92,10 @@ export const AccordionItemPostos: React.FC<IAccordion> = ({ isEditing }) => {
       title: 'Cidade',
     },
     {
+      key: 'militares_por_posto',
+      title: 'Qtd Efetivo',
+    },
+    {
       key: 'modalidade',
       title: 'Modalidade',
       render: (_, record) => {
