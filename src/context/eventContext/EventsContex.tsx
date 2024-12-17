@@ -153,16 +153,16 @@ export const EventsProvider: React.FC<{ children: ReactNode }> = ({
           return {
             ...item,
             comandante: v ? v[0]?.pes_nome : '',
-            dataFinal: new Date(item.dataFinal).toLocaleDateString('pt-BR', {
-              day: '2-digit',
-              month: '2-digit',
-              year: 'numeric',
-            }),
-            dataInicio: new Date(item.dataInicio).toLocaleDateString('pt-BR', {
-              day: '2-digit',
-              month: '2-digit',
-              year: 'numeric',
-            }),
+            // dataFinal: new Date(item.dataFinal).toLocaleDateString('pt-BR', {
+            //   day: '2-digit',
+            //   month: '2-digit',
+            //   year: 'numeric',
+            // }),
+            // dataInicio: new Date(item.dataInicio).toLocaleDateString('pt-BR', {
+            //   day: '2-digit',
+            //   month: '2-digit',
+            //   year: 'numeric',
+            // }),
           };
         }),
       );

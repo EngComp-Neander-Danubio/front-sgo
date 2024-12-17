@@ -3,11 +3,12 @@ import { Controller, useFormContext } from 'react-hook-form';
 import 'react-datepicker/dist/react-datepicker.css';
 import { DatePickerEvent } from './DatePickerEvent';
 import { InputPatternController } from '../inputPatternController/InputPatternController';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import AsyncSelectComponent from '../formEfetivo/AsyncSelectComponent';
 import { OptionsOrGroups, GroupBase } from 'react-select';
 import debounce from 'debounce-promise';
 import api from '../../../services/api';
+import { useEvents } from '../../../context/eventContext/useEvents';
 
 interface IFormProps extends FlexboxProps {
   widthSelect?: string;
@@ -24,11 +25,17 @@ interface Militar {
 export const FormGrandeEvento: React.FC<IFormProps> = ({
   widthSelect,
   name_militar,
+  isEditing,
   ...props
 }) => {
-  const { control } = useFormContext();
+  const { control, setValue } = useFormContext();
   const [startDate, setStartDate] = useState<Date>();
   const [endDate, setEndDate] = useState<Date>();
+  const { eventById } = useEvents();
+  useEffect(() => {
+    console.log('dentro do form',name_militar, eventById?.comandante)
+    if(isEditing) setValue('comandante', name_militar)
+  },[isEditing, name_militar, setValue])
   const cache = new Map<string, any>();
 
   const load = debounce(async (pes_nome: string): Promise<
@@ -78,7 +85,7 @@ export const FormGrandeEvento: React.FC<IFormProps> = ({
           gap={6}
         >
           <Flex flexDirection="column" gap={1}>
-            <FormLabel fontWeight="bold">Título do Evento</FormLabel>
+            <FormLabel fontWeight="bold">Operação</FormLabel>
             <Controller
               name="nomeOperacao"
               control={control}
@@ -118,11 +125,11 @@ export const FormGrandeEvento: React.FC<IFormProps> = ({
                 <AsyncSelectComponent
                   placeholder="Informe o Comandante"
                   nameLabel=""
-                  {...field}
                   onChange={field.onChange}
                   error={error}
                   isOverwriting
                   loadOptions={load}
+
                   noOptionsMessage="Nenhum Militar encontrado"
                 />
               )}

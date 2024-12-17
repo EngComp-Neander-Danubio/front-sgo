@@ -43,7 +43,7 @@ export const AccordinEditarCadastro: React.FC<IAccordion> = ({ isOpen }) => {
         h={'full'}
         //border={'1px solid black'}
       >
-        <AccordionItemOperacao isEditing />
+        <AccordionItemOperacao isEditing={true} />
         {eventById?.id && (
           <>
           <AccordionItemPostos isEditing />

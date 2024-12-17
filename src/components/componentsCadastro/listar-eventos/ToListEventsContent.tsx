@@ -6,6 +6,9 @@ import { Flex } from '@chakra-ui/react';
 import { IconeDeletar, IconeEditar } from '../../ViewLogin';
 import { useNavigate } from 'react-router-dom';
 import TableMain, { ColumnProps } from '../TableMain/TableMain';
+import moment from 'moment'; // Para manipulação de fuso horário
+import { format } from 'date-fns';
+import { LocaleOptions } from 'date-fns/locale'; // Importar locale se for necessário
 type Data = {
   id: string;
   nomeOperacao: string;
@@ -45,10 +48,26 @@ export const ToListEventsContent: React.FC = () => {
     {
       key: 'dataInicio',
       title: 'Data Inicial',
+      render: (_, record) => {
+        let formattedDate = (moment(record.dataInicio)).utc().format('DD-MMM-YYYY HH:mm:ss')
+        return (
+          <>
+          { new Date(formattedDate).toLocaleDateString('pt-BR',)}
+         </>
+        );
+      },
     },
     {
       key: 'dataFinal',
-      title: 'Data Inicial',
+      title: 'Data Final',
+      render: (_, record) => {
+        let formattedDate = (moment(record.dataFinal)).utc().format('DD-MMM-YYYY HH:mm:ss')
+        return (
+          <>
+           { new Date(formattedDate).toLocaleDateString('pt-BR')}
+          </>
+        );
+      },
     },
     {
       key: 'acoes',

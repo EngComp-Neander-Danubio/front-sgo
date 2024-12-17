@@ -114,6 +114,7 @@ const AsyncSelectComponent: React.FC<IAsyncSelectProps> = ({
         inputId="asyncSelect"
         cacheOptions
         loadOptions={loadOptions}
+        defaultValue={"Neander"}
         defaultOptions={[]}
         noOptionsMessage={() => `${noOptionsMessage}`}
         styles={customStyles}

@@ -460,7 +460,7 @@ export const PostosProvider: React.FC<{ children: ReactNode }> = ({
 
         }
       } else if (index) {
-        console.log('delete com index');
+        //console.log('delete com index');
         const indexDeletedOpm =
           currentDataIndex * (lastDataIndex - firstDataIndex) + Number(index);
 

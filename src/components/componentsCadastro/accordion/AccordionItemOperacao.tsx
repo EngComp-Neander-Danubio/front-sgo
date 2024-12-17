@@ -21,7 +21,7 @@ import { parseISO } from 'date-fns';
 import debounce from 'debounce-promise';
 import { OptionsOrGroups, GroupBase } from 'react-select';
 import api from '../../../services/api';
-
+import moment from 'moment'; // Para manipulação de fuso horário
 
 type IForm = {
   id?: string;
@@ -57,35 +57,33 @@ export const AccordionItemOperacao: React.FC<IAccordion> = ({ isEditing }) => {
   const { uploadEvent, updateEvent , eventById } = useEvents();
   const methodsInput = useForm<IForm>({
     resolver: yupResolver(eventoSchema),
-    defaultValues: {
-      comandante: isEditing ? (eventById?.comandante as unknown as string) : " "
-    }
   });
 
   const onSubmit = async (data: IForm) => {
-    if(!isEditing) {
-      await uploadEvent(data);
-    }else{
-      await updateEvent(data, eventById?.id)
-    }
+    // if(!isEditing) {
+    //   await uploadEvent(data);
+    // }else{
+    //   await updateEvent(data, eventById?.id)
+    // }
     //reset();
   };
   const cache = new Map<string, any>();
   const { setValue } = methodsInput;
 
   useEffect(() => {
+    console.log(eventById)
     if (eventById && isEditing) {
         setValue('nomeOperacao', eventById?.nomeOperacao);
-        setValue('comandante', eventById?.comandante as unknown as string);
+        //setValue('comandante', { label: eventById.comandante, value: eventById.comandante });
         if (eventById?.dataInicio) {
-          setValue('dataInicio', new Date());
+          setValue('dataInicio', new Date(moment(eventById.dataInicio).utc().format('DD-MMM-YYYY HH:mm:ss')));
         }
         if (eventById?.dataFinal) {
-          setValue('dataFinal', new Date());
+          setValue('dataFinal', new Date(moment(eventById.dataFinal).utc().format('DD-MMM-YYYY HH:mm:ss')));
         }
       }
     }
-  , []);
+  , [isEditing, setValue]);
 
   return (
     <>
@@ -126,10 +124,10 @@ export const AccordionItemOperacao: React.FC<IAccordion> = ({ isEditing }) => {
                     h={'100%'}
                     //border={'1px solid green'}
                   >
-                    <FormGrandeEvento name_militar={eventById?.comandante as unknown as string }/>
+                    <FormGrandeEvento name_militar={isEditing ? eventById?.comandante as unknown as string : ""} isEditing/>
                     <BotaoCadastrar
                       type="submit"
-                      handleSubmit={onSubmit}
+
                       label={!isEditing ? 'Salvar' : 'Editar'}
                     />
                   </Flex>
