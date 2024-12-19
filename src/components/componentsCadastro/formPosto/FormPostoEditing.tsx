@@ -26,7 +26,7 @@ interface IForm {
 interface IModal extends FlexProps {
   isEditing?: boolean;
 }
-export const FormPosto: React.FC<IModal> = ({
+export const FormPostoEditing: React.FC<IModal> = ({
   isEditing
 }) => {
   const {
@@ -36,11 +36,10 @@ export const FormPosto: React.FC<IModal> = ({
   } = useFormContext<IForm>();
   const {postoById} = usePostos();
   console.log(postoById?.militares_por_posto)
-  const [quantity, setQuantity] = useState<number>(2);
+  const [quantity, setQuantity] = useState<number>(postoById?.militares_por_posto ? postoById?.militares_por_posto : 2) ;
   useEffect(()=>{
-    if(!isEditing){
-      setValue('militares_por_posto', quantity);
-    }
+    //if(postoById?.militares_por_posto)
+    setValue('militares_por_posto', quantity);
   },[setValue, postoById, quantity])
   const handleQuantityPlus = async () => {
     setQuantity(q => q + 1);

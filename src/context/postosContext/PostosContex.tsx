@@ -52,7 +52,7 @@ export interface IContextPostoData {
   deletePostoFromTable: (id?: string, index?: string) => Promise<void>;
   loadPostosFromToBackend: (id: string) => Promise<void>;
   loadingOnePostoToEditInTable: (data: PostoForm) => void;
-  editingOnePostoInTable: (data: PostoForm, id: number,  operacao_id: string) => void;
+  editingOnePostoInTable: (data: PostoForm, operacao_id: string, id?: number ) => void;
 }
 
 export const PostosContext = createContext<IContextPostoData | undefined>(
@@ -154,13 +154,13 @@ export const PostosProvider: React.FC<{ children: ReactNode }> = ({
       });
     }
   };
-  const editingOnePostoInTable = async (data: PostoForm, id: number,  operacao_id: string) => {
+  const editingOnePostoInTable = async (data: PostoForm, operacao_id: string, id?: number ) => {
     //console.log('edit dados', data)
     try {
       if(id){
         const EditPostoServico = {
           editPostoServico: {
-            militares_por_posto: Number(data.militares_por_posto),
+            militares_por_posto: (data.militares_por_posto),
             local: data.local,
             modalidade: optionsModalidade.find(m => m.value === data.modalidade)?.label || null,
             cidade: data.cidade,
@@ -202,14 +202,6 @@ export const PostosProvider: React.FC<{ children: ReactNode }> = ({
             i === postoIndex ? { ...posto, ...data } : posto
           )
         );
-        toast({
-          title: 'Sucesso',
-          description: 'Posto editado com sucesso',
-          status: 'success',
-          position: 'top-right',
-          duration: 5000,
-          isClosable: true,
-        });
       } else {
         // Caso o posto não seja encontrado, adicione um novo posto
         setPostosLocal(prevArray => [...prevArray, data]);

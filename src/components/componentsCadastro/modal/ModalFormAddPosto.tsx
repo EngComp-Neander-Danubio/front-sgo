@@ -18,12 +18,14 @@ import { useEffect } from 'react';
 import { usePostos } from '../../../context/postosContext/usePostos';
 import { optionsModalidade } from '../../../types/typesModalidade';
 import { useEvents } from '../../../context/eventContext/useEvents';
+import { da } from 'date-fns/locale';
+import { FormPostoEditing } from '../formPosto/FormPostoEditing';
 
 interface IModal {
   isOpen: boolean;
   onClose: () => void;
   onOpen: () => void;
-  uploadPosto: (data: PostoForm, id: number, operacao_id: string) => void;
+  uploadPosto: (data: PostoForm, operacao_id: string, id?: number ) => void;
   isEditing: boolean;
 }
 
@@ -41,8 +43,12 @@ export const ModalFormAddPosto: React.FC<IModal> = ({
   const { eventById } = useEvents();
   const onSubmit = async (data: PostoForm) => {
     console.log('postos', data)
-    if(postoById?.id && eventById?.id && isEditing)
-       uploadPosto(data, Number(postoById.id), eventById?.id);
+    if(postoById?.id && eventById?.id && isEditing){
+      uploadPosto(data, eventById?.id, Number(postoById.id));
+    }
+      else if(eventById?.id){
+        uploadPosto(data, eventById.id)
+    }
     onClose();
     reset();
   };
@@ -75,9 +81,10 @@ export const ModalFormAddPosto: React.FC<IModal> = ({
             fontWeight={'700'}>Adicionar Posto de Serviço</ModalHeader>
               <ModalCloseButton />
               <ModalBody>
-                <FormPosto />
+                {!isEditing ? (
+                    <FormPosto/>
+                  ) : (<FormPostoEditing isEditing />)}
               </ModalBody>
-
               <ModalFooter>
                 <Button
                   colorScheme="red"

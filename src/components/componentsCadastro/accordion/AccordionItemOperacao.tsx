@@ -65,7 +65,7 @@ export const AccordionItemOperacao: React.FC<IAccordion> = ({ isEditing }) => {
     }else{
       await updateEvent(data, eventById?.id)
     }
-    reset();
+
   };
   const cache = new Map<string, any>();
   const { setValue } = methodsInput;

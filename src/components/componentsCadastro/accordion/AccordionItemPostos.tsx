@@ -69,7 +69,7 @@ export const AccordionItemPostos: React.FC<IAccordion> = ({ isEditing }) => {
   const handlePostos = async (): Promise<void> => {
     sendPostoToBackendEmLote(postosLocal, eventById?.id ? eventById?.id : '');
   };
-
+  useEffect(()=>{},[postosLocal.length, loadingOnePostoToEditInTable])
   const columns: Array<ColumnProps<DataPostos>> = [
     {
       key: 'local',
