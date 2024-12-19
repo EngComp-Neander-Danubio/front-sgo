@@ -16,7 +16,7 @@ import { ThTable } from './th';
 import { TdTable } from './td';
 import { IconeEditar, IconeDeletar } from '../../ViewLogin';
 import { ModalFormAddEvent } from '../../componentsCadastro/modal/ModalFormAddEvent';
-import { useEvents } from '../../../context/eventContext/useEvents';
+import { useOperacao } from '../../../context/eventContext/useOperacao';
 import { useNavigate } from 'react-router-dom';
 
 interface ITable {
@@ -54,7 +54,7 @@ export const TableEvent: React.FC<ITable> = ({
     onOpen: onOpenFormEditarEvent,
     onClose: onCloseFormEditarEvent,
   } = useDisclosure();
-  const { loadEventsById, deleteEvent } = useEvents();
+  const { loadEventsById, deleteEvent } = useOperacao();
   const navigate = useNavigate();
 
   return (

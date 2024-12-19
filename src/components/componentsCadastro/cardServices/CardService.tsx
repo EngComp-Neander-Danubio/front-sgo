@@ -22,7 +22,7 @@ import { IconePermutar } from '../../componentesFicha/registrosMedicos/icones/ic
 import { IconeMore } from '../../componentesFicha/registrosMedicos/icones/iconeMais/IconeMore';
 import { handleSortByPostoGrad } from '../../../types/typesMilitar';
 import { useRequisitos } from '../../../context/requisitosContext/useRequesitos';
-import { useEvents } from '../../../context/eventContext/useEvents';
+import { useOperacao } from '../../../context/eventContext/useOperacao';
 
 interface ICard extends CardProps {
   services: Service[];

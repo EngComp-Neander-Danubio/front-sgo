@@ -26,7 +26,7 @@ import {
 } from '../../../types/typesMilitar';
 import { ModalFormAddMilitar } from '../formEfetivo/ModalFormAddMilitar';
 import React from 'react';
-import { useEvents } from '../../../context/eventContext/useEvents';
+import { useOperacao } from '../../../context/eventContext/useOperacao';
 interface IAccordion {
   isEditing: boolean;
 }
@@ -68,9 +68,9 @@ export const AccordionItemEfetivo: React.FC<IAccordion> = ({ isEditing }) => {
     onOpen: onOpenFormAddMilitarEditing,
     onClose: onCloseFormAddMilitarEditing,
   } = useDisclosure();
-  const { eventById } = useEvents();
+  const { OperacaoById } = useOperacao();
   const handlePM = async () : Promise<void> => {
-    sendPMToBackendEmLote(pms, eventById?.id ? eventById?.id : '')
+    sendPMToBackendEmLote(pms, OperacaoById?.id ? OperacaoById?.id : '')
   }
   const columns: Array<ColumnProps<DataEfetivo>> = [
     {
@@ -114,7 +114,7 @@ export const AccordionItemEfetivo: React.FC<IAccordion> = ({ isEditing }) => {
                 }}
               />
             </span>
-            <span key={`edit-${column.key}`}>
+            {/* <span key={`edit-${column.key}`}>
               <IconeEditar label_tooltip={record.nome_completo}
               onOpen={
                 () => {
@@ -123,7 +123,7 @@ export const AccordionItemEfetivo: React.FC<IAccordion> = ({ isEditing }) => {
 
               }}
               />
-            </span>
+            </span> */}
           </Flex>
         );
       },
@@ -205,6 +205,8 @@ export const AccordionItemEfetivo: React.FC<IAccordion> = ({ isEditing }) => {
                       variant="ghost"
                       color={'#fff'}
                       onClick={onOpenModalSolicitarMilitares}
+                      isDisabled
+
                     >
                       Solicitar Militares
                     </Button>

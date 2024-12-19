@@ -4,14 +4,12 @@ import React, {
   ReactNode,
   useMemo,
   useCallback,
-  useEffect,
 } from 'react';
 
 import { useToast } from '@chakra-ui/react';
 import { readString } from 'react-papaparse';
 import api from '../../services/api';
 import { optionsModalidade } from '../../types/typesModalidade';
-import { useEvents } from '../eventContext/useEvents';
 export type Posto = {
   columns?: string[];
   registers?: { [key: string]: any }[];

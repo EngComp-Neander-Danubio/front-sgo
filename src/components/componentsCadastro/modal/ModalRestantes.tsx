@@ -42,7 +42,7 @@ export const ModalRestantes: React.FC<IModal> = ({
         lastDataIndexMilitar,
         loadLessMilitar,
         loadMoreMilitar,
-        deletePMByCGO,
+
       } = useMilitares();
       const columns: Array<ColumnProps<DataEfetivo>> = [
         {
@@ -76,7 +76,7 @@ export const ModalRestantes: React.FC<IModal> = ({
                     label_tooltip={record.nome_completo}
                     handleDelete={async () => {
                       if (index !== undefined && index !== -1) {
-                        await deletePMByCGO(record.id, index.toString());
+                        //await deletePMByCGO(record.id, index.toString());
                       } else {
                         console.error(
                           'Índice não encontrado para o registro',

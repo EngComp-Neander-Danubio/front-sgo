@@ -9,11 +9,12 @@ import React, {
 
 import { useToast } from '@chakra-ui/react';
 import api from '../../services/api';
+import { formatDate, normalizeDate } from '../../utils/utils';
 
-export interface Event {
-  id: string;
+export interface Operacao {
+  id?: string;
   nomeOperacao: string;
-  comandante: number;
+  comandante: string;
   dataInicio: Date;
   dataFinal: Date;
 }
@@ -24,16 +25,16 @@ interface Militar {
   unidade_uni_sigla: string;
 }
 
-export interface IContextEventsData {
-  events: Event[];
-  eventById: Event | undefined;
-  uploadEvent: (data: Event) => Promise<void>;
-  loadEvents: (param?: string) => Promise<void>;
-  loadEventsById: (id: string) => Promise<void>;
-  updateEvent: (data: Event, id: string) => Promise<void>;
-  deleteEvent: (id: string) => Promise<void>;
-  loadMoreEvents: () => void;
-  loadLessEvents: () => void;
+export interface IContextOperacaosData {
+  Operacaos: Operacao[];
+  OperacaoById: Operacao | undefined;
+  uploadOperacao: (data: Operacao) => Promise<void>;
+  loadOperacaos: (param?: string) => Promise<void>;
+  loadOperacaosById: (id: string) => Promise<void>;
+  updateOperacao: (data: Operacao, id: string) => Promise<void>;
+  deleteOperacao: (id: string) => Promise<void>;
+  loadMoreOperacaos: () => void;
+  loadLessOperacaos: () => void;
   currentDataIndex: number;
   dataPerPage: number;
   lastDataIndex: number;
@@ -41,29 +42,28 @@ export interface IContextEventsData {
   totalData: number;
 }
 
-export const EventsContext = createContext<IContextEventsData | undefined>(
+export const OperacaosContext = createContext<IContextOperacaosData | undefined>(
   undefined,
 );
 
-export const EventsProvider: React.FC<{ children: ReactNode }> = ({
+export const OperacaosProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
   const toast = useToast();
-  const [events, setEvents] = useState<Event[]>([]);
-  const [eventById, setEventById] = useState<Event | undefined>(undefined);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [Operacaos, setOperacaos] = useState<Operacao[]>([]);
+  const [OperacaoById, setOperacaoById] = useState<Operacao | undefined>(undefined);
   const [currentDataIndex, setCurrentDataIndex] = useState(0);
   const [dataPerPage] = useState(8);
   const lastDataIndex = (currentDataIndex + 1) * dataPerPage;
   const firstDataIndex = lastDataIndex - dataPerPage;
-  const totalData = events.length;
-  const currentData = events.slice(firstDataIndex, lastDataIndex);
-  const hasMore = lastDataIndex < events.length;
+  const totalData = Operacaos.length;
+  const currentData = Operacaos.slice(firstDataIndex, lastDataIndex);
+  const hasMore = lastDataIndex < Operacaos.length;
   useEffect(() => {
-    loadEvents();
+    loadOperacaos();
   }, []);
 
-  const loadMoreEvents = () => {
+  const loadMoreOperacaos = () => {
     if (hasMore) {
       setCurrentDataIndex(prevIndex => prevIndex + 1);
     } else {
@@ -78,7 +78,7 @@ export const EventsProvider: React.FC<{ children: ReactNode }> = ({
     }
   };
 
-  const loadLessEvents = () => {
+  const loadLessOperacaos = () => {
     if (firstDataIndex > 0) {
       setCurrentDataIndex(prevIndex => prevIndex - 1);
     } else {
@@ -93,19 +93,19 @@ export const EventsProvider: React.FC<{ children: ReactNode }> = ({
     }
   };
 
-  const uploadEvent = useCallback(
-    async (data: Event) => {
-      setIsLoading(true);
+  const uploadOperacao = useCallback(
+    async (data: Operacao) => {
       try {
-        await api.post('/operacao', data);
+        const response = await api.post('/operacao', data);
         toast({
           title: 'Sucesso',
-          description: 'Evento/Operação criada com sucesso',
+          description: 'Operação criada com sucesso',
           status: 'success',
           position: 'top-right',
           duration: 9000,
           isClosable: true,
         });
+        setOperacaoById((response.data as unknown) as Operacao);
       } catch (error) {
         //console.error('error:', error);
         toast({
@@ -117,7 +117,6 @@ export const EventsProvider: React.FC<{ children: ReactNode }> = ({
           isClosable: true,
         });
       } finally {
-        setIsLoading(false);
       }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -141,10 +140,10 @@ export const EventsProvider: React.FC<{ children: ReactNode }> = ({
       console.error('Error fetching data:', error);
     }
   };
-  const loadEvents = useCallback(async (param?: string) => {
+  const loadOperacaos = useCallback(async (param?: string) => {
     const parameters = param || '';
     try {
-      const response = await api.get<Event[]>(`operacoes/${parameters}`);
+      const response = await api.get<Operacao[]>(`operacoes/${parameters}`);
       const datasFormatted = await Promise.all(
         response.data.map(async item => {
           const v = await load(item.comandante);
@@ -166,42 +165,31 @@ export const EventsProvider: React.FC<{ children: ReactNode }> = ({
           };
         }),
       );
-      setEvents((datasFormatted as unknown) as Event[]);
+      setOperacaos((datasFormatted as unknown) as Operacao[]);
     } catch (error) {
       console.error('Falha ao carregar as Operações:', error);
     }
   }, []);
 
-  const loadEventsById = useCallback(
+  const loadOperacaosById = useCallback(
     async (id: string) => {
-      setIsLoading(true);
-      setEventById(events.find(e => e.id === id));
+      setOperacaoById(Operacaos.find(e => e.id === id));
     },
-    [events],
+    [Operacaos],
   );
-  const updateEvent = useCallback(
-    async (data: Event, id: string) => {
-      setIsLoading(true);
+  const updateOperacao = useCallback(
+    async (data: Operacao, id: string) => {
       try {
-        const dados = {
-          ...data,
-          dataFinal: new Date(data.dataFinal).toLocaleDateString('pt-BR', {
-            day: '2-digit',
-            month: '2-digit',
-            year: 'numeric',
-          }),
-          dataInicio: new Date(data.dataInicio).toLocaleDateString('pt-BR', {
-            day: '2-digit',
-            month: '2-digit',
-            year: 'numeric',
-          }),
-
-        }
-        await api.put(`/edit-operacao`, dados, {
-          params: {
-            id: id,
-          }});
-        // await loadTasks();
+        const editOperacao = {
+          editOperacao: {
+                  nomeOperacao: data.nomeOperacao,
+                    comandante: data.comandante,
+                    dataInicio: formatDate(data.dataInicio),
+                    dataFinal: formatDate(data.dataFinal),
+                  }
+                }
+        const response =  await api.put(`/edit-operacao?=${id}`, editOperacao
+          );
         toast({
           title: 'Sucesso',
           description: 'Operação atualizada com sucesso',
@@ -210,7 +198,7 @@ export const EventsProvider: React.FC<{ children: ReactNode }> = ({
           duration: 9000,
           isClosable: true,
         });
-        setEventById((null as unknown) as Event);
+        setOperacaoById((response.data as unknown) as Operacao);
       } catch (error) {
         toast({
           title: 'Erro',
@@ -221,15 +209,13 @@ export const EventsProvider: React.FC<{ children: ReactNode }> = ({
           isClosable: true,
         });
       } finally {
-        setIsLoading(false);
       }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [],
   );
-  const deleteEvent = useCallback(
+  const deleteOperacao = useCallback(
     async (id: string) => {
-      setIsLoading(true);
       try {
         await api.delete(`/delete-operacao`, {
           params: {
@@ -255,7 +241,7 @@ export const EventsProvider: React.FC<{ children: ReactNode }> = ({
           isClosable: true,
         });
       } finally {
-        setIsLoading(false);
+
       }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -263,15 +249,15 @@ export const EventsProvider: React.FC<{ children: ReactNode }> = ({
   );
   const contextValue = useMemo(
     () => ({
-      uploadEvent,
-      loadEvents,
-      updateEvent,
-      deleteEvent,
-      loadEventsById,
-      loadLessEvents,
-      loadMoreEvents,
-      events: currentData,
-      eventById,
+      uploadOperacao,
+      loadOperacaos,
+      updateOperacao,
+      deleteOperacao,
+      loadOperacaosById,
+      loadLessOperacaos,
+      loadMoreOperacaos,
+      Operacaos: currentData,
+      OperacaoById,
       totalData,
       firstDataIndex,
       lastDataIndex,
@@ -279,15 +265,15 @@ export const EventsProvider: React.FC<{ children: ReactNode }> = ({
       dataPerPage,
     }),
     [
-      uploadEvent,
-      loadEvents,
-      updateEvent,
-      deleteEvent,
-      loadEventsById,
-      loadLessEvents,
-      loadMoreEvents,
-      events,
-      eventById,
+      uploadOperacao,
+      loadOperacaos,
+      updateOperacao,
+      deleteOperacao,
+      loadOperacaosById,
+      loadLessOperacaos,
+      loadMoreOperacaos,
+      Operacaos,
+      OperacaoById,
       totalData,
       firstDataIndex,
       lastDataIndex,
@@ -297,8 +283,8 @@ export const EventsProvider: React.FC<{ children: ReactNode }> = ({
   );
 
   return (
-    <EventsContext.Provider value={contextValue}>
+    <OperacaosContext.Provider value={contextValue}>
       {children}
-    </EventsContext.Provider>
+    </OperacaosContext.Provider>
   );
 };

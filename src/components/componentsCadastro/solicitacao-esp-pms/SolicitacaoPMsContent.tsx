@@ -463,7 +463,7 @@ export const SolicitacaoPMsContent: React.FC<IFlexCadastrar> = ({
         onOpen={onOpenFormAddMilitar}
         onClose={onCloseFormAddMilitar}
         uploadPM={loadPMByOPM}
-      />
+        isEditing={false}      />
     </>
   );
 };

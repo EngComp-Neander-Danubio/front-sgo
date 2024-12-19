@@ -1,5 +1,5 @@
 import React from 'react';
-import { useEvents } from '../../../context/eventContext/useEvents';
+import { useOperacao } from '../../../context/eventContext/useOperacao';
 import { Pagination } from '../pagination/Pagination';
 import { Flex } from '@chakra-ui/react';
 
@@ -19,17 +19,17 @@ type Data = {
 
 export const ToListEventsContent: React.FC = () => {
   const {
-    loadEventsById,
-    deleteEvent,
-    events,
-    eventById,
-    loadLessEvents,
-    loadMoreEvents,
+    loadOperacaosById,
+    deleteOperacao,
+    Operacaos,
+    OperacaoById,
+    loadLessOperacaos,
+    loadMoreOperacaos,
     totalData,
     firstDataIndex,
     lastDataIndex,
     dataPerPage,
-  } = useEvents();
+  } = useOperacao();
   const navigate = useNavigate();
   const columns: Array<ColumnProps<Data>> = [
     /* {
@@ -80,7 +80,7 @@ export const ToListEventsContent: React.FC = () => {
               label_tooltip={`${record.nomeOperacao}`}
               handleDelete={async () => {
                 const idSolicitacao = record.id;
-                await deleteEvent(idSolicitacao);
+                await deleteOperacao(idSolicitacao);
               }}
             />
             <IconeEditar
@@ -88,7 +88,7 @@ export const ToListEventsContent: React.FC = () => {
               label_tooltip={`${record.nomeOperacao}`}
               onOpen={async () => {
                 const idSolicitacao = record.id;
-                await loadEventsById(idSolicitacao);
+                await loadOperacaosById(idSolicitacao);
                 navigate(`/editar-operacao/${idSolicitacao}`);
               }}
             />
@@ -104,14 +104,14 @@ export const ToListEventsContent: React.FC = () => {
         flexDirection={'column'}
         w={'100%'}
       >
-        <TableMain data={events} columns={columns} />
+        <TableMain data={Operacaos} columns={columns} />
         <Pagination
           totalPages={totalData}
           dataPerPage={dataPerPage}
           firstDataIndex={firstDataIndex}
           lastDataIndex={lastDataIndex}
-          loadLess={loadLessEvents}
-          loadMore={loadMoreEvents}
+          loadLess={loadLessOperacaos}
+          loadMore={loadMoreOperacaos}
         />
       </Flex>
     </>

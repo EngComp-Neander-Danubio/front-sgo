@@ -6,7 +6,7 @@ import { AuthProvider } from './context/AuthProvider/index.tsx';
 import { PostosProvider } from './context/postosContext/PostosContex.tsx';
 import { MilitaresProvider } from './context/militaresContext/MilitarContext.tsx';
 import { RequisitosProvider } from './context/requisitosContext/RequisitosContext.tsx';
-import { EventsProvider } from './context/eventContext/EventsContex.tsx';
+import { OperacaosProvider } from './context/eventContext/OperacaoContex.tsx';
 import { TotalEfetivoOPMsProvider } from './context/efetivoOPMs/EfetivoOPMsContext.tsx';
 import { SolicitacoesPostosProvider } from './context/solicitacoesPostosContext/SolicitacoesPostosContex.tsx';
 import { SolicitacoesPMsProvider } from './context/solicitacoesPMsContext/SolicitacoesPMsContex.tsx';
@@ -31,7 +31,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
     <ChakraProvider theme={theme}>
       <AuthProvider>
         <IsOpenProvider>
-          <EventsProvider>
+          <OperacaosProvider>
             <SolicitacoesPostosProvider>
               <SolicitacoesPMsProvider>
                 <SolicitacoesOPMPostosProvider>
@@ -50,7 +50,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
                 </SolicitacoesOPMPostosProvider>
               </SolicitacoesPMsProvider>
             </SolicitacoesPostosProvider>
-          </EventsProvider>
+          </OperacaosProvider>
         </IsOpenProvider>
       </AuthProvider>
     </ChakraProvider>

@@ -33,25 +33,23 @@ export const DatePickerEvent: React.FC<IDatePicker> = ({
         //portalId="root-portal"
         popperPlacement="bottom"
         locale={ptBR}
-        timeCaption="Hora"
-        showTimeSelect
-        timeFormat="p"
-        timeIntervals={15}
+        //timeCaption="Hora"
+        //showTimeSelect
+        //timeFormat="p"
+        //timeIntervals={15}
         showPopperArrow
-        dateFormat="dd/MM/yyyy HH:mm"
+        //dateFormat="dd/MM/yyyy HH:mm"
+        dateFormat="dd/MM/yyyy"
         customInput={
           <FormControl isInvalid={!!error}>
             <InputGroup>
               <Input
                 value={
                   props.selected
-                    ? props.selected.toLocaleDateString('pt-BR', {
-                        hour: '2-digit',
-                        minute: '2-digit',
-                      })
+                    ? props.selected.toLocaleDateString('pt-BR')
                     : ''
                 }
-                placeholder="Selecione data e horário"
+                placeholder="Selecione data"
               />
               <InputRightElement>
                 <RiCalendarLine />

@@ -19,7 +19,7 @@ import { TdTable } from './td';
 import { IconeRelatorio, IconeEditar, IconeDeletar } from '../../ViewLogin';
 import { IconeBusca } from '../registrosMedicos/icones/iconeBusca';
 import { ModalFormAddEvent } from '../../componentsCadastro/modal/ModalFormAddEvent';
-import { useEvents } from '../../../context/eventContext/useEvents';
+import { useOperacao } from '../../../context/eventContext/useOperacao';
 import { Link, useNavigate } from 'react-router-dom';
 
 interface ITable {

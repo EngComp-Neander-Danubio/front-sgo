@@ -11,7 +11,7 @@ import {
 import { FormProvider, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { FormGrandeEvento } from '../formGrandeEvento/FormGrandeEvento';
-import { useEvents } from '../../../context/eventContext/useEvents';
+import { useOperacao } from '../../../context/eventContext/useOperacao';
 import { useEffect } from 'react';
 import { eventoSchema } from '../../../types/yupEvento/yupEvento';
 
@@ -33,7 +33,7 @@ export const ModalFormAddEvent: React.FC<IModal> = ({ isOpen, onClose }) => {
   const methodsInput = useForm<IForm>({
     resolver: yupResolver(eventoSchema),
   });
-  const { eventById, updateEvent } = useEvents();
+  const { eventById, updateEvent } = useOperacao();
 
   const { setValue, reset } = methodsInput;
   useEffect(() => {

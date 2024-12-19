@@ -22,8 +22,8 @@ import { IconeDeletar, IconeEditar } from '../../ViewLogin';
 import { ModalSolicitacarPostos } from '../modal/ModalSolicitarPostos';
 import { ModalFormAddPosto } from '../modal/ModalFormAddPosto';
 import { optionsModalidade } from '../../../types/typesModalidade';
-import { useEvents } from '../../../context/eventContext/useEvents';
-import { useEffect, useState } from 'react';
+import { useOperacao } from '../../../context/eventContext/useOperacao';
+import { useState } from 'react';
 interface IAccordion {
   isEditing: boolean;
 }
@@ -64,12 +64,12 @@ export const AccordionItemPostos: React.FC<IAccordion> = ({ isEditing }) => {
     onClose: onCloseModalSolicitarPostos,
   } = useDisclosure();
 
-  const { eventById } = useEvents();
+  const { OperacaoById } = useOperacao();
 
   const handlePostos = async (): Promise<void> => {
-    sendPostoToBackendEmLote(postosLocal, eventById?.id ? eventById?.id : '');
+    sendPostoToBackendEmLote(postosLocal, OperacaoById?.id ? OperacaoById?.id : '');
   };
-  useEffect(()=>{},[postosLocal.length, loadingOnePostoToEditInTable])
+  //useEffect(()=>{},[postosLocal.length, loadingOnePostoToEditInTable])
   const columns: Array<ColumnProps<DataPostos>> = [
     {
       key: 'local',
@@ -80,12 +80,12 @@ export const AccordionItemPostos: React.FC<IAccordion> = ({ isEditing }) => {
       title: 'Endereço',
     },
     {
-      key: 'bairro',
-      title: 'Bairro',
-    },
-    {
       key: 'numero',
       title: 'Número',
+    },
+    {
+      key: 'bairro',
+      title: 'Bairro',
     },
     {
       key: 'cidade',
@@ -219,6 +219,7 @@ export const AccordionItemPostos: React.FC<IAccordion> = ({ isEditing }) => {
                       variant="ghost"
                       color={'#fff'}
                       onClick={onOpenModalSolicitarPostos}
+                      isDisabled
                     >
                       Solicitar Postos
                     </Button>

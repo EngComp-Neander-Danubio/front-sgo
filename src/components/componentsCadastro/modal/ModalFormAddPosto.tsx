@@ -17,7 +17,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useEffect } from 'react';
 import { usePostos } from '../../../context/postosContext/usePostos';
 import { optionsModalidade } from '../../../types/typesModalidade';
-import { useEvents } from '../../../context/eventContext/useEvents';
+import { useOperacao } from '../../../context/eventContext/useOperacao';
 import { da } from 'date-fns/locale';
 import { FormPostoEditing } from '../formPosto/FormPostoEditing';
 
@@ -40,14 +40,14 @@ export const ModalFormAddPosto: React.FC<IModal> = ({
   });
   const { reset, setValue } = methodsInput;
   const {postoById} = usePostos();
-  const { eventById } = useEvents();
+  const { OperacaoById } = useOperacao();
   const onSubmit = async (data: PostoForm) => {
     console.log('postos', data)
-    if(postoById?.id && eventById?.id && isEditing){
-      uploadPosto(data, eventById?.id, Number(postoById.id));
+    if(postoById?.id && OperacaoById?.id && isEditing){
+      uploadPosto(data, OperacaoById?.id, Number(postoById.id));
     }
-      else if(eventById?.id){
-        uploadPosto(data, eventById.id)
+      else if(OperacaoById?.id){
+        uploadPosto(data, OperacaoById.id)
     }
     onClose();
     reset();

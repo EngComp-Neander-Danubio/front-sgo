@@ -79,7 +79,7 @@ const TableMain = <T,>({ data, columns }: Props<T>) => {
           transitionDuration="1.0s"
           //h={headers.length > 0 ? `30vh` : 'fit-content'}
           h={'fit-content'}
-          maxH={'30vh'}
+          maxH={'60vh'}
           //minH={'30vh'}
           //overflowY={'auto'}
           mb={10}

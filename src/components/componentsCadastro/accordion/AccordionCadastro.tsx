@@ -4,7 +4,7 @@ import { AccordionItemPostos } from './AccordionItemPostos';
 import { AccordionItemEfetivo } from './AccordionItemEfetivo';
 import { AccordionItemEscala } from './AccordionItemEscala';
 import { AccordionItemOperacao } from './AccordionItemOperacao';
-import { useEvents } from '../../../context/eventContext/useEvents';
+import { useOperacao } from '../../../context/eventContext/useOperacao';
 interface IAccordion extends AccordionProps {
   handleSubmit: () => void;
   isOpen: boolean;
@@ -18,7 +18,7 @@ interface IForm extends FlexboxProps {
   dataFinal: Date;
 }
 export const AccordinCadastro: React.FC<IAccordion> = ({ isOpen }) => {
-  const { eventById } = useEvents();
+  const { OperacaoById } = useOperacao();
 
   return (
     <>
@@ -34,7 +34,7 @@ export const AccordinCadastro: React.FC<IAccordion> = ({ isOpen }) => {
         //border={'1px solid black'}
       >
         <AccordionItemOperacao isEditing={false} />
-        {eventById?.id && (
+        {OperacaoById?.id && (
           <>
           <AccordionItemPostos isEditing={false} />
           <AccordionItemEfetivo isEditing={false} />

@@ -67,7 +67,6 @@ export const MilitaresProvider: React.FC<{ children: ReactNode }> = ({
   const [militares, setMilitares] = useState<Militares_service[]>([]);
   const [militaresByAPI, setMilitaresByAPI] = useState<Militar[]>([]);
   const [militarById, setMilitarById] = useState<Militar | undefined>(undefined);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [pms, setPMs] = useState<Militar[]>([]);
 
   const [currentDataIndex, setCurrentDataIndex] = useState(0);
@@ -111,7 +110,6 @@ export const MilitaresProvider: React.FC<{ children: ReactNode }> = ({
     }
   };
   const loadPMForAccordion = (data: Militar) => {
-    console.log(data);
     setPMs(prevArray => [...prevArray, data]);
   };
   const loadPMToPlanilha = (data: Militar) => {
@@ -162,7 +160,6 @@ export const MilitaresProvider: React.FC<{ children: ReactNode }> = ({
                   }
       ),
     };
-    console.log(militares);
 
     try {
       await api.post('/salvar-pms', militares);
@@ -350,7 +347,6 @@ export const MilitaresProvider: React.FC<{ children: ReactNode }> = ({
 
   const loadMilitarById = useCallback(
     async (id: string) => {
-      setIsLoading(true);
       setMilitarById(militares.find(e => e.id === id));
     },
     [militares],
@@ -360,12 +356,9 @@ export const MilitaresProvider: React.FC<{ children: ReactNode }> = ({
       setMilitarById(data)
     } catch (err) {
     }
-
   };
 
   const loadMilitaresByAPI = useCallback(async (id: string) => {
-    setIsLoading(true);
-    //const parameters = param !== undefined ? param : '';
     try {
       const response = await api.get<{ items: Militar[] }>(
         `/operacao/${id}/militares`,
@@ -383,12 +376,10 @@ export const MilitaresProvider: React.FC<{ children: ReactNode }> = ({
     } catch (error) {
       console.error('Falha ao carregar os Postos:', error);
     } finally {
-      setIsLoading(false);
     }
   }, []);
 
   const loadMilitarBySAPM = useCallback(async (param?: string) => {
-    setIsLoading(true);
     const parameters = param !== undefined ? param : '';
     try {
       const response = await api.get<{ items: Militares_service[] }>(
@@ -407,16 +398,13 @@ export const MilitaresProvider: React.FC<{ children: ReactNode }> = ({
     } catch (error) {
       console.error('Falha ao carregar os eventos/operações:', error);
     } finally {
-      setIsLoading(false);
     }
   }, []);
   const uploadMilitar = useCallback(
     async (data: Militares_service) => {
-      setIsLoading(true);
-
       try {
         const response = await api.post('/militares', data);
-        console.log('resposta: ', response.data);
+        //console.log('resposta: ', response.data);
         toast({
           title: 'Sucesso',
           description: 'Militar salvo com sucesso',
@@ -428,7 +416,6 @@ export const MilitaresProvider: React.FC<{ children: ReactNode }> = ({
       } catch (error) {
         console.error('error:', error);
       } finally {
-        setIsLoading(false);
       }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -436,7 +423,6 @@ export const MilitaresProvider: React.FC<{ children: ReactNode }> = ({
   );
   const updateMilitar = useCallback(
     async (data: Militar, id: string) => {
-      setIsLoading(true);
       try {
         await api.put(`/operacao/${id}`, data);
         // await loadTasks();
@@ -460,7 +446,6 @@ export const MilitaresProvider: React.FC<{ children: ReactNode }> = ({
           isClosable: true,
         });
       } finally {
-        setIsLoading(false);
       }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -468,8 +453,6 @@ export const MilitaresProvider: React.FC<{ children: ReactNode }> = ({
   );
   const uploadMilitaresEmLote = useCallback(
     async (data: Militares_service[]) => {
-      setIsLoading(true);
-      //console.log('Chamou o post de evento', data);
       try {
         const response = await api.post('/militares', data);
         console.log('resposta: ', response.data);
@@ -484,7 +467,6 @@ export const MilitaresProvider: React.FC<{ children: ReactNode }> = ({
       } catch (error) {
         console.error('error:', error);
       } finally {
-        setIsLoading(false);
       }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -493,13 +475,12 @@ export const MilitaresProvider: React.FC<{ children: ReactNode }> = ({
 
   const deletePMFromTable = useCallback(
     async (id?: string, index?: string) => {
-      setIsLoading(true);
 
       // Caso o posto venha do backend (tem id)
-      if (id) {
+      if (id !== undefined && index !== undefined) {
         try {
           console.log('delete com id');
-          await api.delete(`/pms-opm/${id}`);
+          await api.delete(`/deletar-pm/${id}`);
 
           // Exibe o toast de sucesso
           toast({
@@ -522,12 +503,12 @@ export const MilitaresProvider: React.FC<{ children: ReactNode }> = ({
             isClosable: true,
           });
         } finally {
-          setIsLoading(false);
+
         }
       }
       // Caso o posto esteja apenas no estado local (não tem id)
       else if (index) {
-        //console.log('delete com index');
+        console.log('delete com index');
         // Cálculo correto do índice considerando a página atual
         const indexDeletedOpm =
           currentDataIndex * (lastDataIndexMilitar - firstDataIndexMilitar) +
@@ -543,7 +524,6 @@ export const MilitaresProvider: React.FC<{ children: ReactNode }> = ({
             isClosable: true,
             position: 'top-right',
           });
-          setIsLoading(false);
           return;
         }
         // Remove o posto do estado local
@@ -560,8 +540,6 @@ export const MilitaresProvider: React.FC<{ children: ReactNode }> = ({
             position: 'top-right',
           });
         }
-
-        setIsLoading(false);
       }
     },
     [pms, currentDataIndex, currentData.length],
@@ -594,7 +572,7 @@ export const MilitaresProvider: React.FC<{ children: ReactNode }> = ({
       deletePMFromTable,
       loadPMToPlanilha,
       loadingOnePMToEditInTable,
-      sendPMToBackendEmLote,loadPMsFromToBackend
+      sendPMToBackendEmLote,loadPMsFromToBackend,editingOnePostoInTable
     }),
     [
       militares,
@@ -622,7 +600,7 @@ export const MilitaresProvider: React.FC<{ children: ReactNode }> = ({
       deletePMFromTable,
       loadPMToPlanilha,
       loadingOnePMToEditInTable,
-      sendPMToBackendEmLote,loadPMsFromToBackend
+      sendPMToBackendEmLote,loadPMsFromToBackend,editingOnePostoInTable
     ],
   );
 

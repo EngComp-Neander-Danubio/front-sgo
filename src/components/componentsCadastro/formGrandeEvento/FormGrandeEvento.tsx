@@ -8,7 +8,7 @@ import AsyncSelectComponent from '../formEfetivo/AsyncSelectComponent';
 import { OptionsOrGroups, GroupBase } from 'react-select';
 import debounce from 'debounce-promise';
 import api from '../../../services/api';
-import { useEvents } from '../../../context/eventContext/useEvents';
+import { useOperacao } from '../../../context/eventContext/useOperacao';
 
 interface IFormProps extends FlexboxProps {
   widthSelect?: string;
@@ -31,7 +31,7 @@ export const FormGrandeEvento: React.FC<IFormProps> = ({
   const { control, setValue } = useFormContext();
   const [startDate, setStartDate] = useState<Date>();
   const [endDate, setEndDate] = useState<Date>();
-  const { eventById } = useEvents();
+  const { eventById } = useOperacao();
   useEffect(() => {
     console.log('dentro do form',name_militar, eventById?.comandante)
     if(isEditing) setValue('comandante', name_militar)

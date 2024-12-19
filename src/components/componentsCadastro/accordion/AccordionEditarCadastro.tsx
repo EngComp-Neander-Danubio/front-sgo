@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { eventoSchema } from '../../../types/yupEvento/yupEvento';
 import React, { useEffect } from 'react';
-import { useEvents } from '../../../context/eventContext/useEvents';
+import { useOperacao } from '../../../context/eventContext/useOperacao';
 import { AccordionItemEfetivo } from './AccordionItemEfetivo';
 import { AccordionItemEscala } from './AccordionItemEscala';
 import { AccordionItemOperacao } from './AccordionItemOperacao';
@@ -19,15 +19,15 @@ interface IAccordion extends AccordionProps {
 
 
 export const AccordinEditarCadastro: React.FC<IAccordion> = ({ isOpen }) => {
-  const { eventById } = useEvents();
+  const { OperacaoById } = useOperacao();
   const {postosLocal} = usePostos();
   const {pms,loadPMsFromToBackend} = useMilitares();
   const { loadPostosFromToBackend} = usePostos();
   useEffect(() => {
     //loadPostosFromToBackend();
-    loadPostosFromToBackend(`${eventById?.id}`);
-    loadPMsFromToBackend(`${eventById?.id}`);
-  }, [eventById]);
+    loadPostosFromToBackend(`${OperacaoById?.id}`);
+    loadPMsFromToBackend(`${OperacaoById?.id}`);
+  }, [OperacaoById]);
 
   return (
     <>
@@ -43,8 +43,8 @@ export const AccordinEditarCadastro: React.FC<IAccordion> = ({ isOpen }) => {
         h={'full'}
         //border={'1px solid black'}
       >
-        <AccordionItemOperacao isEditing={true} />
-        {eventById?.id && (
+        <AccordionItemOperacao isEditing />
+        {OperacaoById?.id && (
           <>
           <AccordionItemPostos isEditing />
           </>

@@ -56,6 +56,7 @@ export const FormEfetivoBySearch: React.FC<IFormProps> = ({
           option.pes_nome.toLowerCase().includes(pes_nome.toLowerCase()),
         )
         .map(option => ({
+          //label: `${option.gra_nome} PM ${option.pes_nome}`,
           label: `${option.gra_nome} PM ${option.pes_nome} - Matrícula: ${option.pes_codigo} - Unidade: ${option.unidade_uni_sigla}`,
           value: (option.pes_codigo as unknown) as string,
         }));
