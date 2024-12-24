@@ -12,9 +12,9 @@ import api from '../../services/api';
 import { formatDate, normalizeDate } from '../../utils/utils';
 
 export interface Operacao {
-  id?: string;
+  id: string;
   nomeOperacao: string;
-  comandante: string;
+  comandante: number;
   dataInicio: Date;
   dataFinal: Date;
 }

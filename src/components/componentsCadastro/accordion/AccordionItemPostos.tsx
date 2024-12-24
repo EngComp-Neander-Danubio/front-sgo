@@ -116,7 +116,7 @@ export const AccordionItemPostos: React.FC<IAccordion> = ({ isEditing }) => {
 
         return (
           <Flex flexDirection="row" gap={2}>
-            <span key={`delete-${record.id ?? index}`}>
+            <span>
               <IconeDeletar
                 label_tooltip={record.local}
                 handleDelete={async () => {
@@ -132,7 +132,7 @@ export const AccordionItemPostos: React.FC<IAccordion> = ({ isEditing }) => {
                 }}
               />
             </span>
-            <span key={`edit-${record.id ?? index}`}>
+            <span>
               <IconeEditar label_tooltip={record.local}
                 onOpen={
                   () => {
