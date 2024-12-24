@@ -50,6 +50,7 @@ export const ToListEventsContent: React.FC = () => {
               id: id,
             },
           });
+          setOperacaos(prevOperacaos => prevOperacaos.filter(op => op.id !== id));
           toast({
             title: 'Sucesso',
             description: 'Operação deletada com sucesso',
@@ -185,7 +186,7 @@ export const ToListEventsContent: React.FC = () => {
         return (
           <Flex flexDirection={'row'} gap={2}>
             <IconeDeletar
-              key={`${record.id}`}
+              //key={`${record.id}`}
               label_tooltip={`${record.nomeOperacao}`}
               handleDelete={async () => {
                 const idSolicitacao = record.id;
@@ -193,7 +194,7 @@ export const ToListEventsContent: React.FC = () => {
               }}
             />
             <IconeEditar
-              key={`${record.id}`}
+             // key={`${record.id}`}
               label_tooltip={`${record.nomeOperacao}`}
               onOpen={async () => {
                 const idSolicitacao = record.id;
