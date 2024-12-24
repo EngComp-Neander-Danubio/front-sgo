@@ -24,7 +24,7 @@ export function LoginForm() {
         title: 'Erro ao fazer login',
         description: 'Verifique suas credenciais e tente novamente.',
         status: 'error',
-        duration: 9000,
+        duration: 2000,
         isClosable: true,
         position: 'top',
       });

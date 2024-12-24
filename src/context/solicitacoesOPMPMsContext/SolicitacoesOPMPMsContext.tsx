@@ -84,7 +84,7 @@ export const SolicitacoesOPMPMsProvider: React.FC<{
           description: 'PM adicionado com sucesso',
           status: 'success',
           position: 'top-right',
-          duration: 5000,
+          duration: 2000,
           isClosable: true,
         });
       } else {
@@ -93,7 +93,7 @@ export const SolicitacoesOPMPMsProvider: React.FC<{
           description: 'PM já foi adicionado',
           status: 'warning',
           position: 'top-right',
-          duration: 5000,
+          duration: 2000,
           isClosable: true,
         });
       }
@@ -103,7 +103,7 @@ export const SolicitacoesOPMPMsProvider: React.FC<{
         description: 'Falha ao inserir PM',
         status: 'error',
         position: 'top-right',
-        duration: 5000,
+        duration: 2000,
         isClosable: true,
       });
     }
@@ -133,7 +133,7 @@ export const SolicitacoesOPMPMsProvider: React.FC<{
             description: 'PM(s) adicionado(s) com sucesso',
             status: 'success',
             position: 'top-right',
-            duration: 5000,
+            duration: 2000,
             isClosable: true,
           });
         } else {
@@ -142,7 +142,7 @@ export const SolicitacoesOPMPMsProvider: React.FC<{
             description: 'Todos os PMs já existem, não serão adicionados:',
             status: 'warning',
             position: 'top-right',
-            duration: 5000,
+            duration: 2000,
             isClosable: true,
           });
         }
@@ -165,7 +165,7 @@ export const SolicitacoesOPMPMsProvider: React.FC<{
         title: 'Fim dos dados',
         description: 'Não há mais PPMM para carregar.',
         status: 'info',
-        duration: 3000,
+        duration: 2000,
         isClosable: true,
         position: 'top',
       });
@@ -181,7 +181,7 @@ export const SolicitacoesOPMPMsProvider: React.FC<{
         title: 'Início dos dados',
         description: 'Você está na primeira página.',
         status: 'info',
-        duration: 3000,
+        duration: 2000,
         isClosable: true,
         position: 'top',
       });
@@ -242,7 +242,7 @@ export const SolicitacoesOPMPMsProvider: React.FC<{
             description: 'Posto deletado com sucesso',
             status: 'success',
             position: 'top-right',
-            duration: 9000,
+            duration: 2000,
             isClosable: true,
           });
         } catch (error) {
@@ -253,7 +253,7 @@ export const SolicitacoesOPMPMsProvider: React.FC<{
             description: 'Falha ao deletar o posto',
             status: 'error',
             position: 'top-right',
-            duration: 9000,
+            duration: 2000,
             isClosable: true,
           });
         } finally {
@@ -270,7 +270,7 @@ export const SolicitacoesOPMPMsProvider: React.FC<{
             title: 'Erro!',
             description: 'PM não encontrado na lista.',
             status: 'error',
-            duration: 5000,
+            duration: 2000,
             isClosable: true,
             position: 'top-right',
           });
@@ -286,7 +286,7 @@ export const SolicitacoesOPMPMsProvider: React.FC<{
             title: 'Exclusão de PM.',
             description: 'PM excluído com sucesso.',
             status: 'success',
-            duration: 5000,
+            duration: 2000,
             isClosable: true,
             position: 'top-right',
           });

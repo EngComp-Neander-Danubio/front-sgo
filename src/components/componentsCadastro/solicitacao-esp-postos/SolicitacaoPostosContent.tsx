@@ -127,7 +127,7 @@ export const SolicitacaoPostosContent: React.FC<ISolicitacaoPostosContent> = pro
             description: `${newPostos.length} posto(s) carregado(s) com sucesso.`,
             status: 'success',
             position: 'top-right',
-            duration: 5000,
+            duration: 2000,
             isClosable: true,
           });
         } else {
@@ -136,7 +136,7 @@ export const SolicitacaoPostosContent: React.FC<ISolicitacaoPostosContent> = pro
             description: 'Todos os postos do CSV já existem.',
             status: 'warning',
             position: 'top-right',
-            duration: 5000,
+            duration: 2000,
             isClosable: true,
           });
         }
@@ -152,7 +152,7 @@ export const SolicitacaoPostosContent: React.FC<ISolicitacaoPostosContent> = pro
         title: 'Fim dos dados',
         description: 'Não há mais postos para carregar.',
         status: 'info',
-        duration: 3000,
+        duration: 2000,
         isClosable: true,
         position: 'top',
       });
@@ -175,7 +175,7 @@ export const SolicitacaoPostosContent: React.FC<ISolicitacaoPostosContent> = pro
           description: 'Posto adicionado com sucesso',
           status: 'success',
           position: 'top-right',
-          duration: 5000,
+          duration: 2000,
           isClosable: true,
         });
       } else {
@@ -184,7 +184,7 @@ export const SolicitacaoPostosContent: React.FC<ISolicitacaoPostosContent> = pro
           description: 'Posto já foi adicionado',
           status: 'warning',
           position: 'top-right',
-          duration: 5000,
+          duration: 2000,
           isClosable: true,
         });
       }
@@ -194,7 +194,7 @@ export const SolicitacaoPostosContent: React.FC<ISolicitacaoPostosContent> = pro
         description: 'Falha ao inserir Posto',
         status: 'error',
         position: 'top-right',
-        duration: 5000,
+        duration: 2000,
         isClosable: true,
       });
     }
@@ -210,7 +210,7 @@ export const SolicitacaoPostosContent: React.FC<ISolicitacaoPostosContent> = pro
         title: 'Início dos dados',
         description: 'Você está na primeira página.',
         status: 'info',
-        duration: 3000,
+        duration: 2000,
         isClosable: true,
         position: 'top',
       });
@@ -261,7 +261,7 @@ export const SolicitacaoPostosContent: React.FC<ISolicitacaoPostosContent> = pro
             description: 'Posto deletado com sucesso',
             status: 'success',
             position: 'top-right',
-            duration: 5000,
+            duration: 2000,
             isClosable: true,
           });
         } catch (error) {
@@ -271,7 +271,7 @@ export const SolicitacaoPostosContent: React.FC<ISolicitacaoPostosContent> = pro
             description: 'Falha ao deletar o posto',
             status: 'error',
             position: 'top-right',
-            duration: 5000,
+            duration: 2000,
             isClosable: true,
           });
         } finally {
@@ -289,7 +289,7 @@ export const SolicitacaoPostosContent: React.FC<ISolicitacaoPostosContent> = pro
             title: 'Erro!',
             description: 'Posto não encontrado na lista.',
             status: 'error',
-            duration: 5000,
+            duration: 2000,
             isClosable: true,
             position: 'top-right',
           });
@@ -304,7 +304,7 @@ export const SolicitacaoPostosContent: React.FC<ISolicitacaoPostosContent> = pro
             title: 'Exclusão de Posto.',
             description: 'Posto excluído com sucesso.',
             status: 'success',
-            duration: 5000,
+            duration: 2000,
             isClosable: true,
             position: 'top-right',
           });
@@ -407,7 +407,7 @@ export const SolicitacaoPostosContent: React.FC<ISolicitacaoPostosContent> = pro
         description: 'Postos adicionados com sucesso',
         status: 'success',
         position: 'top-right',
-        duration: 5000,
+        duration: 2000,
         isClosable: true,
       });
     } catch (err) {
@@ -416,7 +416,7 @@ export const SolicitacaoPostosContent: React.FC<ISolicitacaoPostosContent> = pro
         description: 'Falha ao inserir Postos',
         status: 'error',
         position: 'top-right',
-        duration: 5000,
+        duration: 2000,
         isClosable: true,
       });
     }

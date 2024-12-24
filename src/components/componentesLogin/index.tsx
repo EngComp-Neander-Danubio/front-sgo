@@ -36,7 +36,7 @@ export const ViewLogin = () => {
                 title: "Sucesso!",
                 description: "Login realizado com sucesso.",
                 status: "success",
-                duration: 5000,
+                duration: 2000,
                 isClosable: true,
                 position: "top-right"
             });
@@ -50,7 +50,7 @@ export const ViewLogin = () => {
                     ? error.response.data.message
                     : "Verifique suas credenciais e tente novamente.",
                 status: "error",
-                duration: 5000,
+                duration: 2000,
                 isClosable: true,
                 position: "top-right"
             });

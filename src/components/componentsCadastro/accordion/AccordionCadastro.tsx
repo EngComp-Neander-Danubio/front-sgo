@@ -5,6 +5,8 @@ import { AccordionItemEfetivo } from './AccordionItemEfetivo';
 import { AccordionItemEscala } from './AccordionItemEscala';
 import { AccordionItemOperacao } from './AccordionItemOperacao';
 import { useOperacao } from '../../../context/eventContext/useOperacao';
+import { useMilitares } from '../../../context/militaresContext/useMilitares';
+import { usePostos } from '../../../context/postosContext/usePostos';
 interface IAccordion extends AccordionProps {
   handleSubmit: () => void;
   isOpen: boolean;
@@ -19,7 +21,8 @@ interface IForm extends FlexboxProps {
 }
 export const AccordinCadastro: React.FC<IAccordion> = ({ isOpen }) => {
   const { OperacaoById } = useOperacao();
-
+  const {postosLocal} = usePostos();
+  const {pms} = useMilitares();
   return (
     <>
       <Accordion
@@ -34,17 +37,21 @@ export const AccordinCadastro: React.FC<IAccordion> = ({ isOpen }) => {
         //border={'1px solid black'}
       >
         <AccordionItemOperacao isEditing={false} />
-        {OperacaoById?.id && (
-          <>
-          <AccordionItemPostos isEditing={false} />
-          <AccordionItemEfetivo isEditing={false} />
-          <AccordionItemEscala isEditing={false} />
 
-            {''}
-          </>
+        {OperacaoById?.id && (
+          <AccordionItemPostos isEditing={false} />
+        )}
+
+        {postosLocal.length > 0 && (
+          <AccordionItemEfetivo isEditing={false} />
+        )}
+
+        {pms.length > 0 && (
+          <AccordionItemEscala isEditing={false} />
         )}
 
       </Accordion>
     </>
   );
+
 };

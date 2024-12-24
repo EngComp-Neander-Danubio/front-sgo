@@ -135,7 +135,7 @@ export const TasksProvider: React.FC<{ children: ReactNode }> = ({
           description: "Tarefa atualizada com sucesso",
           status: "success",
           position: "top-right",
-          duration: 9000,
+          duration: 2000,
           isClosable: true,
         });
         setTaskById((null as unknown) as Task);
@@ -146,7 +146,7 @@ export const TasksProvider: React.FC<{ children: ReactNode }> = ({
           description: "Falha ao atualizar a tarefa",
           status: "error",
           position: "top-right",
-          duration: 9000,
+          duration: 2000,
           isClosable: true,
         });
       } finally {
@@ -168,7 +168,7 @@ export const TasksProvider: React.FC<{ children: ReactNode }> = ({
           description: "Tarefa deletada com sucesso",
           status: "success",
           position: "top-right",
-          duration: 9000,
+          duration: 2000,
           isClosable: true,
         });
       } catch (error) {
@@ -178,7 +178,7 @@ export const TasksProvider: React.FC<{ children: ReactNode }> = ({
           description: "Falha ao deletar a tarefa",
           status: "error",
           position: "top-right",
-          duration: 9000,
+          duration: 2000,
           isClosable: true,
         });
       } finally {

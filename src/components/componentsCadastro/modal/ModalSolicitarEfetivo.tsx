@@ -67,7 +67,7 @@ export const ModalSolicitarEfetivo: React.FC<IModal> = ({
         title: 'Solicitação de Postos',
         description: 'Solicitação salva com sucesso.',
         status: 'success',
-        duration: 3000,
+        duration: 2000,
         isClosable: true,
         position: 'top-right',
       });
@@ -77,7 +77,7 @@ export const ModalSolicitarEfetivo: React.FC<IModal> = ({
         description: 'Falha ao criar solicitação.',
         status: 'error',
         position: 'top-right',
-        duration: 3000,
+        duration: 2000,
         isClosable: true,
       });
     } finally {

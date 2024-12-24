@@ -61,6 +61,7 @@ export const OperacaosProvider: React.FC<{ children: ReactNode }> = ({
   const hasMore = lastDataIndex < Operacaos.length;
   useEffect(() => {
     loadOperacaos();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const loadMoreOperacaos = () => {
@@ -71,7 +72,7 @@ export const OperacaosProvider: React.FC<{ children: ReactNode }> = ({
         title: 'Fim dos dados',
         description: 'Não há mais Operações para carregar.',
         status: 'info',
-        duration: 3000,
+        duration: 2000,
         isClosable: true,
         position: 'top',
       });
@@ -86,7 +87,7 @@ export const OperacaosProvider: React.FC<{ children: ReactNode }> = ({
         title: 'Início dos dados',
         description: 'Você está na primeira página.',
         status: 'info',
-        duration: 3000,
+        duration: 2000,
         isClosable: true,
         position: 'top',
       });
@@ -102,7 +103,7 @@ export const OperacaosProvider: React.FC<{ children: ReactNode }> = ({
           description: 'Operação criada com sucesso',
           status: 'success',
           position: 'top-right',
-          duration: 9000,
+          duration: 2000,
           isClosable: true,
         });
         setOperacaoById((response.data as unknown) as Operacao);
@@ -113,7 +114,7 @@ export const OperacaosProvider: React.FC<{ children: ReactNode }> = ({
           description: 'Falha ao Criar Operação',
           status: 'error',
           position: 'top-right',
-          duration: 9000,
+          duration: 2000,
           isClosable: true,
         });
       } finally {
@@ -195,7 +196,7 @@ export const OperacaosProvider: React.FC<{ children: ReactNode }> = ({
           description: 'Operação atualizada com sucesso',
           status: 'success',
           position: 'top-right',
-          duration: 9000,
+          duration: 2000,
           isClosable: true,
         });
         setOperacaoById((response.data as unknown) as Operacao);
@@ -205,7 +206,7 @@ export const OperacaosProvider: React.FC<{ children: ReactNode }> = ({
           description: `${error}, 'Falha ao atualizar Operação`,
           status: 'error',
           position: 'top-right',
-          duration: 9000,
+          duration: 2000,
           isClosable: true,
         });
       } finally {
@@ -227,7 +228,7 @@ export const OperacaosProvider: React.FC<{ children: ReactNode }> = ({
           description: 'Operação deletada com sucesso',
           status: 'success',
           position: 'top-right',
-          duration: 9000,
+          duration: 2000,
           isClosable: true,
         });
       } catch (error) {
@@ -237,7 +238,7 @@ export const OperacaosProvider: React.FC<{ children: ReactNode }> = ({
           description: 'Falha ao deletar a operação',
           status: 'error',
           position: 'top-right',
-          duration: 9000,
+          duration: 2000,
           isClosable: true,
         });
       } finally {

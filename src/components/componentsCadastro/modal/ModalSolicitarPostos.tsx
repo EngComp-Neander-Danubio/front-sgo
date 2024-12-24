@@ -66,7 +66,7 @@ export const ModalSolicitacarPostos: React.FC<IModal> = ({
         title: 'Solicitações de Postos.',
         description: 'Solicitação Salva.',
         status: 'success',
-        duration: 3000,
+        duration: 2000,
         isClosable: true,
         position: 'top-right',
       });
@@ -76,7 +76,7 @@ export const ModalSolicitacarPostos: React.FC<IModal> = ({
         description: 'Falha ao criar solicitação',
         status: 'error',
         position: 'top-right',
-        duration: 3000,
+        duration: 2000,
         isClosable: true,
       });
     }

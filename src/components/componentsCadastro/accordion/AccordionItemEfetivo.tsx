@@ -45,7 +45,8 @@ export const AccordionItemEfetivo: React.FC<IAccordion> = ({ isEditing }) => {
     handleOnSubmitMilitar,
     deletePMFromTable,
     loadPMForAccordion,
-    loadingOnePMToEditInTable,sendPMToBackendEmLote
+    loadingOnePMToEditInTable,
+    sendPMToBackendEmLote
   } = useMilitares();
 
   const {

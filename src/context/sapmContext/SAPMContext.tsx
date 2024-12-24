@@ -67,7 +67,7 @@ export const SAPMProvider: React.FC<{ children: ReactNode }> = ({
         title: 'Fim dos dados',
         description: 'Não há mais PPMM para carregar.',
         status: 'info',
-        duration: 3000,
+        duration: 2000,
         isClosable: true,
         position: 'top',
       });
@@ -82,7 +82,7 @@ export const SAPMProvider: React.FC<{ children: ReactNode }> = ({
         title: 'Início dos dados',
         description: 'Você está na primeira página.',
         status: 'info',
-        duration: 3000,
+        duration: 2000,
         isClosable: true,
         position: 'top',
       });
@@ -102,7 +102,7 @@ export const SAPMProvider: React.FC<{ children: ReactNode }> = ({
         description: 'Militares carregados com sucesso',
         status: 'success',
         position: 'top-right',
-        duration: 9000,
+        duration: 2000,
         isClosable: true,
       });
       console.log('Dados carregados:', response.data);
@@ -129,7 +129,7 @@ export const SAPMProvider: React.FC<{ children: ReactNode }> = ({
             description: 'PM deletado com sucesso',
             status: 'success',
             position: 'top-right',
-            duration: 9000,
+            duration: 2000,
             isClosable: true,
           });
         } catch (error) {
@@ -140,7 +140,7 @@ export const SAPMProvider: React.FC<{ children: ReactNode }> = ({
             description: 'Falha ao deletar o PM',
             status: 'error',
             position: 'top-right',
-            duration: 9000,
+            duration: 2000,
             isClosable: true,
           });
         } finally {
@@ -161,7 +161,7 @@ export const SAPMProvider: React.FC<{ children: ReactNode }> = ({
             title: 'Erro!',
             description: 'PM não encontrado na lista.',
             status: 'error',
-            duration: 5000,
+            duration: 2000,
             isClosable: true,
             position: 'top-right',
           });
@@ -177,7 +177,7 @@ export const SAPMProvider: React.FC<{ children: ReactNode }> = ({
             title: 'Exclusão de PM.',
             description: 'PM excluído com sucesso.',
             status: 'success',
-            duration: 5000,
+            duration: 2000,
             isClosable: true,
             position: 'top-right',
           });

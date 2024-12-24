@@ -101,7 +101,7 @@ export const SolicitacoesPostosProvider: React.FC<{ children: ReactNode }> = ({
         title: 'Fim dos dados',
         description: 'Não há mais solicitações para carregar.',
         status: 'info',
-        duration: 3000,
+        duration: 2000,
         isClosable: true,
         position: 'top',
       });
@@ -116,7 +116,7 @@ export const SolicitacoesPostosProvider: React.FC<{ children: ReactNode }> = ({
         title: 'Início dos dados',
         description: 'Você está na primeira página.',
         status: 'info',
-        duration: 3000,
+        duration: 2000,
         isClosable: true,
         position: 'top',
       });

@@ -27,6 +27,7 @@ export interface Militar {
 
 export interface IContextMilitaresData {
   pms: Militar[];
+  allPMs: Militar[];
   militares: Militares_service[];
   militarById: Militar;
   militaresByAPI: Militar[];
@@ -68,7 +69,7 @@ export const MilitaresProvider: React.FC<{ children: ReactNode }> = ({
   const [militaresByAPI, setMilitaresByAPI] = useState<Militar[]>([]);
   const [militarById, setMilitarById] = useState<Militar | undefined>(undefined);
   const [pms, setPMs] = useState<Militar[]>([]);
-
+  const [allPMs, setallPMs] = useState<Militar[]>([]);
   const [currentDataIndex, setCurrentDataIndex] = useState(0);
   const [dataPerPage] = useState(5); // Defina o número de registros por página
   const lastDataIndexMilitar = (currentDataIndex + 1) * dataPerPage;
@@ -100,6 +101,7 @@ export const MilitaresProvider: React.FC<{ children: ReactNode }> = ({
           ),
       );
       setPMs(newPMs);
+      setallPMs(newPMs)
 
     } catch (err) {
       if (err instanceof Error) {
@@ -118,12 +120,13 @@ export const MilitaresProvider: React.FC<{ children: ReactNode }> = ({
 
       if (!pmExists) {
         setPMs(prevArray => [...prevArray, data]);
+        setallPMs(prevArray => [...prevArray, data])
         toast({
           title: 'Sucesso',
           description: 'PM adicionado com sucesso',
           status: 'success',
           position: 'top-right',
-          duration: 5000,
+          duration: 2000,
           isClosable: true,
         });
       } else {
@@ -132,7 +135,7 @@ export const MilitaresProvider: React.FC<{ children: ReactNode }> = ({
           description: 'PM já foi adicionado',
           status: 'warning',
           position: 'top-right',
-          duration: 5000,
+          duration: 2000,
           isClosable: true,
         });
       }
@@ -142,7 +145,7 @@ export const MilitaresProvider: React.FC<{ children: ReactNode }> = ({
         description: 'Falha ao inserir PM',
         status: 'error',
         position: 'top-right',
-        duration: 5000,
+        duration: 2000,
         isClosable: true,
       });
     }
@@ -162,13 +165,13 @@ export const MilitaresProvider: React.FC<{ children: ReactNode }> = ({
     };
 
     try {
-      await api.post('/salvar-pms', militares);
+      await api.post('/efetivo-selecionado', militares);
       toast({
         title: 'Sucesso',
         description: 'PPMM salvos com sucesso',
         status: 'success',
         position: 'top-right',
-        duration: 9000,
+        duration: 2000,
         isClosable: true,
       });
     } catch (error) {
@@ -179,7 +182,7 @@ export const MilitaresProvider: React.FC<{ children: ReactNode }> = ({
         description: 'Falha ao salvar os PPMM',
         status: 'error',
         position: 'top-right',
-        duration: 9000,
+        duration: 2000,
         isClosable: true,
       });
     }
@@ -198,10 +201,15 @@ export const MilitaresProvider: React.FC<{ children: ReactNode }> = ({
             pm === militarById
           )
         : -1;
-        console.log(postoIndex)
+        //console.log(postoIndex)
       if (postoIndex !== -1) {
         // Atualizar o pm no array usando o índice encontrado
         setPMs(prevArray =>
+          prevArray.map((pm, i) =>
+            i === postoIndex ? { ...pm, ...data } : pm
+          )
+        );
+        setallPMs(prevArray =>
           prevArray.map((pm, i) =>
             i === postoIndex ? { ...pm, ...data } : pm
           )
@@ -211,7 +219,7 @@ export const MilitaresProvider: React.FC<{ children: ReactNode }> = ({
           description: 'Posto editado com sucesso',
           status: 'success',
           position: 'top-right',
-          duration: 5000,
+          duration: 2000,
           isClosable: true,
         });
       } else {
@@ -221,7 +229,7 @@ export const MilitaresProvider: React.FC<{ children: ReactNode }> = ({
           description: 'PM adicionado com sucesso',
           status: 'success',
           position: 'top-right',
-          duration: 5000,
+          duration: 2000,
           isClosable: true,
         });
       }
@@ -231,7 +239,7 @@ export const MilitaresProvider: React.FC<{ children: ReactNode }> = ({
         description: 'Falha ao inserir ou editar PM',
         status: 'error',
         position: 'top-right',
-        duration: 5000,
+        duration: 2000,
         isClosable: true,
       });
     }
@@ -255,12 +263,13 @@ export const MilitaresProvider: React.FC<{ children: ReactNode }> = ({
 
         if (newPMs.length > 0) {
           setPMs(prevArray => [...prevArray, ...newPMs]);
+          setallPMs(prevArray => [...prevArray, ...newPMs]);
          toast({
            title: 'Sucesso',
            description: `${newPMs.length} PPMM carregado(s) com sucesso.`,
            status: 'success',
            position: 'top-right',
-           duration: 5000,
+           duration: 2000,
            isClosable: true,
          });
         } else {
@@ -269,7 +278,7 @@ export const MilitaresProvider: React.FC<{ children: ReactNode }> = ({
             description: 'Todos os PPMM do CSV já existem.',
             status: 'warning',
             position: 'top-right',
-            duration: 5000,
+            duration: 2000,
             isClosable: true,
           });
         }
@@ -285,7 +294,7 @@ export const MilitaresProvider: React.FC<{ children: ReactNode }> = ({
         title: 'Fim dos dados',
         description: 'Não há mais PPMM para carregar.',
         status: 'info',
-        duration: 3000,
+        duration: 2000,
         isClosable: true,
         position: 'top',
       });
@@ -300,7 +309,7 @@ export const MilitaresProvider: React.FC<{ children: ReactNode }> = ({
         title: 'Início dos dados',
         description: 'Você está na primeira página.',
         status: 'info',
-        duration: 3000,
+        duration: 2000,
         isClosable: true,
         position: 'top',
       });
@@ -369,7 +378,7 @@ export const MilitaresProvider: React.FC<{ children: ReactNode }> = ({
         description: 'Postos carregados com sucesso',
         status: 'success',
         position: 'top-right',
-        duration: 9000,
+        duration: 2000,
         isClosable: true,
       });
       console.log('Dados carregados:', response.data);
@@ -391,7 +400,7 @@ export const MilitaresProvider: React.FC<{ children: ReactNode }> = ({
         description: 'Militares carregados com sucesso',
         status: 'success',
         position: 'top-right',
-        duration: 9000,
+        duration: 2000,
         isClosable: true,
       });
       console.log('Dados carregados:', response.data);
@@ -410,7 +419,7 @@ export const MilitaresProvider: React.FC<{ children: ReactNode }> = ({
           description: 'Militar salvo com sucesso',
           status: 'success',
           position: 'top-right',
-          duration: 9000,
+          duration: 2000,
           isClosable: true,
         });
       } catch (error) {
@@ -431,7 +440,7 @@ export const MilitaresProvider: React.FC<{ children: ReactNode }> = ({
           description: 'Tarefa atualizada com sucesso',
           status: 'success',
           position: 'top-right',
-          duration: 9000,
+          duration: 2000,
           isClosable: true,
         });
         setMilitarById((null as unknown) as Militar);
@@ -442,7 +451,7 @@ export const MilitaresProvider: React.FC<{ children: ReactNode }> = ({
           description: 'Falha ao atualizar a tarefa',
           status: 'error',
           position: 'top-right',
-          duration: 9000,
+          duration: 2000,
           isClosable: true,
         });
       } finally {
@@ -461,7 +470,7 @@ export const MilitaresProvider: React.FC<{ children: ReactNode }> = ({
           description: 'Militar salvo em lote com sucesso',
           status: 'success',
           position: 'top-right',
-          duration: 9000,
+          duration: 2000,
           isClosable: true,
         });
       } catch (error) {
@@ -488,7 +497,7 @@ export const MilitaresProvider: React.FC<{ children: ReactNode }> = ({
             description: 'PM deletado com sucesso',
             status: 'success',
             position: 'top-right',
-            duration: 9000,
+            duration: 2000,
             isClosable: true,
           });
         } catch (error) {
@@ -499,7 +508,7 @@ export const MilitaresProvider: React.FC<{ children: ReactNode }> = ({
             description: 'Falha ao deletar o PM',
             status: 'error',
             position: 'top-right',
-            duration: 9000,
+            duration: 2000,
             isClosable: true,
           });
         } finally {
@@ -520,7 +529,7 @@ export const MilitaresProvider: React.FC<{ children: ReactNode }> = ({
             title: 'Erro!',
             description: 'PM não encontrado na lista.',
             status: 'error',
-            duration: 5000,
+            duration: 2000,
             isClosable: true,
             position: 'top-right',
           });
@@ -530,12 +539,13 @@ export const MilitaresProvider: React.FC<{ children: ReactNode }> = ({
         const updatedOpm = pms.filter((_, i) => i !== indexDeletedOpm);
         // Atualiza o estado e exibe o toast de sucesso
         setPMs(updatedOpm);
+        setallPMs(updatedOpm)
         if (updatedOpm.length !== pms.length) {
           toast({
             title: 'Exclusão de PM.',
             description: 'PM excluído com sucesso.',
             status: 'success',
-            duration: 5000,
+            duration: 2000,
             isClosable: true,
             position: 'top-right',
           });
@@ -552,6 +562,7 @@ export const MilitaresProvider: React.FC<{ children: ReactNode }> = ({
       militarById,
       currentData,
       pms: currentData,
+      allPMs,
       totalData,
       firstDataIndexMilitar,
       lastDataIndexMilitar,
@@ -580,6 +591,7 @@ export const MilitaresProvider: React.FC<{ children: ReactNode }> = ({
       militarById,
       currentData,
       pms,
+      allPMs,
       totalData,
       firstDataIndexMilitar,
       lastDataIndexMilitar,

@@ -102,7 +102,7 @@ export const SolicitacoesOPMPostosProvider: React.FC<{
             description: 'Posto(s) adicionado(s) com sucesso',
             status: 'success',
             position: 'top-right',
-            duration: 5000,
+            duration: 2000,
             isClosable: true,
           });
         } else {
@@ -111,7 +111,7 @@ export const SolicitacoesOPMPostosProvider: React.FC<{
             description: 'Todos os Postos já existem, não serão adicionados:',
             status: 'warning',
             position: 'top-right',
-            duration: 5000,
+            duration: 2000,
             isClosable: true,
           });
         }
@@ -132,7 +132,7 @@ export const SolicitacoesOPMPostosProvider: React.FC<{
         title: 'Fim dos dados',
         description: 'Não há mais postos para carregar.',
         status: 'info',
-        duration: 3000,
+        duration: 2000,
         isClosable: true,
         position: 'top',
       });
@@ -155,7 +155,7 @@ export const SolicitacoesOPMPostosProvider: React.FC<{
           description: 'Posto adicionado com sucesso',
           status: 'success',
           position: 'top-right',
-          duration: 5000,
+          duration: 2000,
           isClosable: true,
         });
       } else {
@@ -164,7 +164,7 @@ export const SolicitacoesOPMPostosProvider: React.FC<{
           description: 'Posto já foi adicionado',
           status: 'warning',
           position: 'top-right',
-          duration: 5000,
+          duration: 2000,
           isClosable: true,
         });
       }
@@ -174,7 +174,7 @@ export const SolicitacoesOPMPostosProvider: React.FC<{
         description: 'Falha ao inserir Posto',
         status: 'error',
         position: 'top-right',
-        duration: 5000,
+        duration: 2000,
         isClosable: true,
       });
     }
@@ -190,7 +190,7 @@ export const SolicitacoesOPMPostosProvider: React.FC<{
         title: 'Início dos dados',
         description: 'Você está na primeira página.',
         status: 'info',
-        duration: 3000,
+        duration: 2000,
         isClosable: true,
         position: 'top',
       });
@@ -246,7 +246,7 @@ export const SolicitacoesOPMPostosProvider: React.FC<{
             description: 'Posto deletado com sucesso',
             status: 'success',
             position: 'top-right',
-            duration: 5000,
+            duration: 2000,
             isClosable: true,
           });
         } catch (error) {
@@ -256,7 +256,7 @@ export const SolicitacoesOPMPostosProvider: React.FC<{
             description: 'Falha ao deletar o posto',
             status: 'error',
             position: 'top-right',
-            duration: 5000,
+            duration: 2000,
             isClosable: true,
           });
         } finally {
@@ -274,7 +274,7 @@ export const SolicitacoesOPMPostosProvider: React.FC<{
             title: 'Erro!',
             description: 'Posto não encontrado na lista.',
             status: 'error',
-            duration: 5000,
+            duration: 2000,
             isClosable: true,
             position: 'top-right',
           });
@@ -289,7 +289,7 @@ export const SolicitacoesOPMPostosProvider: React.FC<{
             title: 'Exclusão de Posto.',
             description: 'Posto excluído com sucesso.',
             status: 'success',
-            duration: 5000,
+            duration: 2000,
             isClosable: true,
             position: 'top-right',
           });

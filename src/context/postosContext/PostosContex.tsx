@@ -30,6 +30,7 @@ export interface PostoForm {
 }
 
 export interface IContextPostoData {
+  allPostos: PostoForm[];
   postosLocal: PostoForm[];
   postoById: PostoForm | undefined;
   postosByAPI: PostoForm[];
@@ -65,6 +66,7 @@ export const PostosProvider: React.FC<{ children: ReactNode }> = ({
   const [postosByAPI, setPostosByAPI] = useState<PostoForm[]>([]);
   const [postoById, setPostoById] = useState<PostoForm >();
   const [postosLocal, setPostosLocal] = useState<PostoForm[]>([]);
+  const [allPostos, setAllPostos] = useState<PostoForm[]>([]);
   const [currentDataIndex, setCurrentDataIndex] = useState(0);
   const [dataPerPage] = useState(5); // Defina o número de registros por página
 
@@ -94,6 +96,7 @@ export const PostosProvider: React.FC<{ children: ReactNode }> = ({
           ),
       );
       setPostosLocal(newPostos);
+      setAllPostos(newPostos);
 
     } catch (err) {
       if (err instanceof Error) {
@@ -123,12 +126,13 @@ export const PostosProvider: React.FC<{ children: ReactNode }> = ({
 
       if (!postoExists) {
         setPostosLocal(prevArray => [...prevArray, data]);
+        setAllPostos(prevArray => [...prevArray, data]);
         toast({
           title: 'Sucesso',
           description: 'Posto adicionado com sucesso',
           status: 'success',
           position: 'top-right',
-          duration: 5000,
+          duration: 2000,
           isClosable: true,
         });
       } else {
@@ -137,7 +141,7 @@ export const PostosProvider: React.FC<{ children: ReactNode }> = ({
           description: 'Posto já foi adicionado',
           status: 'warning',
           position: 'top-right',
-          duration: 5000,
+          duration: 2000,
           isClosable: true,
         });
       }
@@ -147,7 +151,7 @@ export const PostosProvider: React.FC<{ children: ReactNode }> = ({
         description: 'Falha ao inserir Posto',
         status: 'error',
         position: 'top-right',
-        duration: 5000,
+        duration: 2000,
         isClosable: true,
       });
     }
@@ -156,7 +160,7 @@ export const PostosProvider: React.FC<{ children: ReactNode }> = ({
     //console.log('edit dados', data)
     try {
       if(id){
-        const EditPostoServico = {
+        const editPostoServico = {
           editPostoServico: {
             militares_por_posto: (data.militares_por_posto),
             local: data.local,
@@ -172,18 +176,13 @@ export const PostosProvider: React.FC<{ children: ReactNode }> = ({
           }
 
         };
-        // await api.put<PostoForm[]>(`/editar-posto`, EditPostoServico, {
-        //   params: {
-        //     id: id,
-        //   },
-        // });
-        await api.put<PostoForm[]>(`/editar-posto/${id}`, EditPostoServico);
+        await api.put<PostoForm[]>(`/editar-posto/${id}`, editPostoServico);
         toast({
           title: 'Sucesso',
           description: 'Posto editado com sucesso',
           status: 'success',
           position: 'top-right',
-          duration: 5000,
+          duration: 2000,
           isClosable: true,
         });
       }
@@ -200,15 +199,21 @@ export const PostosProvider: React.FC<{ children: ReactNode }> = ({
             i === postoIndex ? { ...posto, ...data } : posto
           )
         );
+        setAllPostos(prevArray =>
+          prevArray.map((posto, i) =>
+            i === postoIndex ? { ...posto, ...data } : posto
+          )
+        );
       } else {
         // Caso o posto não seja encontrado, adicione um novo posto
         setPostosLocal(prevArray => [...prevArray, data]);
+        setAllPostos(prevArray => [...prevArray, data]);
         toast({
           title: 'Sucesso',
           description: 'Posto adicionado com sucesso',
           status: 'success',
           position: 'top-right',
-          duration: 5000,
+          duration: 2000,
           isClosable: true,
         });
       }
@@ -218,7 +223,7 @@ export const PostosProvider: React.FC<{ children: ReactNode }> = ({
         description: 'Falha ao editar posto',
         status: 'error',
         position: 'top-right',
-        duration: 5000,
+        duration: 2000,
         isClosable: true,
       });
     }
@@ -262,12 +267,13 @@ export const PostosProvider: React.FC<{ children: ReactNode }> = ({
         if (newPostos.length > 0) {
           // Adicionar os novos postos ao estado
           setPostosLocal(prevArray => [...prevArray, ...newPostos]);
+          setAllPostos(prevArray => [...prevArray, ...newPostos]);
           toast({
             title: 'Sucesso',
             description: `${newPostos.length} posto(s) carregado(s) com sucesso.`,
             status: 'success',
             position: 'top-right',
-            duration: 5000,
+            duration: 2000,
             isClosable: true,
           });
         } else {
@@ -276,7 +282,7 @@ export const PostosProvider: React.FC<{ children: ReactNode }> = ({
             description: 'Todos os postos do CSV já existem.',
             status: 'warning',
             position: 'top-right',
-            duration: 5000,
+            duration: 2000,
             isClosable: true,
           });
         }
@@ -292,7 +298,7 @@ export const PostosProvider: React.FC<{ children: ReactNode }> = ({
         title: 'Fim dos dados',
         description: 'Não há mais postos para carregar.',
         status: 'info',
-        duration: 3000,
+        duration: 2000,
         isClosable: true,
         position: 'top',
       });
@@ -307,7 +313,7 @@ export const PostosProvider: React.FC<{ children: ReactNode }> = ({
         title: 'Início dos dados',
         description: 'Você está na primeira página.',
         status: 'info',
-        duration: 3000,
+        duration: 2000,
         isClosable: true,
         position: 'top',
       });
@@ -363,7 +369,7 @@ export const PostosProvider: React.FC<{ children: ReactNode }> = ({
         description: 'Postos carregados com sucesso',
         status: 'success',
         position: 'top-right',
-        duration: 9000,
+        duration: 2000,
         isClosable: true,
       });
       console.log('Dados carregados:', response.data);
@@ -376,16 +382,17 @@ export const PostosProvider: React.FC<{ children: ReactNode }> = ({
 
   const sendPostoToBackendEmLote = useCallback(async (dados: PostoForm[], id: string) => {
     const DadosFiltered = dados.filter((d) => !('id' in d));
-    //console.log('dados',dados);
-    //console.log('dados',DadosFiltered);
     const postos_servicos = {
       postos_servicos: DadosFiltered.map(
-        ({ militares_por_posto, numero, modalidade, id: postoId, ...rest }) => {
+        ({ militares_por_posto, numero, bairro, local, cidade, endereco, modalidade, id: postoId, ...rest }) => {
           return {
-            ...rest,
             operacao_id: id,
             militares_por_posto: Number(militares_por_posto),
+            local,
             numero: Number(numero),
+            bairro,
+            endereco,
+            cidade,
             modalidade: optionsModalidade.find(m => m.value === modalidade)?.label || null,
           };
         }
@@ -398,7 +405,7 @@ export const PostosProvider: React.FC<{ children: ReactNode }> = ({
         description: 'Postos salvos com sucesso',
         status: 'success',
         position: 'top-right',
-        duration: 9000,
+        duration: 2000,
         isClosable: true,
       });
     } catch (error) {
@@ -409,7 +416,7 @@ export const PostosProvider: React.FC<{ children: ReactNode }> = ({
         description: 'Falha ao salvar os postos',
         status: 'error',
         position: 'top-right',
-        duration: 9000,
+        duration: 2000,
         isClosable: true,
       });
     }
@@ -427,7 +434,7 @@ export const PostosProvider: React.FC<{ children: ReactNode }> = ({
           description: 'Posto atualizada com sucesso',
           status: 'success',
           position: 'top-right',
-          duration: 9000,
+          duration: 2000,
           isClosable: true,
         });
         setPostoById((null as unknown) as PostoForm);
@@ -438,7 +445,7 @@ export const PostosProvider: React.FC<{ children: ReactNode }> = ({
           description: 'Falha ao atualizar a Posto',
           status: 'error',
           position: 'top-right',
-          duration: 9000,
+          duration: 2000,
           isClosable: true,
         });
       } finally {
@@ -462,7 +469,7 @@ export const PostosProvider: React.FC<{ children: ReactNode }> = ({
             description: 'Posto deletado com sucesso',
             status: 'success',
             position: 'top-right',
-            duration: 9000,
+            duration: 2000,
             isClosable: true,
           });
         } catch (error) {
@@ -472,7 +479,7 @@ export const PostosProvider: React.FC<{ children: ReactNode }> = ({
             description: 'Falha ao deletar o posto',
             status: 'error',
             position: 'top-right',
-            duration: 9000,
+            duration: 2000,
             isClosable: true,
           });
         } finally {
@@ -488,7 +495,7 @@ export const PostosProvider: React.FC<{ children: ReactNode }> = ({
             title: 'Erro!',
             description: 'Posto não encontrado na lista.',
             status: 'error',
-            duration: 5000,
+            duration: 2000,
             isClosable: true,
             position: 'top-right',
           });
@@ -498,12 +505,13 @@ export const PostosProvider: React.FC<{ children: ReactNode }> = ({
         const updatedOpm = postosLocal.filter((_, i) => i !== indexDeletedOpm);
 
         setPostosLocal(updatedOpm);
+        setAllPostos(updatedOpm);
         if (updatedOpm.length !== postosLocal.length) {
           toast({
             title: 'Exclusão de Posto.',
             description: 'Posto excluído com sucesso.',
             status: 'success',
-            duration: 5000,
+            duration: 2000,
             isClosable: true,
             position: 'top-right',
           });
@@ -517,7 +525,7 @@ export const PostosProvider: React.FC<{ children: ReactNode }> = ({
   const contextValue = useMemo(
     () => ({
       postosLocal: currentData,
-
+      allPostos,
       postosByAPI,
       postoById,
       totalData,
@@ -540,7 +548,7 @@ export const PostosProvider: React.FC<{ children: ReactNode }> = ({
     }),
     [
       postosLocal,
-
+      allPostos,
       postosByAPI,
       postoById,
       totalData,

@@ -167,7 +167,7 @@ export const FormSolicitacaoEfetivo: React.FC = () => {
         title: 'OPM já inclusa.',
         description: 'OPM já incluída.',
         status: 'error',
-        duration: 5000,
+        duration: 2000,
         isClosable: true,
         position: 'top-right',
       });
@@ -177,7 +177,7 @@ export const FormSolicitacaoEfetivo: React.FC = () => {
         title: 'Sucesso!',
         description: 'OPM incluída.',
         status: 'success',
-        duration: 5000,
+        duration: 2000,
         isClosable: true,
         position: 'top-right',
       });

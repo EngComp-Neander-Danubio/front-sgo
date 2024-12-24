@@ -39,6 +39,7 @@ export const AccordionItemPostos: React.FC<IAccordion> = ({ isEditing }) => {
     handleOnChange,
     handleOnSubmit,
     postosLocal,
+    allPostos,
     loadingOnePostoToTable,
     totalData: totalDataPostosLocal,
     dataPerPage: dataPerPagePostosLocal,
@@ -67,7 +68,7 @@ export const AccordionItemPostos: React.FC<IAccordion> = ({ isEditing }) => {
   const { OperacaoById } = useOperacao();
 
   const handlePostos = async (): Promise<void> => {
-    sendPostoToBackendEmLote(postosLocal, OperacaoById?.id ? OperacaoById?.id : '');
+    await sendPostoToBackendEmLote(postosLocal, OperacaoById?.id ? OperacaoById?.id : '');
   };
   //useEffect(()=>{},[postosLocal.length, loadingOnePostoToEditInTable])
   const columns: Array<ColumnProps<DataPostos>> = [

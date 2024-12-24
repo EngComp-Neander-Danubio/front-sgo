@@ -89,7 +89,7 @@ export const SolicitacaoPMsContent: React.FC<IFlexCadastrar> = ({
           description: 'PM adicionado com sucesso',
           status: 'success',
           position: 'top-right',
-          duration: 5000,
+          duration: 2000,
           isClosable: true,
         });
       } else {
@@ -98,7 +98,7 @@ export const SolicitacaoPMsContent: React.FC<IFlexCadastrar> = ({
           description: 'PM já foi adicionado',
           status: 'warning',
           position: 'top-right',
-          duration: 5000,
+          duration: 2000,
           isClosable: true,
         });
       }
@@ -108,7 +108,7 @@ export const SolicitacaoPMsContent: React.FC<IFlexCadastrar> = ({
         description: 'Falha ao inserir PM',
         status: 'error',
         position: 'top-right',
-        duration: 5000,
+        duration: 2000,
         isClosable: true,
       });
     }
@@ -138,7 +138,7 @@ export const SolicitacaoPMsContent: React.FC<IFlexCadastrar> = ({
            description: `${newPMs.length} PPMM carregado(s) com sucesso.`,
            status: 'success',
            position: 'top-right',
-           duration: 5000,
+           duration: 2000,
            isClosable: true,
          });
         } else {
@@ -147,7 +147,7 @@ export const SolicitacaoPMsContent: React.FC<IFlexCadastrar> = ({
             description: 'Todos os PPMM do CSV já existem.',
             status: 'warning',
             position: 'top-right',
-            duration: 5000,
+            duration: 2000,
             isClosable: true,
           });
         }
@@ -165,7 +165,7 @@ export const SolicitacaoPMsContent: React.FC<IFlexCadastrar> = ({
         title: 'Fim dos dados',
         description: 'Não há mais PPMM para carregar.',
         status: 'info',
-        duration: 3000,
+        duration: 2000,
         isClosable: true,
         position: 'top',
       });
@@ -181,7 +181,7 @@ export const SolicitacaoPMsContent: React.FC<IFlexCadastrar> = ({
         title: 'Início dos dados',
         description: 'Você está na primeira página.',
         status: 'info',
-        duration: 3000,
+        duration: 2000,
         isClosable: true,
         position: 'top',
       });
@@ -240,7 +240,7 @@ export const SolicitacaoPMsContent: React.FC<IFlexCadastrar> = ({
             description: 'PM deletado com sucesso',
             status: 'success',
             position: 'top-right',
-            duration: 5000,
+            duration: 2000,
             isClosable: true,
           });
         } catch (error) {
@@ -251,7 +251,7 @@ export const SolicitacaoPMsContent: React.FC<IFlexCadastrar> = ({
             description: 'Falha ao deletar o PM',
             status: 'error',
             position: 'top-right',
-            duration: 5000,
+            duration: 2000,
             isClosable: true,
           });
         } finally {
@@ -268,7 +268,7 @@ export const SolicitacaoPMsContent: React.FC<IFlexCadastrar> = ({
             title: 'Erro!',
             description: 'PM não encontrado na lista.',
             status: 'error',
-            duration: 5000,
+            duration: 2000,
             isClosable: true,
             position: 'top-right',
           });
@@ -284,7 +284,7 @@ export const SolicitacaoPMsContent: React.FC<IFlexCadastrar> = ({
             title: 'Exclusão de PM.',
             description: 'PM excluído com sucesso.',
             status: 'success',
-            duration: 5000,
+            duration: 2000,
             isClosable: true,
             position: 'top-right',
           });
@@ -325,7 +325,7 @@ export const SolicitacaoPMsContent: React.FC<IFlexCadastrar> = ({
          description: 'PPMM adicionados com sucesso',
          status: 'success',
          position: 'top-right',
-         duration: 5000,
+         duration: 2000,
          isClosable: true,
        });
      } catch (err) {
@@ -334,7 +334,7 @@ export const SolicitacaoPMsContent: React.FC<IFlexCadastrar> = ({
          description: 'Falha ao inserir PPMM',
          status: 'error',
          position: 'top-right',
-         duration: 5000,
+         duration: 2000,
          isClosable: true,
        });
      }

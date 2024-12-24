@@ -139,7 +139,7 @@ export const RequisitosProvider: React.FC<{ children: ReactNode }> = ({
   };
   useEffect(() => {
     loadTotalMilitar();
-  }, [militars, militares]);
+  }, []);
   useEffect(() => {
     if (militares && Array.isArray(militares)) {
       setMilitares(militares);
@@ -154,7 +154,7 @@ export const RequisitosProvider: React.FC<{ children: ReactNode }> = ({
     } else {
       setPostosServices([]); // Inicializa como array vazio se não for um array
     }
-  }, [postos, postosServices]);
+  }, []);
 
   const handleRandomServices = () => {
     const generateServices = () => {

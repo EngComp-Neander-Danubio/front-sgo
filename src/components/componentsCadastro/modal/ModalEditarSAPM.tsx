@@ -202,7 +202,7 @@ export const ModalEditarSAPM: React.FC<IModal> = ({
         title: 'OPM já inclusa.',
         description: 'OPM já incluída.',
         status: 'error',
-        duration: 5000,
+        duration: 2000,
         isClosable: true,
         position: 'top-right',
       });
@@ -212,7 +212,7 @@ export const ModalEditarSAPM: React.FC<IModal> = ({
         title: 'Sucesso!',
         description: 'OPM incluída.',
         status: 'success',
-        duration: 5000,
+        duration: 2000,
         isClosable: true,
         position: 'top-right',
       });
@@ -231,7 +231,7 @@ export const ModalEditarSAPM: React.FC<IModal> = ({
           title: 'Exclusão de OPMs.',
           description: 'OPMs excluída com sucesso.',
           status: 'success',
-          duration: 5000,
+          duration: 2000,
           isClosable: true,
           position: 'top-right',
         });
@@ -241,7 +241,7 @@ export const ModalEditarSAPM: React.FC<IModal> = ({
         title: 'Erro!',
         description: 'OPM não encontrada na lista.',
         status: 'error',
-        duration: 5000,
+        duration: 2000,
         isClosable: true,
         position: 'top-right',
       });
@@ -258,7 +258,7 @@ export const ModalEditarSAPM: React.FC<IModal> = ({
         title: 'Exclusão de OPMs.',
         description: 'OPM excluída com sucesso.',
         status: 'success',
-        duration: 5000,
+        duration: 2000,
         isClosable: true,
         position: 'top-right',
       });
@@ -267,7 +267,7 @@ export const ModalEditarSAPM: React.FC<IModal> = ({
         title: 'Erro!',
         description: 'OPM não encontrada na lista.',
         status: 'error',
-        duration: 5000,
+        duration: 2000,
         isClosable: true,
         position: 'top-right',
       });
