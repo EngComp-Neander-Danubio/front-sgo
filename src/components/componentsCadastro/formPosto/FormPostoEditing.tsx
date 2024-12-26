@@ -36,10 +36,10 @@ export const FormPostoEditing: React.FC<IModal> = ({
   } = useFormContext<IForm>();
   const {postoById} = usePostos();
   console.log(postoById?.militares_por_posto)
-  const [quantity, setQuantity] = useState<number>(postoById?.militares_por_posto ? postoById?.militares_por_posto : 2) ;
+  const [quantity, setQuantity] = useState<number>(postoById?.militares_por_posto ? Number(postoById?.militares_por_posto) : 2) ;
   useEffect(()=>{
     //if(postoById?.militares_por_posto)
-    setValue('militares_por_posto', quantity);
+    setValue('militares_por_posto', Number(quantity));
   },[setValue, postoById, quantity])
   const handleQuantityPlus = async () => {
     setQuantity(q => q + 1);

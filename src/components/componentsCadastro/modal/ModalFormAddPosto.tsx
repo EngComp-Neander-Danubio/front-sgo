@@ -54,7 +54,7 @@ export const ModalFormAddPosto: React.FC<IModal> = ({
   };
 
   useEffect(() => {
-
+    console.log(postoById)
     if (postoById && isEditing) {
       setValue('id', postoById.id);
       setValue('local', postoById?.local);
