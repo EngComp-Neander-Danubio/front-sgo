@@ -20,14 +20,8 @@ interface IAccordion extends AccordionProps {
 
 export const AccordinEditarCadastro: React.FC<IAccordion> = ({ isOpen }) => {
   const { OperacaoById } = useOperacao();
-  const {postoById, postosLocal} = usePostos();
-  const {militares} = useMilitares();
-
-  useEffect(() => {
-    //loadPostosFromToBackend();
-    //loadPostosFromToBackend(`${OperacaoById?.id}`);
-    //loadPMsFromToBackend(`${OperacaoById?.id}`);
-  }, [OperacaoById]);
+  const { postosLocal} = usePostos();
+  const { pms} = useMilitares();
 
   return (
     <>
@@ -52,7 +46,7 @@ export const AccordinEditarCadastro: React.FC<IAccordion> = ({ isOpen }) => {
         {postosLocal && (
           <AccordionItemEfetivo isEditing />
         )}
-        {militares.length > 0 && (
+        {pms && (
             <AccordionItemEscala isEditing />
         )}
       </Accordion>

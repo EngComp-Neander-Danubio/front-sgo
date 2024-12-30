@@ -74,9 +74,9 @@ export const AccordionItemEfetivo: React.FC<IAccordion> = ({ isEditing }) => {
   // OK
   const loadPMsFromToBackend = async (id: string) => {
     try {
-      const response = await api.get<Militar[]>(`/listar-pms`, {
+      const response = await api.get<Militar[]>(`/listar-efetivo`, {
         params: {
-          id: id,
+          operacao_id: id,
         },
       });
       const newPMs: Militar[] = response.data.filter(
@@ -319,23 +319,38 @@ export const AccordionItemEfetivo: React.FC<IAccordion> = ({ isEditing }) => {
     [pms, currentDataIndex, currentData.length],
   );
   const columns: Array<ColumnProps<DataEfetivo>> = [
+    // {
+    //   key: 'matricula' ,
+    //   title: 'Matrícula',
+    // },
+    // {
+    //   key: 'posto_grad',
+    //   title: 'Posto/Graduação',
+    // },
+    // {
+    //   key: 'nome_completo',
+    //   title: 'Nome',
+    // },
+    // {
+    //   key: 'opm',
+    //   title: 'OPM',
+    // },
     {
-      key: 'matricula',
+      key: 'ps_matricula' ,
       title: 'Matrícula',
     },
     {
-      key: 'posto_grad',
+      key: 'vpa_posto_grad',
       title: 'Posto/Graduação',
     },
     {
-      key: 'nome_completo',
+      key: 'vpa_nome_completo',
       title: 'Nome',
     },
     {
-      key: 'opm',
+      key: 'vpa_opm_sigla',
       title: 'OPM',
     },
-
     {
       key: 'acoes',
       title: 'Ações',
@@ -345,7 +360,7 @@ export const AccordionItemEfetivo: React.FC<IAccordion> = ({ isEditing }) => {
 
         return (
           <Flex flexDirection="row" gap={2}>
-            <span key={`delete-${record.id}`}>
+            <span>
               <IconeDeletar
                 label_tooltip={record.nome_completo}
                 handleDelete={async () => {

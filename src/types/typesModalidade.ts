@@ -8,9 +8,9 @@ export enum Modalidade {
   "Prontidão" = '5',
 }
 export const optionsModalidade: OptionType[] = [
-  { label: 'A PÉ', value: '1' },
-  { label: 'VIATURA', value: '2' },
-  { label: 'MOTO', value: '3' },
-  { label: 'MONTADO', value: '4' },
-  { label: 'PRONTIDÃO', value: '5' },
+  { label: 'A pé', value: '1' },
+  { label: 'Viatura', value: '2' },
+  { label: 'Moto', value: '3' },
+  { label: 'Montado', value: '4' },
+  { label: 'Prontidão', value: '5' },
 ];

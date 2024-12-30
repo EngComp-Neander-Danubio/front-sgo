@@ -14,7 +14,6 @@ import { useIsOpen } from '../../../context/isOpenContext/useIsOpen';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useEffect } from 'react';
-import { useOperacao } from '../../../context/eventContext/useOperacao';
 import { useRequisitos } from '../../../context/requisitosContext/useRequesitos';
 import { eventoSchema } from '../../../types/yupEvento/yupEvento';
 import { BiPencil } from 'react-icons/bi';
@@ -81,7 +80,7 @@ export const AccordionItemEscala: React.FC<IAccordion> = ({ isEditing }) => {
   const methodsInput = useForm<IForm>({
     resolver: yupResolver(eventoSchema),
   });
-  const { uploadOperacao } = useOperacao();
+
   const { reset } = methodsInput;
   const onSubmit = async (data: IForm) => {
     //await uploadEvent(data);

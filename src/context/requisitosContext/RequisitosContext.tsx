@@ -19,6 +19,9 @@ import { useRequisitos } from './useRequesitos';
 import { useMilitares } from '../militaresContext/useMilitares';
 import { usePostos } from '../postosContext/usePostos';
 import { object } from 'prop-types';
+import api from '../../services/api';
+import { useOperacao } from '../eventContext/useOperacao';
+import { PostoForm } from '../postosContext/PostosContex';
 
 export type Requisito = {
   columns?: string[];
@@ -33,13 +36,7 @@ export type Militares_service = {
   posto_grad: string;
 };
 
-/* export type Postos = {
-  Municipio: string;
-  Local_de_Votacao: string;
-  Endereco: string;
-  Bairro: string;
-  CEP: string;
-}; */
+
 export type Postos = {
   cidade: string;
   local: string;
@@ -47,19 +44,6 @@ export type Postos = {
   bairro: string;
   numero: number;
   modalidade: string;
-  Cel?: number;
-  TenCel?: number;
-  Maj?: number;
-  Cap?: number;
-  PrimeiroTen?: number;
-  SegundoTen?: number;
-  St?: number;
-  PrimeiroSgt?: number;
-  SegundoSgt?: number;
-  TerceiroSgt?: number;
-  Cb?: number;
-  Sd?: number;
-  AlSd?: number;
 };
 
 export type RequisitoServico = {
@@ -111,12 +95,77 @@ export const RequisitosProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
   const { militares } = useMilitares();
-  const { postos, postosLocal } = usePostos();
+  const { OperacaoById } = useOperacao();
+  const [postosLocal, setPostosLocal] = useState<PostoForm[]>([]);
+  const [pms, setPMs] = useState<Militares_service[]>([]);
   const [militars, setMilitares] = useState<Militares_service[]>(militares);
   const [militaresRestantes, setMilitaresRestantes] = useState<
     Militares_service[]
   >([]);
-  const [postosServices, setPostosServices] = useState<Postos[]>(postosLocal);
+  const [postosServices, setPostosServices] = useState<Postos[]>();
+
+  const loadPMsFromToBackend = async (id: string) => {
+    try {
+      const response = await api.get<Militares_service[]>(`/listar-efetivo`, {
+        params: {
+          operacao_id: id,
+        },
+      });
+      const newPMs: Militares_service[] = response.data.filter(
+        novoPM =>
+          !pms.some(
+            pms =>
+              novoPM.matricula === pms.matricula &&
+              novoPM.nome_completo === pms.nome_completo &&
+              novoPM.opm === pms.opm &&
+              novoPM.posto_grad === pms.posto_grad
+          ),
+      );
+      setPMs(newPMs);
+
+    } catch (err) {
+      if (err instanceof Error) {
+        console.error(`Erro ao carregar PPMM: ${err.message}`);
+      } else {
+        console.error('Erro desconhecido ao carregar PPMM:', err);
+      }
+    }
+  };
+  const loadPostosFromToBackend = async (id: string) => {
+    try {
+      const response = await api.get<PostoForm[]>(`/listar-postos`, {
+        params: {
+          id: id,
+        },
+      });
+      const newPostos: PostoForm[] = response.data.filter(
+        novoPosto =>
+          !postosLocal.some(
+            postoExistente =>
+              novoPosto.local === postoExistente.local &&
+            novoPosto.bairro === postoExistente.bairro &&
+            novoPosto.numero === postoExistente.numero &&
+            novoPosto.endereco === postoExistente.endereco &&
+            novoPosto.cidade === postoExistente.cidade,
+          ),
+        );
+        setPostosLocal(newPostos);
+
+      } catch (err) {
+        if (err instanceof Error) {
+          console.error(`Erro ao carregar postos: ${err.message}`);
+        } else {
+          console.error('Erro desconhecido ao carregar postos:', err);
+        }
+      }
+    };
+  useEffect(()=>{
+    if(OperacaoById?.id){
+      loadPMsFromToBackend(OperacaoById?.id)
+      loadPostosFromToBackend(OperacaoById?.id)
+    }
+  },[])
+
   const [totalMilitar, setTotalMilitar] = useState<number>(0);
   const [dateFirst, setDateFirst] = useState<Date>();
   const [dateFinished, setdateFinished] = useState<Date>();
@@ -148,8 +197,8 @@ export const RequisitosProvider: React.FC<{ children: ReactNode }> = ({
     }
   }, [militares]);
   useEffect(() => {
-    if (postos && Array.isArray(postos)) {
-      setPostosServices(postos);
+    if (postosLocal && Array.isArray(postosLocal)) {
+      setPostosServices(postosLocal);
       //console.log('postos services', postosServices);
     } else {
       setPostosServices([]); // Inicializa como array vazio se não for um array

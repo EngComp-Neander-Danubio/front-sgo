@@ -1,7 +1,7 @@
 export type OptionType = { label: string; value: string };
 
 export enum Modaliade {
-  "A PÉ" = '1',
+  "A pé" = '1',
   Viatura = '2',
   Moto = '3',
   Montado = '4',
