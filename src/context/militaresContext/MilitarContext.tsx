@@ -101,7 +101,6 @@ export const MilitaresProvider: React.FC<{ children: ReactNode }> = ({
           ),
       );
       setPMs(newPMs);
-      setallPMs(newPMs)
 
     } catch (err) {
       if (err instanceof Error) {
@@ -152,20 +151,12 @@ export const MilitaresProvider: React.FC<{ children: ReactNode }> = ({
   };
 
   const sendPMToBackendEmLote = useCallback(async (dados: Militar[], id: string) => {
-    const militares = {
-      militares: dados.map(
-        ({ ...rest }) => {
-
-            return {
-              ...rest,
-              operacao_id: id,
-              };
-                  }
-      ),
-    };
-
+    const data = {
+      operacao_id: id,
+      matriculas: dados.map((d) => d.matricula)
+    }
     try {
-      await api.post('/efetivo-selecionado', militares);
+      await api.post('/efetivo-selecionado', data);
       toast({
         title: 'Sucesso',
         description: 'PPMM salvos com sucesso',

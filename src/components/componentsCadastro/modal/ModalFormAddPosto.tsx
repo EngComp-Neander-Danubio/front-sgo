@@ -7,7 +7,6 @@ import {
   ModalBody,
   ModalFooter,
   Button,
-  FlexboxProps,
 } from '@chakra-ui/react';
 import { FormPosto } from '../formPosto/FormPosto';
 import { FormProvider, useForm } from 'react-hook-form';
@@ -18,7 +17,6 @@ import { useEffect } from 'react';
 import { usePostos } from '../../../context/postosContext/usePostos';
 import { optionsModalidade } from '../../../types/typesModalidade';
 import { useOperacao } from '../../../context/eventContext/useOperacao';
-import { da } from 'date-fns/locale';
 import { FormPostoEditing } from '../formPosto/FormPostoEditing';
 
 interface IModal {
