@@ -300,11 +300,11 @@ export const AccordionItemEfetivo: React.FC<IAccordion> = ({ isEditing }) => {
           return;
         }
         // Remove o posto do estado local
-        const updatedOpm = pms.filter((_, i) => i !== indexDeletedOpm);
+        const updatedOpm = pms.filter((_, i) => i !== Number(indexDeletedOpm));
         // Atualiza o estado e exibe o toast de sucesso
-        setPMs(updatedOpm);
 
         if (updatedOpm.length !== pms.length) {
+          setPMs(updatedOpm);
           toast({
             title: 'Exclusão de PM.',
             description: 'PM excluído com sucesso.',
@@ -356,7 +356,7 @@ export const AccordionItemEfetivo: React.FC<IAccordion> = ({ isEditing }) => {
       title: 'Ações',
       render: (_, record) => {
         // Encontrar o índice do registro diretamente no array de dados
-        const index = pms?.findIndex(item => item === record);
+        const index = currentData?.findIndex(item => item === record);
 
         return (
           <Flex flexDirection="row" gap={2}>
