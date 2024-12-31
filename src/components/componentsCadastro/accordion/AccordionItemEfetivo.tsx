@@ -275,8 +275,6 @@ export const AccordionItemEfetivo: React.FC<IAccordion> = ({ isEditing }) => {
             duration: 2000,
             isClosable: true,
           });
-        } finally {
-
         }
       }
       // Caso o posto esteja apenas no estado local (não tem id)

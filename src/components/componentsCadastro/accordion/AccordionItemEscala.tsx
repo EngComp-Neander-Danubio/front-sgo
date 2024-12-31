@@ -13,7 +13,6 @@ import { BotaoCadastrar } from '../botaoCadastrar';
 import { useIsOpen } from '../../../context/isOpenContext/useIsOpen';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useEffect } from 'react';
 import { useRequisitos } from '../../../context/requisitosContext/useRequesitos';
 import { eventoSchema } from '../../../types/yupEvento/yupEvento';
 import { BiPencil } from 'react-icons/bi';
@@ -28,6 +27,7 @@ type IForm = {
   dataInicio: Date;
   nomeOperacao: string;
 };
+
 interface IAccordion {
   isEditing: boolean;
 }
@@ -50,32 +50,11 @@ export const AccordionItemEscala: React.FC<IAccordion> = ({ isEditing }) => {
   } = useDisclosure();
 
   const {
-    handleRandomServices,
-    handleRandomServicesNewTable,
-    services,
-    totalMilitar,
-    totalMilitarEscalados,
-    militaresRestantes,
-  } = useRequisitos();
-  const {
     isOpen: isOpenModalServices,
     onOpen: onOpenModalServices,
     onClose: onCloseModalServices,
   } = useDisclosure();
-
-  const { searchServices, searchServicesById } = useRequisitos();
-  const { control, watch } = useForm();
-  const inputUser = watch('searchService');
-
-  useEffect(() => {
-    const handler = setTimeout(() => {
-      searchServicesById(inputUser);
-    }, 100);
-
-    return () => {
-      clearTimeout(handler);
-    };
-  }, [inputUser]);
+  const { totalMilitarEscalados, militaresRestantes, handleRandomServices, totalMilitar} = useRequisitos();
 
   const methodsInput = useForm<IForm>({
     resolver: yupResolver(eventoSchema),
@@ -193,7 +172,8 @@ export const AccordionItemEscala: React.FC<IAccordion> = ({ isEditing }) => {
                         }}
                         variant="ghost"
                         onClick={() => {
-                          handleRandomServices(), onOpenModalServices();
+                          handleRandomServices(),
+                          onOpenModalServices();
                         }}
                       >
                         Gerar Escala

@@ -6,19 +6,11 @@ import React, {
   useCallback,
   useEffect,
 } from 'react';
-import militaresData from '../../assets/militares.json';
-import postosData from '../../assets/postos.json';
-import { useToast } from '@chakra-ui/react';
 import {
   handleSortByPostoGrad,
-  handleSortByPostoGradTwoMilitar,
-  Militar,
   optionsMilitares,
 } from '../../types/typesMilitar';
-import { useRequisitos } from './useRequesitos';
 import { useMilitares } from '../militaresContext/useMilitares';
-import { usePostos } from '../postosContext/usePostos';
-import { object } from 'prop-types';
 import api from '../../services/api';
 import { useOperacao } from '../eventContext/useOperacao';
 import { PostoForm } from '../postosContext/PostosContex';
@@ -30,20 +22,25 @@ export type Requisito = {
 
 export type Militares_service = {
   id?: string;
-  nome_completo: string;
-  opm: string;
-  matricula: string;
-  posto_grad: string;
+  vpa_vpa_nome_completo: string;
+  vpa_opm_sigla: string;
+  ps_matricula: string;
+  vpa_posto_grad: string;
 };
 
 
 export type Postos = {
-  cidade: string;
+  id?: string;
   local: string;
-  rua: string;
-  bairro: string;
+  endereco: string;
   numero: number;
+  bairro: string;
+  cidade: string;
   modalidade: string;
+  militares_por_posto: number;
+  operacao_id?: number | null;
+  solicitacao_id?: number | null;
+  uni_codigo?: number | null;
 };
 
 export type RequisitoServico = {
@@ -94,16 +91,20 @@ export const RequisitosContext = createContext<
 export const RequisitosProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
-  const { militares } = useMilitares();
   const { OperacaoById } = useOperacao();
   const [postosLocal, setPostosLocal] = useState<PostoForm[]>([]);
   const [pms, setPMs] = useState<Militares_service[]>([]);
-  const [militars, setMilitares] = useState<Militares_service[]>(militares);
+
   const [militaresRestantes, setMilitaresRestantes] = useState<
     Militares_service[]
   >([]);
   const [postosServices, setPostosServices] = useState<Postos[]>();
-
+  useEffect(()=>{
+    if(OperacaoById?.id){
+      loadPMsFromToBackend(OperacaoById?.id)
+      loadPostosFromToBackend(OperacaoById?.id)
+    }
+  },[OperacaoById?.id])
   const loadPMsFromToBackend = async (id: string) => {
     try {
       const response = await api.get<Militares_service[]>(`/listar-efetivo`, {
@@ -112,13 +113,13 @@ export const RequisitosProvider: React.FC<{ children: ReactNode }> = ({
         },
       });
       const newPMs: Militares_service[] = response.data.filter(
-        novoPM =>
+        novvpa_opm_sigla =>
           !pms.some(
             pms =>
-              novoPM.matricula === pms.matricula &&
-              novoPM.nome_completo === pms.nome_completo &&
-              novoPM.opm === pms.opm &&
-              novoPM.posto_grad === pms.posto_grad
+              novvpa_opm_sigla.ps_matricula === pms.ps_matricula &&
+              novvpa_opm_sigla.vpa_vpa_nome_completo === pms.vpa_vpa_nome_completo &&
+              novvpa_opm_sigla.vpa_opm_sigla === pms.vpa_opm_sigla &&
+              novvpa_opm_sigla.vpa_posto_grad === pms.vpa_posto_grad
           ),
       );
       setPMs(newPMs);
@@ -159,12 +160,7 @@ export const RequisitosProvider: React.FC<{ children: ReactNode }> = ({
         }
       }
     };
-  useEffect(()=>{
-    if(OperacaoById?.id){
-      loadPMsFromToBackend(OperacaoById?.id)
-      loadPostosFromToBackend(OperacaoById?.id)
-    }
-  },[])
+
 
   const [totalMilitar, setTotalMilitar] = useState<number>(0);
   const [dateFirst, setDateFirst] = useState<Date>();
@@ -176,12 +172,13 @@ export const RequisitosProvider: React.FC<{ children: ReactNode }> = ({
   const [services, setServices] = useState<Service[]>([]);
   const [searchServices, setsearchServices] = useState<Service[]>([]);
   const [requisitoServico, setRequisitoServico] = useState<RequisitoServico>();
-
+  console.log(services)
   const handleSubmitRequisitos = useCallback((data: RequisitoServico) => {
+    console.log(data)
     setRequisitoServico(data);
   }, []);
   const loadTotalMilitar = () => {
-    setTotalMilitar(militars.length);
+    setTotalMilitar(pms.length);
   };
   const loadTotalMilitarEscalados = (int: number) => {
     setTotalMilitarEscalados(p => p + int);
@@ -189,30 +186,30 @@ export const RequisitosProvider: React.FC<{ children: ReactNode }> = ({
   useEffect(() => {
     loadTotalMilitar();
   }, []);
-  useEffect(() => {
-    if (militares && Array.isArray(militares)) {
-      setMilitares(militares);
-    } else {
-      setMilitares([]); // Inicializa como array vazio se não for um array
-    }
-  }, [militares]);
-  useEffect(() => {
-    if (postosLocal && Array.isArray(postosLocal)) {
-      setPostosServices(postosLocal);
-      //console.log('postos services', postosServices);
-    } else {
-      setPostosServices([]); // Inicializa como array vazio se não for um array
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (militares && Array.isArray(militares)) {
+  //     setMilitares(militares);
+  //   } else {
+  //     setMilitares([]); // Inicializa como array vazio se não for um array
+  //   }
+  // }, [militares]);
+  // useEffect(() => {
+  //   if (postosLocal && Array.isArray(postosLocal)) {
+  //     setPostosServices(postosLocal);
+  //     //console.log('postos services', postosServices);
+  //   } else {
+  //     setPostosServices([]); // Inicializa como array vazio se não for um array
+  //   }
+  // }, []);
 
   const handleRandomServices = () => {
     const generateServices = () => {
       const services: Service[] = [];
-      let remainingMilitares = [...militars]; // Clona a lista de militares
+      let remainingMilitares = [...pms]; // Clona a lista de militares
 
       const groupedMilitares: Record<string, Militares_service[]> = {};
 
-      if (!requisitoServico || !postosServices) return;
+      if (!requisitoServico || !postosLocal) return;
       setDateFirst(requisitoServico.dateFirst);
       setdateFinished(requisitoServico.dateFinish);
 
@@ -230,19 +227,19 @@ export const RequisitosProvider: React.FC<{ children: ReactNode }> = ({
                 // Se for 'aleatorio', incluir lógica específica aqui
                 console.log('entrou em aleatorio');
                 const aux = {
-                  label: m.posto_grad,
-                  name: m.nome_completo,
+                  label: m.vpa_posto_grad,
+                  name: m.vpa_vpa_nome_completo,
                   militarRank: optionsMilitares.find(
-                    opt => opt.value === m.posto_grad,
+                    opt => opt.value === m.vpa_posto_grad,
                   )?.militarRank,
                 };
                 const aux2 = {
-                  label: groupedMilitares[beforeAntiguidade][0].posto_grad,
-                  name: groupedMilitares[beforeAntiguidade][0].nome_completo,
+                  label: groupedMilitares[beforeAntiguidade][0].vpa_posto_grad,
+                  name: groupedMilitares[beforeAntiguidade][0].vpa_vpa_nome_completo,
                   militarRank: optionsMilitares.find(
                     opt =>
                       opt.value ===
-                      groupedMilitares[beforeAntiguidade][0].posto_grad,
+                      groupedMilitares[beforeAntiguidade][0].vpa_posto_grad,
                   )?.militarRank,
                 };
                 //console.log('aux1', aux);
@@ -255,7 +252,7 @@ export const RequisitosProvider: React.FC<{ children: ReactNode }> = ({
                   return Number(aux.militarRank) > Number(aux2.militarRank); // Incluir no grupo 'aleatorio' se a condição for atendida
                 }
               } else {
-                return m.posto_grad === a;
+                return m.vpa_posto_grad === a;
               }
             });
             //console.log(groupedMilitares[a]);
@@ -263,7 +260,7 @@ export const RequisitosProvider: React.FC<{ children: ReactNode }> = ({
           });
 
           requisitoServico.turnos.forEach(turno => {
-            postosServices?.forEach(posto => {
+            postosLocal?.forEach(posto => {
               const selectedMilitares: Militares_service[] = [];
 
               // Preenche militares conforme a antiguidade e lotação
@@ -271,7 +268,7 @@ export const RequisitosProvider: React.FC<{ children: ReactNode }> = ({
                 const militaresComLotacao = groupedMilitares[a].filter(
                   m =>
                     selectedMilitares.length > 0 &&
-                    m.opm === selectedMilitares[0].opm,
+                    m.vpa_opm_sigla === selectedMilitares[0].vpa_opm_sigla,
                 );
 
                 let militar;
@@ -284,10 +281,10 @@ export const RequisitosProvider: React.FC<{ children: ReactNode }> = ({
                 if (militar) {
                   selectedMilitares.push(militar);
                   groupedMilitares[a] = groupedMilitares[a].filter(
-                    m => m.matricula !== militar.matricula,
+                    m => m.ps_matricula !== militar.ps_matricula,
                   );
                   remainingMilitares = remainingMilitares.filter(
-                    m => m.matricula !== militar.matricula,
+                    m => m.ps_matricula !== militar.ps_matricula,
                   );
                 }
               });
@@ -313,7 +310,7 @@ export const RequisitosProvider: React.FC<{ children: ReactNode }> = ({
 
               // Cria o objeto de serviço
               const service: Service = {
-                posto: `${posto?.local} - ${posto?.rua}-${posto.numero}, ${posto?.bairro}, ${posto?.cidade}`,
+                posto: `${posto?.local} - ${posto?.endereco}-${posto.numero}, ${posto?.bairro}, ${posto?.cidade}`,
                 dia: new Date(currentDate), // Clone para evitar mutação
                 turno: [new Date(turno.initial), new Date(turno.finished)], // Hora do turno
                 modalidade: `${posto?.modalidade}`,
@@ -330,7 +327,7 @@ export const RequisitosProvider: React.FC<{ children: ReactNode }> = ({
       } else
         while (currentDate <= requisitoServico.dateFinish) {
           requisitoServico.turnos.forEach(turno => {
-            postosServices.forEach(posto => {
+            postosLocal.forEach(posto => {
               const selectedMilitares: Militares_service[] = [];
 
               // Filtra militares conforme a lotação e antiguidade, até atingir a quantidade necessária
@@ -340,7 +337,7 @@ export const RequisitosProvider: React.FC<{ children: ReactNode }> = ({
                 const militaresComLotacao = remainingMilitares.filter(
                   m =>
                     selectedMilitares.length > 0 &&
-                    m.opm === selectedMilitares[0].opm,
+                    m.vpa_opm_sigla === selectedMilitares[0].vpa_opm_sigla,
                 );
 
                 let militar;
@@ -353,7 +350,7 @@ export const RequisitosProvider: React.FC<{ children: ReactNode }> = ({
                 if (militar) {
                   selectedMilitares.push(militar);
                   remainingMilitares = remainingMilitares.filter(
-                    m => m.matricula !== militar.matricula,
+                    m => m.ps_matricula !== militar.ps_matricula,
                   );
                 } else {
                   break; // Se não houver mais militares disponíveis, sai do loop
@@ -362,7 +359,7 @@ export const RequisitosProvider: React.FC<{ children: ReactNode }> = ({
 
               // Cria o objeto de serviço
               const service: Service = {
-                posto: `${posto?.local} - ${posto?.rua}-${posto?.numero}, ${posto?.bairro}, ${posto?.cidade}`,
+                posto: `${posto?.local} - ${posto?.endereco}-${posto?.numero}, ${posto?.bairro}, ${posto?.cidade}`,
                 dia: new Date(currentDate), // Clone para evitar mutação
                 turno: [new Date(turno.initial), new Date(turno.finished)], // Hora do turno
                 modalidade: posto.modalidade,
@@ -390,8 +387,8 @@ export const RequisitosProvider: React.FC<{ children: ReactNode }> = ({
   const handleRandomServicesNewTable = () => {
     const generateServices = () => {
       const services: Service[] = [];
-      let remainingMilitares = [...militars];
-      let postos_services = [...postos];
+      let remainingMilitares = [...pms];
+      let postos_services = [...postosLocal];
       const grad = [
         'Cel PM',
         'Ten-Cel PM',
@@ -409,7 +406,7 @@ export const RequisitosProvider: React.FC<{ children: ReactNode }> = ({
       ];
       const groupedMilitares: Record<string, Militares_service[]> = {};
 
-      if (!requisitoServico || !postosServices) return;
+      if (!requisitoServico || !postosLocal) return;
 
       setDateFirst(requisitoServico.dateFirst);
       setdateFinished(requisitoServico.dateFinish);
@@ -417,7 +414,7 @@ export const RequisitosProvider: React.FC<{ children: ReactNode }> = ({
       // Agrupando os militares por graduação
       grad.forEach(grade => {
         groupedMilitares[grade] = remainingMilitares.filter(
-          m => m.posto_grad === grade,
+          m => m.vpa_posto_grad === grade,
         );
       });
 
@@ -443,7 +440,7 @@ export const RequisitosProvider: React.FC<{ children: ReactNode }> = ({
                   ].filter(
                     m =>
                       selectedMilitares.length > 0 &&
-                      m.opm === selectedMilitares[0]?.opm,
+                      m.vpa_opm_sigla === selectedMilitares[0]?.vpa_opm_sigla,
                   );
 
                   if (militaresComLotacao.length > 0) {
@@ -459,9 +456,9 @@ export const RequisitosProvider: React.FC<{ children: ReactNode }> = ({
                     // Remove o militar selecionado do agrupamento e dos restantes
                     groupedMilitares[formattedKey] = groupedMilitares[
                       formattedKey
-                    ].filter(m => m.matricula !== militar!.matricula);
+                    ].filter(m => m.ps_matricula !== militar!.ps_matricula);
                     remainingMilitares = remainingMilitares.filter(
-                      m => m.matricula !== militar!.matricula,
+                      m => m.ps_matricula !== militar!.ps_matricula,
                     );
                   }
 
@@ -516,16 +513,16 @@ export const RequisitosProvider: React.FC<{ children: ReactNode }> = ({
         return (
           diaAsString.includes(lowercasedParam) || // Verifica se a string da data inclui o parâmetro em minúsculas
           service.militares.some(militar =>
-            militar.nome_completo.toLowerCase().includes(lowercasedParam),
+            militar.vpa_vpa_nome_completo.toLowerCase().includes(lowercasedParam),
           ) || // Verifica o nome nos militares em minúsculas
           service.militares.some(militar =>
-            militar.opm.toLowerCase().includes(lowercasedParam),
-          ) || // Verifica a OPM nos militares em minúsculas
+            militar.vpa_opm_sigla.toLowerCase().includes(lowercasedParam),
+          ) || // Verifica a vpa_opm_sigla nos militares em minúsculas
           service.militares.some(militar =>
-            militar.posto_grad.toLowerCase().includes(lowercasedParam),
+            militar.vpa_posto_grad.toLowerCase().includes(lowercasedParam),
           ) || // Verifica o posto/graduação nos militares em minúsculas
           service.militares.some(militar =>
-            militar.matricula.toLowerCase().includes(lowercasedParam),
+            militar.ps_matricula.toLowerCase().includes(lowercasedParam),
           ) || // Verifica a matrícula nos militares em minúsculas
           service.modalidade.toLowerCase().includes(lowercasedParam) || // Verifica na modalidade em minúsculas
           service.posto.toLowerCase().includes(lowercasedParam) || // Verifica no posto em minúsculas
@@ -541,7 +538,6 @@ export const RequisitosProvider: React.FC<{ children: ReactNode }> = ({
 
   const contextValue = useMemo(
     () => ({
-      militars,
       postosServices,
       requisitoServico,
       services,
@@ -558,7 +554,6 @@ export const RequisitosProvider: React.FC<{ children: ReactNode }> = ({
       searchServicesById,
     }),
     [
-      militars,
       postosServices,
       requisitoServico,
       services,

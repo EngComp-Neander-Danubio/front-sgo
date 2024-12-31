@@ -20,9 +20,10 @@ import { TdTable } from '../../componentesFicha/table/td';
 import { IconeDeletar, IconeEditar } from '../../ViewLogin';
 import { IconePermutar } from '../../componentesFicha/registrosMedicos/icones/iconePermuta/IconePermuta';
 import { IconeMore } from '../../componentesFicha/registrosMedicos/icones/iconeMais/IconeMore';
-import { handleSortByPostoGrad } from '../../../types/typesMilitar';
+import { DataEfetivo, handleSortByPostoGrad } from '../../../types/typesMilitar';
 import { useRequisitos } from '../../../context/requisitosContext/useRequesitos';
 import { useOperacao } from '../../../context/eventContext/useOperacao';
+import TableMain, { ColumnProps } from '../TableMain/TableMain';
 
 interface ICard extends CardProps {
   services: Service[];
@@ -33,6 +34,54 @@ export const CardService: React.FC<ICard> = ({ services, isOpen }) => {
   const { dateFirst, dateFinished } = useRequisitos();
   const { searchServices, searchServiceLoading } = useRequisitos();
 
+  const columns: Array<ColumnProps<DataEfetivo>> = [
+
+    {
+      key: 'ps_matricula' ,
+      title: 'Matrícula',
+    },
+    {
+      key: 'vpa_posto_grad',
+      title: 'Posto/Graduação',
+    },
+    {
+      key: 'vpa_nome_completo',
+      title: 'Nome',
+    },
+    {
+      key: 'vpa_opm_sigla',
+      title: 'OPM',
+    },
+    {
+      key: 'acoes',
+      title: 'Ações',
+      render: (_, record) => {
+        // Encontrar o índice do registro diretamente no array de dados
+        //const index = currentData?.findIndex(item => item === record);
+
+        return (
+          <Flex flexDirection="row" gap={2}>
+            {/* <span>
+              <IconeDeletar
+                label_tooltip={record.nome_completo}
+                handleDelete={async () => {
+                  if (index !== undefined && index !== -1) {
+                    await deletePMFromTable(record.id, index.toString());
+                  } else {
+                    console.error(
+                      'Índice não encontrado para o registro',
+                      record,
+                    );
+                  }
+                }}
+              />
+            </span> */}
+
+          </Flex>
+        );
+      },
+    },
+  ];
   const agruparDatas = (services: Service[]) => {
     const groupedDates: Record<string, Service[]> = {};
 
@@ -210,10 +259,10 @@ export const CardService: React.FC<ICard> = ({ services, isOpen }) => {
                         {handleSortByPostoGrad(service.militares, '2').map(
                           (militar, idx) => (
                             <Tr key={idx}>
-                              <Td>{militar.posto_grad}</Td>
-                              <Td>{militar.nome_completo}</Td>
-                              <Td>{militar.matricula}</Td>
-                              <Td>{militar.opm}</Td>
+                              <Td>{militar.vpa_posto_grad}</Td>
+                              <Td>{militar.vpa_nome_completo}</Td>
+                              <Td>{militar.ps_matricula}</Td>
+                              <Td>{militar.vpa_opm_sigla}</Td>
                               <TdTable
                                 customIcons={[
                                   <IconePermutar
@@ -237,6 +286,8 @@ export const CardService: React.FC<ICard> = ({ services, isOpen }) => {
                       </Tbody>
                     </Table>
                   </TableContainer>
+
+
                 </CardBody>
               </Card>
             </Flex>
