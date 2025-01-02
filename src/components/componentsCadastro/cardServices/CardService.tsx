@@ -164,7 +164,7 @@ export const CardService: React.FC<ICard> = ({ services, isOpen }) => {
             <Flex
               key={`${date}`} // Ajuste aqui para evitar conflitos de chave
               flexDirection="row"
-              gap={1}
+              gap={2}
               w={'49%'}
               mb={4}
               align="center"

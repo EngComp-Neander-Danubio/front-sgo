@@ -9,13 +9,16 @@ import {
   ModalFooter,
   Center,
   Flex,
+  Icon,
 } from '@chakra-ui/react';
 import { CardService } from '../cardServices/CardService';
 import { useRequisitos } from '../../../context/requisitosContext/useRequesitos';
 import { InputPatternController } from '../inputPatternController/InputPatternController';
-import { BiSearch } from 'react-icons/bi';
 import { Controller, useForm } from 'react-hook-form';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
+import { IconeDeletar } from '../../componentesFicha/registrosMedicos/icones/iconeDeletar';
+import { ColumnProps } from '../TableMain/TableMain';
+import { SearchIcon } from '@chakra-ui/icons';
 
 interface IModal {
   isOpen: boolean;
@@ -75,7 +78,9 @@ export const ModalServices: React.FC<IModal> = ({ isOpen, onClose }) => {
                     onBlur={onBlur}
                     value={value}
                     error={error}
-                  />
+                  >
+                    <Icon as={SearchIcon} />
+                  </InputPatternController>
                 )}
               />
             </Flex>

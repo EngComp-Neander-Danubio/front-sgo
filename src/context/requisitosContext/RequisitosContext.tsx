@@ -172,9 +172,8 @@ export const RequisitosProvider: React.FC<{ children: ReactNode }> = ({
   const [services, setServices] = useState<Service[]>([]);
   const [searchServices, setsearchServices] = useState<Service[]>([]);
   const [requisitoServico, setRequisitoServico] = useState<RequisitoServico>();
-  console.log(services)
+
   const handleSubmitRequisitos = useCallback((data: RequisitoServico) => {
-    console.log(data)
     setRequisitoServico(data);
   }, []);
   const loadTotalMilitar = () => {
@@ -186,21 +185,6 @@ export const RequisitosProvider: React.FC<{ children: ReactNode }> = ({
   useEffect(() => {
     loadTotalMilitar();
   }, []);
-  // useEffect(() => {
-  //   if (militares && Array.isArray(militares)) {
-  //     setMilitares(militares);
-  //   } else {
-  //     setMilitares([]); // Inicializa como array vazio se não for um array
-  //   }
-  // }, [militares]);
-  // useEffect(() => {
-  //   if (postosLocal && Array.isArray(postosLocal)) {
-  //     setPostosServices(postosLocal);
-  //     //console.log('postos services', postosServices);
-  //   } else {
-  //     setPostosServices([]); // Inicializa como array vazio se não for um array
-  //   }
-  // }, []);
 
   const handleRandomServices = () => {
     const generateServices = () => {
