@@ -13,8 +13,6 @@ export * from './componentesGerais/relogio';
 //export * from '../components/componentsConteudo/botaoCadastrar';
 export * from '../components/componentsCadastro/flexCadastrar';
 //export * from '../components/componentsConteudo/inputCadastrar';
-export * from '../components/componentesFicha/dadosDaFicha/imgServidor';
-export * from '../components/componentesFicha/flexFicha';
 //export * from '../components/componentesFicha/registrosMedicos';
 export * from '../components/componentesFicha/registrosMedicos/icones/iconeDeletar';
 export * from '../components/componentesFicha/registrosMedicos/icones/iconeEditar';

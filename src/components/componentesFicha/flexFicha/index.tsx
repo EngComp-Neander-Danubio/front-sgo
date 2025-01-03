@@ -1,6 +1,5 @@
 import React from 'react';
 import { Flex, Box, VStack } from '@chakra-ui/react';
-import { ImgFicha } from '../dadosDaFicha/imgServidor';
 import { TitlePerfil } from '../dadosDaFicha/titlePerfil';
 import { TableFicha } from '../table';
 import { TabFicha } from '../tabFicha';
@@ -58,10 +57,7 @@ export const FlexFicha: React.FC<IFlexFicha> = props => {
           flexDirection={{ lg: 'row', md: 'row', sm: 'column' }}
           gap={{ lg: 2, md: 2, sm: 4 }}
         >
-          <ImgFicha
-            width={{ lg: '138px', md: '138px', sm: '120px' }}
-            height={{ lg: '186px', md: '186px', sm: '100px' }}
-          />
+
           <DadosFicha
             ml={{ lg: '', md: '', sm: '2' }}
             marginLeft={{ lg: 6, md: 6, sm: 0 }}
