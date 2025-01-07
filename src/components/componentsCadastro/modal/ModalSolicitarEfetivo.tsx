@@ -19,6 +19,7 @@ import solicitacaoEfetivoSchema from '../../../types/yupSolicitacaoEfetiv/yupSol
 import api from '../../../services/api';
 import { formatDate } from '../../../utils/utils';
 import { useOperacao } from '../../../context/eventContext/useOperacao';
+import moment from 'moment';
 
 interface IModal {
   isOpen: boolean;
@@ -44,7 +45,8 @@ export const ModalSolicitarEfetivo: React.FC<IModal> = ({
   const methodsInput = useForm<SolicitacaoForm>({
     resolver: yupResolver(solicitacaoEfetivoSchema),
     defaultValues: {
-      data_inicio: new Date(),
+      data_inicio: new Date(moment(OperacaoById?.dataInicio).utc().format('DD-MMM-YYYY HH:mm:ss')),
+      data_final: new Date(moment(OperacaoById?.dataFinal).utc().format('DD-MMM-YYYY HH:mm:ss')),
       operacao_id: OperacaoById?.id,
       uni_codigo: [],
       efetivo: [],

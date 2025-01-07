@@ -248,13 +248,16 @@ export const AccordionItemEfetivo: React.FC<IAccordion> = ({ isEditing }) => {
 
   const deletePMFromTable = useCallback(
     async (id?: string, index?: string) => {
-
       // Caso o posto venha do backend (tem id)
       if (id !== undefined && index !== undefined) {
         try {
           console.log('delete com id');
-          await api.delete(`/deletar-pm/${id}`);
-
+          await api.delete(`/deletar-efetivo`, {
+            params:{
+              id: id
+            }
+          });
+          setPMs(prev => prev.filter(pm => pm.id !== id));
           // Exibe o toast de sucesso
           toast({
             title: 'Sucesso',
@@ -317,38 +320,38 @@ export const AccordionItemEfetivo: React.FC<IAccordion> = ({ isEditing }) => {
     [pms, currentDataIndex, currentData.length],
   );
   const columns: Array<ColumnProps<DataEfetivo>> = [
-    // {
-    //   key: 'matricula' ,
-    //   title: 'Matrícula',
-    // },
-    // {
-    //   key: 'posto_grad',
-    //   title: 'Posto/Graduação',
-    // },
-    // {
-    //   key: 'nome_completo',
-    //   title: 'Nome',
-    // },
-    // {
-    //   key: 'opm',
-    //   title: 'OPM',
-    // },
     {
-      key: 'ps_matricula' ,
+      key: 'matricula' ,
       title: 'Matrícula',
     },
     {
-      key: 'vpa_posto_grad',
+      key: 'posto_grad',
       title: 'Posto/Graduação',
     },
     {
-      key: 'vpa_nome_completo',
+      key: 'nome_completo',
       title: 'Nome',
     },
     {
-      key: 'vpa_opm_sigla',
+      key: 'opm_sigla',
       title: 'OPM',
     },
+    // {
+    //   key: 'ps_matricula' ,
+    //   title: 'Matrícula',
+    // },
+    // {
+    //   key: 'vpa_posto_grad',
+    //   title: 'Posto/Graduação',
+    // },
+    // {
+    //   key: 'vpa_nome_completo',
+    //   title: 'Nome',
+    // },
+    // {
+    //   key: 'vpa_opm_sigla',
+    //   title: 'OPM',
+    // },
     {
       key: 'acoes',
       title: 'Ações',
