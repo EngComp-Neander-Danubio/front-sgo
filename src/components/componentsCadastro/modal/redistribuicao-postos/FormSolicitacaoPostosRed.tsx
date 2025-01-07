@@ -47,11 +47,7 @@ export const FormSolicitacaoPostosRed: React.FC = () => {
   useEffect(() => {
     handleLoadOpmFilhas(1945);
   }, []);
-  /* const normalizeDate = (date: string) => {
-    // Substitui "DD-MM-YYYY" por "YYYY-MM-DD" (ou retorna null se for inválido)
-    const parts = date.split('-');
-    return parts.length === 3 ? new Date(`${parts[2]}-${parts[1]}-${parts[0]}`) : null;
-  }; */
+
   return (
     <FormControl {...methodsInput} mb={4}>
       <Divider />

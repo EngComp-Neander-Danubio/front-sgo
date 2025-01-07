@@ -37,19 +37,19 @@ export const CardService: React.FC<ICard> = ({ services, isOpen }) => {
   const columns: Array<ColumnProps<DataEfetivo>> = [
 
     {
-      key: 'ps_matricula' ,
+      key: 'matricula' ,
       title: 'Matrícula',
     },
     {
-      key: 'vpa_posto_grad',
+      key: 'posto_grad',
       title: 'Posto/Graduação',
     },
     {
-      key: 'vpa_nome_completo',
+      key: 'nome_completo',
       title: 'Nome',
     },
     {
-      key: 'vpa_opm_sigla',
+      key: 'opm_sigla',
       title: 'OPM',
     },
     {
@@ -259,10 +259,10 @@ export const CardService: React.FC<ICard> = ({ services, isOpen }) => {
                         {handleSortByPostoGrad(service.militares, '2').map(
                           (militar, idx) => (
                             <Tr key={idx}>
-                              <Td>{militar.vpa_posto_grad}</Td>
-                              <Td>{militar.vpa_nome_completo}</Td>
-                              <Td>{militar.ps_matricula}</Td>
-                              <Td>{militar.vpa_opm_sigla}</Td>
+                              <Td>{militar.posto_grad}</Td>
+                              <Td>{militar.nome_completo}</Td>
+                              <Td>{militar.matricula}</Td>
+                              <Td>{militar.opm_sigla}</Td>
                               <TdTable
                                 customIcons={[
                                   <IconePermutar

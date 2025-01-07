@@ -22,10 +22,10 @@ export type Requisito = {
 
 export type Militares_service = {
   id?: string;
-  vpa_vpa_nome_completo: string;
-  vpa_opm_sigla: string;
-  ps_matricula: string;
-  vpa_posto_grad: string;
+  nome_completo: string;
+  opm_sigla: string;
+  matricula: string;
+  posto_grad: string;
 };
 
 
@@ -113,13 +113,13 @@ export const RequisitosProvider: React.FC<{ children: ReactNode }> = ({
         },
       });
       const newPMs: Militares_service[] = response.data.filter(
-        novvpa_opm_sigla =>
+        novopm_sigla =>
           !pms.some(
             pms =>
-              novvpa_opm_sigla.ps_matricula === pms.ps_matricula &&
-              novvpa_opm_sigla.vpa_vpa_nome_completo === pms.vpa_vpa_nome_completo &&
-              novvpa_opm_sigla.vpa_opm_sigla === pms.vpa_opm_sigla &&
-              novvpa_opm_sigla.vpa_posto_grad === pms.vpa_posto_grad
+              novopm_sigla.matricula === pms.matricula &&
+              novopm_sigla.nome_completo === pms.nome_completo &&
+              novopm_sigla.opm_sigla === pms.opm_sigla &&
+              novopm_sigla.posto_grad === pms.posto_grad
           ),
       );
       setPMs(newPMs);
@@ -211,19 +211,19 @@ export const RequisitosProvider: React.FC<{ children: ReactNode }> = ({
                 // Se for 'aleatorio', incluir lógica específica aqui
                 console.log('entrou em aleatorio');
                 const aux = {
-                  label: m.vpa_posto_grad,
-                  name: m.vpa_vpa_nome_completo,
+                  label: m.posto_grad,
+                  name: m.nome_completo,
                   militarRank: optionsMilitares.find(
-                    opt => opt.value === m.vpa_posto_grad,
+                    opt => opt.value === m.posto_grad,
                   )?.militarRank,
                 };
                 const aux2 = {
-                  label: groupedMilitares[beforeAntiguidade][0].vpa_posto_grad,
-                  name: groupedMilitares[beforeAntiguidade][0].vpa_vpa_nome_completo,
+                  label: groupedMilitares[beforeAntiguidade][0].posto_grad,
+                  name: groupedMilitares[beforeAntiguidade][0].nome_completo,
                   militarRank: optionsMilitares.find(
                     opt =>
                       opt.value ===
-                      groupedMilitares[beforeAntiguidade][0].vpa_posto_grad,
+                      groupedMilitares[beforeAntiguidade][0].posto_grad,
                   )?.militarRank,
                 };
                 //console.log('aux1', aux);
@@ -236,7 +236,7 @@ export const RequisitosProvider: React.FC<{ children: ReactNode }> = ({
                   return Number(aux.militarRank) > Number(aux2.militarRank); // Incluir no grupo 'aleatorio' se a condição for atendida
                 }
               } else {
-                return m.vpa_posto_grad === a;
+                return m.posto_grad === a;
               }
             });
             //console.log(groupedMilitares[a]);
@@ -252,7 +252,7 @@ export const RequisitosProvider: React.FC<{ children: ReactNode }> = ({
                 const militaresComLotacao = groupedMilitares[a].filter(
                   m =>
                     selectedMilitares.length > 0 &&
-                    m.vpa_opm_sigla === selectedMilitares[0].vpa_opm_sigla,
+                    m.opm_sigla === selectedMilitares[0].opm_sigla,
                 );
 
                 let militar;
@@ -265,10 +265,10 @@ export const RequisitosProvider: React.FC<{ children: ReactNode }> = ({
                 if (militar) {
                   selectedMilitares.push(militar);
                   groupedMilitares[a] = groupedMilitares[a].filter(
-                    m => m.ps_matricula !== militar.ps_matricula,
+                    m => m.matricula !== militar.matricula,
                   );
                   remainingMilitares = remainingMilitares.filter(
-                    m => m.ps_matricula !== militar.ps_matricula,
+                    m => m.matricula !== militar.matricula,
                   );
                 }
               });
@@ -321,7 +321,7 @@ export const RequisitosProvider: React.FC<{ children: ReactNode }> = ({
                 const militaresComLotacao = remainingMilitares.filter(
                   m =>
                     selectedMilitares.length > 0 &&
-                    m.vpa_opm_sigla === selectedMilitares[0].vpa_opm_sigla,
+                    m.opm_sigla === selectedMilitares[0].opm_sigla,
                 );
 
                 let militar;
@@ -334,7 +334,7 @@ export const RequisitosProvider: React.FC<{ children: ReactNode }> = ({
                 if (militar) {
                   selectedMilitares.push(militar);
                   remainingMilitares = remainingMilitares.filter(
-                    m => m.ps_matricula !== militar.ps_matricula,
+                    m => m.matricula !== militar.matricula,
                   );
                 } else {
                   break; // Se não houver mais militares disponíveis, sai do loop
@@ -398,7 +398,7 @@ export const RequisitosProvider: React.FC<{ children: ReactNode }> = ({
       // Agrupando os militares por graduação
       grad.forEach(grade => {
         groupedMilitares[grade] = remainingMilitares.filter(
-          m => m.vpa_posto_grad === grade,
+          m => m.posto_grad === grade,
         );
       });
 
@@ -424,7 +424,7 @@ export const RequisitosProvider: React.FC<{ children: ReactNode }> = ({
                   ].filter(
                     m =>
                       selectedMilitares.length > 0 &&
-                      m.vpa_opm_sigla === selectedMilitares[0]?.vpa_opm_sigla,
+                      m.opm_sigla === selectedMilitares[0]?.opm_sigla,
                   );
 
                   if (militaresComLotacao.length > 0) {
@@ -440,9 +440,9 @@ export const RequisitosProvider: React.FC<{ children: ReactNode }> = ({
                     // Remove o militar selecionado do agrupamento e dos restantes
                     groupedMilitares[formattedKey] = groupedMilitares[
                       formattedKey
-                    ].filter(m => m.ps_matricula !== militar!.ps_matricula);
+                    ].filter(m => m.matricula !== militar!.matricula);
                     remainingMilitares = remainingMilitares.filter(
-                      m => m.ps_matricula !== militar!.ps_matricula,
+                      m => m.matricula !== militar!.matricula,
                     );
                   }
 
@@ -497,16 +497,16 @@ export const RequisitosProvider: React.FC<{ children: ReactNode }> = ({
         return (
           diaAsString.includes(lowercasedParam) || // Verifica se a string da data inclui o parâmetro em minúsculas
           service.militares.some(militar =>
-            militar.vpa_vpa_nome_completo.toLowerCase().includes(lowercasedParam),
+            militar.nome_completo.toLowerCase().includes(lowercasedParam),
           ) || // Verifica o nome nos militares em minúsculas
           service.militares.some(militar =>
-            militar.vpa_opm_sigla.toLowerCase().includes(lowercasedParam),
-          ) || // Verifica a vpa_opm_sigla nos militares em minúsculas
+            militar.opm_sigla.toLowerCase().includes(lowercasedParam),
+          ) || // Verifica a opm_sigla nos militares em minúsculas
           service.militares.some(militar =>
-            militar.vpa_posto_grad.toLowerCase().includes(lowercasedParam),
+            militar.posto_grad.toLowerCase().includes(lowercasedParam),
           ) || // Verifica o posto/graduação nos militares em minúsculas
           service.militares.some(militar =>
-            militar.ps_matricula.toLowerCase().includes(lowercasedParam),
+            militar.matricula.toLowerCase().includes(lowercasedParam),
           ) || // Verifica a matrícula nos militares em minúsculas
           service.modalidade.toLowerCase().includes(lowercasedParam) || // Verifica na modalidade em minúsculas
           service.posto.toLowerCase().includes(lowercasedParam) || // Verifica no posto em minúsculas
