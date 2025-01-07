@@ -17,6 +17,7 @@ import { FormSolicitacaoPostos } from './FormSolicitacaoPostos';
 import { solicitacaoPostosSchema } from '../../../types/yupSolicitacaoPostos/yupSolicitacaoPostos';
 import api from '../../../services/api';
 import { formatDate } from '../../../utils/utils';
+import { useOperacao } from '../../../context/eventContext/useOperacao';
 
 interface IModal {
   isOpen: boolean;
@@ -43,11 +44,13 @@ export const ModalSolicitacarPostos: React.FC<IModal> = ({
   onClose,
 }) => {
   const toast = useToast();
+  const {OperacaoById} = useOperacao();
   const methodsInput = useForm<SolicitacaoForm>({
     resolver: yupResolver(solicitacaoPostosSchema),
     defaultValues: {
-      dataInicio: new Date(),
-      operacao_id: '06/2024',
+      dataInicio: OperacaoById?.dataInicio ?  new Date(OperacaoById?.dataInicio) : new Date(),
+      dataFinal: OperacaoById?.dataFinal ?  new Date(OperacaoById?.dataFinal) : new Date(),
+      operacao_id: OperacaoById?.id,
       uni_codigo: [],
     },
   });

@@ -557,7 +557,7 @@ export const AccordionItemPostos: React.FC<IAccordion> = ({ isEditing }) => {
                       variant="ghost"
                       color={'#fff'}
                       onClick={onOpenModalSolicitarPostos}
-                      isDisabled
+                      //isDisabled
                     >
                       Solicitar Postos
                     </Button>

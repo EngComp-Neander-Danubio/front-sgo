@@ -18,6 +18,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import solicitacaoEfetivoSchema from '../../../types/yupSolicitacaoEfetiv/yupSolicitacaoEfetivo';
 import api from '../../../services/api';
 import { formatDate } from '../../../utils/utils';
+import { useOperacao } from '../../../context/eventContext/useOperacao';
 
 interface IModal {
   isOpen: boolean;
@@ -39,11 +40,12 @@ export const ModalSolicitarEfetivo: React.FC<IModal> = ({
   onClose,
 }) => {
   const toast = useToast();
+  const {OperacaoById} = useOperacao();
   const methodsInput = useForm<SolicitacaoForm>({
     resolver: yupResolver(solicitacaoEfetivoSchema),
     defaultValues: {
       data_inicio: new Date(),
-      operacao_id: '02/2024',
+      operacao_id: OperacaoById?.id,
       uni_codigo: [],
       efetivo: [],
     },

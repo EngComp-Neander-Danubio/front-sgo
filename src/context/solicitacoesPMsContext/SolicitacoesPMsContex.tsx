@@ -67,7 +67,7 @@ export const SolicitacoesPMsProvider: React.FC<{ children: ReactNode }> = ({
   const totalData = solicitacoesPM.length;
   const currentData = solicitacoesPM.slice(firstDataIndex, lastDataIndex);
   useEffect(() => {
-    loadSolicitacaoPMByApi(1904);
+    loadSolicitacaoPMByApi(1965);
   }, []);
   const loadSolicitacaoPMById = useCallback(
     async (id: number) => {
@@ -83,7 +83,7 @@ export const SolicitacoesPMsProvider: React.FC<{ children: ReactNode }> = ({
   const loadSolicitacaoPMByApi = useCallback(async (param: number) => {
     try {
       const response = await api.get<SolicitacoesPMData[]>(
-        `solicitacao-pms/${param}`,
+        `solicitacao-efetivo/${param}`,
       );
       setSolicitacoesPM(response.data);
     } catch (error) {

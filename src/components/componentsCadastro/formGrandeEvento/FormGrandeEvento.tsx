@@ -31,9 +31,9 @@ export const FormGrandeEvento: React.FC<IFormProps> = ({
   const { control, setValue } = useFormContext();
   const [startDate, setStartDate] = useState<Date>();
   const [endDate, setEndDate] = useState<Date>();
-  const { eventById } = useOperacao();
+  const { OperacaoById } = useOperacao();
   useEffect(() => {
-    console.log('dentro do form',name_militar, eventById?.comandante)
+    console.log('dentro do form',name_militar, OperacaoById?.comandante)
     if(isEditing) setValue('comandante', name_militar)
   },[isEditing, name_militar, setValue])
   const cache = new Map<string, any>();

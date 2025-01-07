@@ -8,6 +8,7 @@ import React, {
 } from 'react';
 import { useToast } from '@chakra-ui/react';
 import api from '../../services/api';
+import { useOperacao } from '../eventContext/useOperacao';
 
 export type SolicitacoesPosto = {
   columns?: string[];
@@ -66,8 +67,8 @@ export const SolicitacoesPostosProvider: React.FC<{ children: ReactNode }> = ({
   const currentData = solicitacoesPostos.slice(firstDataIndex, lastDataIndex);
 
   useEffect(() => {
-    loadSolicitacaoPostosByApi(2009);
-  }, [solicitacoesPostos.length]);
+      loadSolicitacaoPostosByApi(1965);
+  }, []);
 
   const loadSolicitacaoPostosById = useCallback(
     async (id: number) => {

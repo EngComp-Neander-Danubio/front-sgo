@@ -464,7 +464,7 @@ export const AccordionItemEfetivo: React.FC<IAccordion> = ({ isEditing }) => {
                       variant="ghost"
                       color={'#fff'}
                       onClick={onOpenModalSolicitarMilitares}
-                      isDisabled
+                      //isDisabled
 
                     >
                       Solicitar Militares

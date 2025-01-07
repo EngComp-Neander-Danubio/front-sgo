@@ -35,8 +35,8 @@ interface Militar {
 }
 export const AccordionItemOperacao: React.FC<IAccordion> = ({ isEditing }) => {
   const { isOpen } = useIsOpen();
-  const { searchServices, searchServicesById } = useRequisitos();
-  const { control, watch } = useForm();
+  const { searchServicesById } = useRequisitos();
+  const { watch } = useForm();
   const inputUser = watch('searchService');
 
   useEffect(() => {
@@ -118,9 +118,9 @@ export const AccordionItemOperacao: React.FC<IAccordion> = ({ isEditing }) => {
                     <FormGrandeEvento name_militar={isEditing ? OperacaoById?.comandante as unknown as string : ""} isEditing/>
                     <BotaoCadastrar
                       type="submit"
-
                       label={!isEditing ? 'Salvar' : 'Editar'}
                     />
+
                   </Flex>
                 </form>
               </FormProvider>

@@ -21,6 +21,7 @@ import { ModalRelatorio } from '../modal/ModalRelatorio';
 import { ModalRequesitos } from '../modal/ModalRequesitos';
 import { ModalRestantes } from '../modal/ModalRestantes';
 import { ModalServices } from '../modal/ModalServices';
+import { FiSave } from 'react-icons/fi';
 type IForm = {
   comandante: string;
   dataFinal: Date;
@@ -54,7 +55,7 @@ export const AccordionItemEscala: React.FC<IAccordion> = ({ isEditing }) => {
     onOpen: onOpenModalServices,
     onClose: onCloseModalServices,
   } = useDisclosure();
-  const { totalMilitarEscalados, militaresRestantes, handleRandomServices, totalMilitar} = useRequisitos();
+  const { totalMilitarEscalados, militaresRestantes, handleRandomServices, totalMilitar,} = useRequisitos();
 
   const methodsInput = useForm<IForm>({
     resolver: yupResolver(eventoSchema),
@@ -65,6 +66,7 @@ export const AccordionItemEscala: React.FC<IAccordion> = ({ isEditing }) => {
     //await uploadEvent(data);
     reset();
   };
+
   return (
     <>
       <AccordionItem>
@@ -183,10 +185,25 @@ export const AccordionItemEscala: React.FC<IAccordion> = ({ isEditing }) => {
                 </Flex>
 
                 <Flex>
-                  <BotaoCadastrar
-                    handleSubmit={onSubmit}
-                    label={!isEditing ? 'Salvar' : 'Editar'}
-                  />
+                <Button
+                    type="submit"
+                          color={'white'}
+                          rightIcon={<FiSave size={'16px'} />}
+                          backgroundColor={'#38A169'}
+                          variant="ghost"
+                          w={{ base: '152px', lg: '152px', md: '152px', sm: '100px' }}
+                          fontSize={{ base: '18px', lg: '18px', md: '16px', sm: '12px' }}
+                          alignSelf={'center'}
+                          justifySelf={'center'}
+                          _hover={{
+                            //bgColor: '#266a47',
+                            bgColor: 'green',
+                            cursor: 'pointer',
+                            transition: '.5s',
+                            //borderRadius: '10px',
+                          }}>
+                      {!isEditing ? 'Salvar' : 'Editar'}
+                    </Button>
                 </Flex>
               </Flex>
             </AccordionPanel>

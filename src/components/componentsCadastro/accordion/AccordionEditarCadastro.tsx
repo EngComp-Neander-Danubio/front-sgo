@@ -1,9 +1,6 @@
-import { Accordion, AccordionProps, FlexboxProps } from '@chakra-ui/react';
+import { Accordion, AccordionProps } from '@chakra-ui/react';
 
-import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { eventoSchema } from '../../../types/yupEvento/yupEvento';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useOperacao } from '../../../context/eventContext/useOperacao';
 import { AccordionItemEfetivo } from './AccordionItemEfetivo';
 import { AccordionItemEscala } from './AccordionItemEscala';
