@@ -133,15 +133,7 @@ export const FormSolicitacaoPostosRed: React.FC = () => {
                     field.onChange(date);
                     setStartDate(date as Date);
                   }}
-                  selected={
-                    field.value
-                      ? new Date(field.value)
-                      : new Date(
-                          normalizeDate(
-                            (solicitacaoPostoIndividual?.prazo_inicial as unknown) as string,
-                          ) || new Date(),
-                        )
-                  }
+                  selected={field.value ? new Date(field.value) : null}
                   startDate={startDate}
                   endDate={endDate}
                   error={error}
@@ -161,15 +153,7 @@ export const FormSolicitacaoPostosRed: React.FC = () => {
                     field.onChange(date);
                     setEndDate(date as Date);
                   }}
-                  selected={
-                    field.value
-                      ? new Date(field.value)
-                      : new Date(
-                          normalizeDate(
-                            (solicitacaoPostoIndividual?.prazo_final as unknown) as string,
-                          ) || new Date(),
-                        )
-                  }
+                  selected={field.value ? new Date(field.value) : null}
                   startDate={startDate}
                   endDate={endDate}
                   minDate={startDate}

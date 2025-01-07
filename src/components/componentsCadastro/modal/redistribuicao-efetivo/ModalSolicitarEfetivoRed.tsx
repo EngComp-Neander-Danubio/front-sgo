@@ -15,6 +15,8 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { FormSolicitacaoEfetivoRed } from './FormSolicitacaoEfetivoRed';
 import { solicitacaoPostosSchema } from '../../../../types/yupSolicitacaoPostos/yupSolicitacaoPostos';
+import { useOperacao } from '../../../../context/eventContext/useOperacao';
+import moment from 'moment';
 
 interface IModal {
   isOpen: boolean;
@@ -41,12 +43,13 @@ export const ModalSolicitacarEfetivoRed: React.FC<IModal> = ({
   onClose,
 }) => {
   const toast = useToast();
+  const {OperacaoById} = useOperacao();
   const methodsInput = useForm<SolicitacaoForm>({
     resolver: yupResolver(solicitacaoPostosSchema),
     defaultValues: {
-      dataInicio: new Date(),
-      operacao_id: '02/2024',
-    },
+              dataInicio: new Date(moment(OperacaoById?.dataInicio).utc().format('DD-MMM-YYYY HH:mm:ss')),
+              dataFinal: new Date(moment(OperacaoById?.dataFinal).utc().format('DD-MMM-YYYY HH:mm:ss')),
+            },
   });
   const { reset } = methodsInput;
   const handleReset = async () => {
