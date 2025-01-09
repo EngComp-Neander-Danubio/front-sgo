@@ -283,6 +283,7 @@ export const FormSelectRequesitos: React.FC<ISwicht> = ({ isOpen }) => {
                 startDate={startDate}
                 endDate={endDate}
                 error={error}
+                isDisabled
               />
             )}
           />
@@ -308,6 +309,7 @@ export const FormSelectRequesitos: React.FC<ISwicht> = ({ isOpen }) => {
                   endDate={endDate}
                   minDate={startDate}
                   error={error}
+                  isDisabled
                 />
               )}
             />

@@ -10,10 +10,10 @@ import {
   handleSortByPostoGrad,
   optionsMilitares,
 } from '../../types/typesMilitar';
-import { useMilitares } from '../militaresContext/useMilitares';
 import api from '../../services/api';
 import { useOperacao } from '../eventContext/useOperacao';
 import { PostoForm } from '../postosContext/PostosContex';
+import { useToast } from '@chakra-ui/react';
 
 export type Requisito = {
   columns?: string[];
@@ -58,6 +58,7 @@ export type RequisitoServico = {
 };
 
 export type Service = {
+  id_posto?: string;
   posto: string;
   dia: Date;
   turno: [Date, Date];
@@ -71,15 +72,14 @@ export interface IContextRequisitoData {
   requisitoServico: RequisitoServico;
   militars: Militares_service[];
   militaresRestantes: Militares_service[];
-  postosServices: Postos[];
   services: Service[];
   searchServices: Service[];
   searchServiceLoading: boolean;
+  deleteServices:(servico: Service) => void;
   handleSubmitRequisitos: (data: RequisitoServico) => void;
   handleRandomServices: () => void;
   handleRandomServicesNewTable: () => void;
   searchServicesById: (param?: string) => Promise<Service>;
-  //loadTotalMilitar: () => number;
   totalMilitar: number;
   totalMilitarEscalados: number;
 }
@@ -98,7 +98,7 @@ export const RequisitosProvider: React.FC<{ children: ReactNode }> = ({
   const [militaresRestantes, setMilitaresRestantes] = useState<
     Militares_service[]
   >([]);
-  const [postosServices, setPostosServices] = useState<Postos[]>();
+
   useEffect(()=>{
     if(OperacaoById?.id){
       loadPMsFromToBackend(OperacaoById?.id)
@@ -172,6 +172,7 @@ export const RequisitosProvider: React.FC<{ children: ReactNode }> = ({
   const [services, setServices] = useState<Service[]>([]);
   const [searchServices, setsearchServices] = useState<Service[]>([]);
   const [requisitoServico, setRequisitoServico] = useState<RequisitoServico>();
+  const toast = useToast();
 
   const handleSubmitRequisitos = useCallback((data: RequisitoServico) => {
     setRequisitoServico(data);
@@ -185,6 +186,39 @@ export const RequisitosProvider: React.FC<{ children: ReactNode }> = ({
   useEffect(() => {
     loadTotalMilitar();
   }, []);
+
+
+  const deleteServices = useCallback(
+    (servico: Service) => {
+      // Remover o serviço com base na comparação mais precisa
+      const updateServices = services.filter((service) => {
+        // Comparando as datas com getTime() para garantir que estamos comparando os valores
+        const isSameDate = new Date(service.dia).getTime() === new Date(servico.dia).getTime();
+
+        // Comparando o posto e verificando se 'militares' são iguais (ou o que for necessário para comparação)
+        const isSamePosto = service.posto === servico.posto;
+
+        // Você pode precisar de uma comparação mais detalhada dos 'militares'
+        const areMilitaresEqual = JSON.stringify(service.militares) === JSON.stringify(servico.militares);
+
+        return !(isSameDate && isSamePosto && areMilitaresEqual); // Exclui o serviço que coincide
+      });
+
+      // Atualiza o estado com os novos serviços
+      setServices(updateServices);
+
+      // Exibe o toast de sucesso
+      toast({
+        title: 'Exclusão de Posto de Serviço.',
+        description: 'Posto de Serviço excluído com sucesso.',
+        status: 'success',
+        duration: 2000,
+        isClosable: true,
+        position: 'top-right',
+      });
+    },
+    [services, setServices, toast] // Incluindo as dependências relevantes
+  );
 
   const handleRandomServices = () => {
     const generateServices = () => {
@@ -239,8 +273,6 @@ export const RequisitosProvider: React.FC<{ children: ReactNode }> = ({
                 return m.posto_grad === a;
               }
             });
-            //console.log(groupedMilitares[a]);
-            //console.log(groupedMilitares[a]?.length);
           });
 
           requisitoServico.turnos.forEach(turno => {
@@ -453,6 +485,7 @@ export const RequisitosProvider: React.FC<{ children: ReactNode }> = ({
 
             // Cria o objeto de serviço
             const service: Service = {
+              id_posto: posto?.id ? posto.id : undefined,
               posto: `${posto.local} - ${posto.rua}-${posto.numero}, ${posto.bairro}, ${posto.cidade}`,
               dia: new Date(currentDate), // Clone para evitar mutação
               turno: [new Date(turno.initial), new Date(turno.finished)], // Hora do turno
@@ -522,7 +555,7 @@ export const RequisitosProvider: React.FC<{ children: ReactNode }> = ({
 
   const contextValue = useMemo(
     () => ({
-      postosServices,
+
       requisitoServico,
       services,
       searchServices,
@@ -536,9 +569,10 @@ export const RequisitosProvider: React.FC<{ children: ReactNode }> = ({
       handleRandomServices,
       handleRandomServicesNewTable,
       searchServicesById,
+      deleteServices,
     }),
     [
-      postosServices,
+
       requisitoServico,
       services,
       searchServices,
@@ -552,6 +586,7 @@ export const RequisitosProvider: React.FC<{ children: ReactNode }> = ({
       handleRandomServices,
       handleRandomServicesNewTable,
       searchServicesById,
+      deleteServices,
     ],
   );
 

@@ -12,9 +12,10 @@ import {
   Thead,
   Tr,
   Table,
+  useToast,
 } from '@chakra-ui/react';
 import { Service } from '../../../context/requisitosContext/RequisitosContext';
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import { optionsModalidade } from '../../../types/typesModalidade';
 import { TdTable } from '../../componentesFicha/table/td';
 import { IconeDeletar, IconeEditar } from '../../ViewLogin';
@@ -30,9 +31,10 @@ interface ICard extends CardProps {
   isOpen: boolean;
 }
 
-export const CardService: React.FC<ICard> = ({ services, isOpen }) => {
+export const CardService: React.FC<ICard> = ({ services }) => {
   const { dateFirst, dateFinished } = useRequisitos();
-  const { searchServices, searchServiceLoading } = useRequisitos();
+  const { searchServices, searchServiceLoading, deleteServices } = useRequisitos();
+  const toast = useToast();
 
   const columns: Array<ColumnProps<DataEfetivo>> = [
 
@@ -119,11 +121,9 @@ export const CardService: React.FC<ICard> = ({ services, isOpen }) => {
             groupedDates[dateKey].push(service);
           }
         });
-
         currentDate.setDate(currentDate.getDate() + 1);
       }
     }
-
     return groupedDates;
   };
 
@@ -187,17 +187,17 @@ export const CardService: React.FC<ICard> = ({ services, isOpen }) => {
                   >
                     <Flex align="center" justify="space-between">
                       <Flex gap={2}>
-                        <IconeEditar
+                        {/* <IconeEditar
                           _hover={{
                             cursor: 'pointer',
                           }}
                           label_tooltip="Posto de Serviço"
-                        />
+                        /> */}
                         <IconeDeletar
                           _hover={{
                             cursor: 'pointer',
                           }}
-                          label_tooltip="Posto de Serviço"
+                          label_tooltip="Serviço"
                         />
                         <IconeMore
                           _hover={{
@@ -212,6 +212,7 @@ export const CardService: React.FC<ICard> = ({ services, isOpen }) => {
                     <Text>{service.posto}</Text>
                   </Flex>
                   <Flex flexDirection="row" mr="4" gap={2} align="center">
+                    <Text fontWeight="bold">Turno:</Text>
                     <Text>
                       Início:{' '}
                       {service.turno[0].toLocaleTimeString('pt-BR', {
@@ -232,11 +233,7 @@ export const CardService: React.FC<ICard> = ({ services, isOpen }) => {
                     <Text>{service.modalidade}</Text>
                   </Flex>
                   <TableContainer
-                    w={{
-                      lg: isOpen ? '43vw' : '90vw',
-                      md: isOpen ? '80vw' : '90vw',
-                      sm: isOpen ? '80vw' : '90vw',
-                    }}
+                    w={'100%'}
                     fontSize={'12px'}
                   >
                     <Table
@@ -286,6 +283,7 @@ export const CardService: React.FC<ICard> = ({ services, isOpen }) => {
                       </Tbody>
                     </Table>
                   </TableContainer>
+                  {/* <TableMain columns={columns} data={service.militares}/> */}
 
 
                 </CardBody>

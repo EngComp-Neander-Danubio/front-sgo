@@ -16,8 +16,6 @@ import { useRequisitos } from '../../../context/requisitosContext/useRequesitos'
 import { InputPatternController } from '../inputPatternController/InputPatternController';
 import { Controller, useForm } from 'react-hook-form';
 import { useEffect } from 'react';
-import { IconeDeletar } from '../../componentesFicha/registrosMedicos/icones/iconeDeletar';
-import { ColumnProps } from '../TableMain/TableMain';
 import { SearchIcon } from '@chakra-ui/icons';
 
 interface IModal {

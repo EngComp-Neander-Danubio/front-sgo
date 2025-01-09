@@ -14,6 +14,8 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { requisitosSchema } from '../../../types/yupRequisitos/yupRequisitos';
 import { useRequisitos } from '../../../context/requisitosContext/useRequesitos';
+import moment from 'moment';
+import { useOperacao } from '../../../context/eventContext/useOperacao';
 
 interface IModal {
   isOpen: boolean;
@@ -22,10 +24,14 @@ interface IModal {
 }
 
 export const ModalRequesitos: React.FC<IModal> = ({ isOpen, onClose }) => {
+  const {OperacaoById} = useOperacao();
   const methodsRequisitos = useForm<IForm>({
     resolver: yupResolver(requisitosSchema) as any,
     defaultValues: {
       aleatoriedade: true,
+      dateFirst: new Date(moment(OperacaoById?.dataInicio).utc().format('DD-MMM-YYYY HH:mm:ss')),
+      dateFinish: new Date(moment(OperacaoById?.dataFinal).utc().format('DD-MMM-YYYY HH:mm:ss')),
+
     },
   });
   const { reset } = methodsRequisitos;
