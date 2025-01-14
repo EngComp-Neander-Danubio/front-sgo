@@ -8,6 +8,7 @@ interface IPagination extends FlexProps{
   dataPerPage: number;
   loadLess: () => void;
   loadMore: () => void;
+  handlePerPageChange: (e: React.ChangeEvent<HTMLSelectElement>)=> void;
 }
 
 export const Pagination: React.FC<IPagination> = ({
@@ -16,19 +17,17 @@ export const Pagination: React.FC<IPagination> = ({
   loadMore,
   firstDataIndex,
   lastDataIndex,
+  dataPerPage,
+  handlePerPageChange,
   ...props
 }) => {
-  const [datePerpage, setDatePerpage] = useState<number>(1);
 
-  const handlePerPageChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setDatePerpage(parseInt(e.target.value));
-  };
 
   return (
     <Flex justify="space-between" mt={-9} align={'center'} {...props}>
       <Text fontSize={'14px'} color={'#666666'} fontWeight={'medium'}>
         {totalPages ? Number(firstDataIndex) + 1 : 0} - {' '}
-        {totalPages < datePerpage ? totalPages : datePerpage} de {' '}
+        {totalPages < dataPerPage ? totalPages : dataPerPage} de {' '}
         {totalPages} Itens
       </Text>
       <Select
@@ -36,7 +35,7 @@ export const Pagination: React.FC<IPagination> = ({
         w='60px'
         color='#A0AEC0'
         onChange={handlePerPageChange}
-        value={datePerpage.toString()}
+        value={dataPerPage.toString()}
       >
         <option value='1'>1</option>
         <option value='2'>2</option>

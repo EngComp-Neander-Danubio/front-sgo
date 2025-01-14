@@ -66,9 +66,13 @@ export const AccordionItemPostos: React.FC<IAccordion> = ({ isEditing }) => {
   const [postosLocal, setPostosLocal] = useState<PostoForm[]>([]);
   //const [postoById, setPostoById] = useState<PostoForm >();
   const [currentDataIndex, setCurrentDataIndex] = useState(0);
-  const [dataPerPage] = useState(5); // Defina o número de registros por página
-  const lastDataIndex = (currentDataIndex + 1) * dataPerPage;
-  const firstDataIndex = lastDataIndex - dataPerPage;
+  const [datePerpage, setDatePerpage] = useState<number>(1);
+
+    const handlePerPageChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+      setDatePerpage(parseInt(e.target.value));
+    };
+  const lastDataIndex = (currentDataIndex + 1) * datePerpage;
+  const firstDataIndex = lastDataIndex - datePerpage;
   const totalData = postosLocal.length;
   const currentData = postosLocal.slice(firstDataIndex, lastDataIndex);
   const hasMore = lastDataIndex < postosLocal.length;
@@ -597,11 +601,12 @@ export const AccordionItemPostos: React.FC<IAccordion> = ({ isEditing }) => {
                   {/* Componente de paginação */}
                   <Pagination
                     totalPages={totalData}
-                    dataPerPage={dataPerPage}
+                    dataPerPage={datePerpage}
                     firstDataIndex={firstDataIndex}
                     lastDataIndex={lastDataIndex}
                     loadLess={loadLess}
                     loadMore={loadMore}
+                    handlePerPageChange={handlePerPageChange}
                   />
                 </Flex>
 

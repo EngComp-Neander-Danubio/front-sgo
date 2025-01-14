@@ -64,9 +64,13 @@ export const AccordionItemEfetivo: React.FC<IAccordion> = ({ isEditing }) => {
   //const [militarById, setMilitarById] = useState<Militar | undefined>(undefined);
   const [pms, setPMs] = useState<Militar[]>([]);
   const [currentDataIndex, setCurrentDataIndex] = useState(0);
-  const [dataPerPage] = useState(5); // Defina o número de registros por página
-  const lastDataIndexMilitar = (currentDataIndex + 1) * dataPerPage;
-  const firstDataIndexMilitar = lastDataIndexMilitar - dataPerPage;
+  const [datePerpage, setDatePerpage] = useState<number>(1);
+
+  const handlePerPageChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setDatePerpage(parseInt(e.target.value));
+  };
+  const lastDataIndexMilitar = (currentDataIndex + 1) * datePerpage;
+  const firstDataIndexMilitar = lastDataIndexMilitar - datePerpage;
   const totalData = pms.length;
   const currentData = pms.slice(firstDataIndexMilitar, lastDataIndexMilitar);
   const hasMore = lastDataIndexMilitar < pms.length;
@@ -511,11 +515,12 @@ export const AccordionItemEfetivo: React.FC<IAccordion> = ({ isEditing }) => {
                   />
                   <Pagination
                     totalPages={totalData}
-                    dataPerPage={dataPerPage}
+                    dataPerPage={datePerpage}
                     firstDataIndex={firstDataIndexMilitar}
                     lastDataIndex={lastDataIndexMilitar}
                     loadLess={loadLessMilitar}
                     loadMore={loadMoreMilitar}
+                    handlePerPageChange={handlePerPageChange}
                   />
                 </Flex>
 
