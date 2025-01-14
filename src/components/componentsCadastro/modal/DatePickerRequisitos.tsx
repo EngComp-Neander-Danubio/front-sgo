@@ -31,7 +31,7 @@ export const DatePickerRequisitos: React.FC<IDatePicker> = ({
         locale={ptBR} // Configurado para o idioma português do Brasil
         dateFormat="dd-MM-yyyy" // Formato de data DD-MM-YYYY
         customInput={
-          <FormControl isInvalid={!!error}>
+          <FormControl isInvalid={!!error} isDisabled>
             <InputGroup>
               <Input
                 value={

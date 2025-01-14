@@ -133,7 +133,7 @@ export const CardService: React.FC<ICard> = ({ services }) => {
 
   // Debugging: Verificar agrupamento correto
   console.log('Grouped Services:', groupedServices);
-
+  
   return (
     <Flex
       gap={1}

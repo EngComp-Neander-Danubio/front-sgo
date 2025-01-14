@@ -138,7 +138,7 @@ export const FormSelectRequesitos: React.FC<ISwicht> = ({ isOpen }) => {
         p={4}
         //border={'1px solid red'}
       >
-        <Flex flexDirection={'column'} justify={'center'}>
+        {/* <Flex flexDirection={'column'} justify={'center'}>
           <FormLabel fontWeight={'bold'}>
             Quantidade militares por posto?
           </FormLabel>
@@ -176,10 +176,10 @@ export const FormSelectRequesitos: React.FC<ISwicht> = ({ isOpen }) => {
               </Flex>
             )}
           />
-        </Flex>
+        </Flex> */}
 
         <Flex flexDirection={'column'} justify={'center'}>
-          <FormLabel fontWeight={'bold'}>Distribuição aleatória?</FormLabel>
+          <FormLabel fontWeight={'bold'}>Distribuição aleatória</FormLabel>
           <Controller
             name="aleatoriedade"
             control={control}
@@ -316,7 +316,7 @@ export const FormSelectRequesitos: React.FC<ISwicht> = ({ isOpen }) => {
           </Flex>
         </Flex>
         <Flex flexDirection={'column'} justify={'center'}>
-          <FormLabel fontWeight={'bold'}>Quantidade turnos por dia?</FormLabel>
+          <FormLabel fontWeight={'bold'}>Quantidade turnos por dia</FormLabel>
           <Controller
             name="quantity_turnos"
             control={control}
