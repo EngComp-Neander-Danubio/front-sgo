@@ -9,6 +9,7 @@ import {
   ModalFooter,
   Center,
   Flex,
+  useToast,
 } from '@chakra-ui/react';
 import { Militares_service } from '../../../context/requisitosContext/RequisitosContext';
 import { Pagination } from '../pagination/Pagination';
@@ -16,9 +17,9 @@ import { TableSolicitacoes } from '../table-solicitacoes';
 import { useMilitares } from '../../../context/militaresContext/useMilitares';
 import { IconeDeletar, IconeEditar } from '../../ViewLogin';
 import { DataEfetivo } from '../../../types/typesMilitar';
-
-
+import { Militar } from '../../../context/militaresContext/MilitarContext';
 import TableMain, { ColumnProps } from '../TableMain/TableMain';
+import { useState } from 'react';
 
 interface IModal {
   isOpen: boolean;
@@ -34,16 +35,48 @@ export const ModalRestantes: React.FC<IModal> = ({
 }) => {
 
 
-      const {
-        dataPerPage,
-        totalData,
-        pms,
-        firstDataIndexMilitar,
-        lastDataIndexMilitar,
-        loadLessMilitar,
-        loadMoreMilitar,
+  const toast = useToast();
+      const [currentDataIndex, setCurrentDataIndex] = useState(0);
+      const [datePerpage, setDatePerpage] = useState<number>(1);
 
-      } = useMilitares();
+      const handlePerPageChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+          setDatePerpage(parseInt(e.target.value));
+      };
+      const lastDataIndexMilitar = (currentDataIndex + 1) * datePerpage;
+      const firstDataIndexMilitar = lastDataIndexMilitar - datePerpage;
+      const totalData = militaresRestantes.length;
+      const currentData = militaresRestantes.slice(firstDataIndexMilitar, lastDataIndexMilitar);
+      const hasMore = lastDataIndexMilitar < militaresRestantes.length;
+
+        const loadMoreMilitar = () => {
+          if (hasMore) {
+            setCurrentDataIndex(prevIndex => prevIndex + 1);
+          } else {
+            toast({
+              title: 'Fim dos dados',
+              description: 'Não há mais PPMM para carregar.',
+              status: 'info',
+              duration: 2000,
+              isClosable: true,
+              position: 'top',
+            });
+          }
+        };
+
+        const loadLessMilitar = () => {
+          if (firstDataIndexMilitar > 0) {
+            setCurrentDataIndex(prevIndex => prevIndex - 1);
+          } else {
+            toast({
+              title: 'Início dos dados',
+              description: 'Você está na primeira página.',
+              status: 'info',
+              duration: 2000,
+              isClosable: true,
+              position: 'top',
+            });
+          }
+        };
       const columns: Array<ColumnProps<DataEfetivo>> = [
         {
           key: 'matricula',
@@ -67,7 +100,7 @@ export const ModalRestantes: React.FC<IModal> = ({
           title: 'Ações',
           render: (column, record) => {
             // Encontrar o índice do registro diretamente no array de dados
-            const index = militaresRestantes?.findIndex(item => item === record);
+            const index = militaresRestantes?.findIndex(item => item.matricula === record.matricula);
 
             return (
               <Flex flexDirection="row" gap={2}>
@@ -116,17 +149,18 @@ export const ModalRestantes: React.FC<IModal> = ({
 
 
               <TableMain
-                    data={militaresRestantes}
+                    data={currentData}
                     columns={columns}
                   />
               {/* Componente de paginação */}
               <Pagination
                 totalPages={totalData}
-                dataPerPage={dataPerPage}
+                dataPerPage={datePerpage}
                 firstDataIndex={firstDataIndexMilitar}
                 lastDataIndex={lastDataIndexMilitar}
                 loadLess={loadLessMilitar}
                 loadMore={loadMoreMilitar}
+                handlePerPageChange={handlePerPageChange}
               />
             </Flex>
           </ModalBody>
