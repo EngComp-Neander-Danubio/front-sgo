@@ -9,6 +9,8 @@ import React, {
 import { useToast } from '@chakra-ui/react';
 import api from '../../services/api';
 import { useOperacao } from '../eventContext/useOperacao';
+import { useAuth } from '../AuthProvider/useAuth';
+import { getUserLocalStorage } from '../AuthProvider/util';
 
 export type SolicitacoesPosto = {
   columns?: string[];
@@ -67,7 +69,7 @@ export const SolicitacoesPostosProvider: React.FC<{ children: ReactNode }> = ({
   const currentData = solicitacoesPostos.slice(firstDataIndex, lastDataIndex);
 
   useEffect(() => {
-      loadSolicitacaoPostosByApi(1944);
+    loadSolicitacaoPostosByApi();
   }, []);
 
   const loadSolicitacaoPostosById = useCallback(
@@ -84,16 +86,18 @@ export const SolicitacoesPostosProvider: React.FC<{ children: ReactNode }> = ({
     [solicitacoesPostos],
   );
 
-  const loadSolicitacaoPostosByApi = useCallback(async (param: number) => {
+  const loadSolicitacaoPostosByApi = useCallback(async () => {
     try {
       const response = await api.get<SolicitacoesPostoData[]>(
-        `solicitacao-postos/${param}`,
+        `solicitacao-postos`
       );
+      console.log(response.data)
       setSolicitacoesPostos(response.data);
     } catch (error) {
       console.error('Falha ao carregar as Operações:', error);
     }
   }, []);
+
   const loadMoreSolicitacoesPostos = () => {
     if (lastDataIndex < solicitacoesPostos.length) {
       setCurrentDataIndex(prevIndex => prevIndex + 1);

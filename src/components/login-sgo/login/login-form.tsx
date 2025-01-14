@@ -18,7 +18,7 @@ export function LoginForm() {
     try {
       setIsLoading(true);
       await auth.authenticate(matricula, senha);
-      navigate('/criar-operacao');
+      localStorage.getItem('u')?.includes('1902') ? navigate('/criar-operacao') : navigate('/listar-solicitacoes-postos');
     } catch (error) {
       toast({
         title: 'Erro ao fazer login',

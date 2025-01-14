@@ -27,6 +27,7 @@ const optionsPerfil: OptionType = [
 const Body: React.FC = () => {
   const navigate = useNavigate();
   const { logout } = useAuth();
+
   return (
     <Flex flexDirection={'column'} w={'100%'} gap={2}>
       <Flex
@@ -36,7 +37,7 @@ const Body: React.FC = () => {
         justify={'space-between'}
         flexDirection={'column'}
       >
-        <Text>Nome Militar</Text>
+        {/* <Text color={'#000'}>Nome Militar</Text> */}
       </Flex>
       <Flex flexDirection={'column'} gap={2} align={'flex-start'}>
         <Text fontWeight={700}>Perfil de Acesso:</Text>
@@ -59,6 +60,7 @@ const Body: React.FC = () => {
 };
 
 export const PopoverLogout: React.FC = () => {
+  const perfil = localStorage.getItem('u')
   return (
     <Popover>
       <PopoverTrigger>
@@ -82,8 +84,20 @@ export const PopoverLogout: React.FC = () => {
           borderTopRadius={'8px'}
           color={'#fff'}
           fontSize={'1.3rem'}
+
         >
-          Nome Do Militar
+          <Flex flexDirection={'column'} align={'center'} justify={'center'}>
+            <Text>
+          {perfil ? `MF: ${JSON.parse(perfil).matricula}`  : `Matrícula do Militar`}
+
+            </Text>
+            <Text>
+          {perfil ? `${JSON.parse(perfil).nome}`  : `Nome do Militar`}
+
+            </Text>
+          {perfil ? `${JSON.parse(perfil).opm}`  : `Opm do Militar`}
+          </Flex>
+
         </PopoverHeader>
         <PopoverBody>
           <Body />

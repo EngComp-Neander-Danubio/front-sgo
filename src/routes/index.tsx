@@ -23,14 +23,7 @@ export const Rotas = () => {
         <Route path="/login-sgo" element={<LoginSGO />} />
 
         {/* Rotas privadas */}
-        {/* <Route
-          path="/ficha"
-          element={
-            <PrivateRoute>
-              <Ficha />
-            </PrivateRoute>
-          }
-        />
+
         <Route
           path="/criar-operacao"
           element={
@@ -40,7 +33,7 @@ export const Rotas = () => {
           }
         />
         <Route
-          path="/criar-operacao/*"
+          path="/editar-operacao/*"
           element={
             <PrivateRoute>
               <EditarPostoServico />
@@ -63,14 +56,7 @@ export const Rotas = () => {
             </PrivateRoute>
           }
         />
-        <Route
-          path="/novoRegistro"
-          element={
-            <PrivateRoute>
-              <Ficha />
-            </PrivateRoute>
-          }
-        />
+
         <Route
           path="/listar-solicitacoes-postos"
           element={
@@ -102,8 +88,8 @@ export const Rotas = () => {
               <ViewSolicitacaoPMs />
             </PrivateRoute>
           }
-        /> */}
-        <Route path="/" element={<HomePrincipal />} />
+        />
+        {/* <Route path="/" element={<HomePrincipal />} />
         <Route path="/login" element={<Login />} />
         <Route path="/login-sgo" element={<LoginSGO />} />
         <Route path="/ficha" element={<Ficha />} />
@@ -121,7 +107,7 @@ export const Rotas = () => {
           path="/solicitacao-posto-id/*"
           element={<ViewSolicitacaoPostos />}
         />
-        <Route path="/solicitacao-pms-id/*" element={<ViewSolicitacaoPMs />} />
+        <Route path="/solicitacao-pms-id/*" element={<ViewSolicitacaoPMs />} /> */}
       </Routes>
     </Router>
   );

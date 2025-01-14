@@ -17,7 +17,6 @@ import { Pagination } from '../pagination/Pagination';
 import TableMain, { ColumnProps } from '../TableMain/TableMain';
 import { useIsOpen } from '../../../context/isOpenContext/useIsOpen';
 import { IconeDeletar } from '../../ViewLogin';
-import { useMilitares } from '../../../context/militaresContext/useMilitares';
 import { ModalSolicitarEfetivo } from '../modal/ModalSolicitarEfetivo';
 import { ModalSAPM } from '../modal/ModalSAPM';
 import {
@@ -61,7 +60,6 @@ export const AccordionItemEfetivo: React.FC<IAccordion> = ({ isEditing }) => {
   }
   const toast = useToast();
   const [file, setFile] = useState<File | null>(null);
-  //const [militarById, setMilitarById] = useState<Militar | undefined>(undefined);
   const [pms, setPMs] = useState<Militar[]>([]);
   const [currentDataIndex, setCurrentDataIndex] = useState(0);
   const [datePerpage, setDatePerpage] = useState<number>(1);
@@ -105,7 +103,7 @@ export const AccordionItemEfetivo: React.FC<IAccordion> = ({ isEditing }) => {
   };
 
   useEffect(() => {
-    if(OperacaoById?.id)
+    if(OperacaoById?.id && isEditing)
     loadPMsFromToBackend(OperacaoById?.id)
   },[])
   const loadPMForAccordion = (data: Militar) => {

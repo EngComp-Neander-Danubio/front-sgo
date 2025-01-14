@@ -64,7 +64,6 @@ export const AccordionItemPostos: React.FC<IAccordion> = ({ isEditing }) => {
   const toast = useToast();
   const [file, setFile] = useState<File | null>(null);
   const [postosLocal, setPostosLocal] = useState<PostoForm[]>([]);
-  //const [postoById, setPostoById] = useState<PostoForm >();
   const [currentDataIndex, setCurrentDataIndex] = useState(0);
   const [datePerpage, setDatePerpage] = useState<number>(1);
 
@@ -106,7 +105,7 @@ export const AccordionItemPostos: React.FC<IAccordion> = ({ isEditing }) => {
       }
     };
   useEffect(()=>{
-    if(OperacaoById?.id)
+    if(OperacaoById?.id && isEditing)
     loadPostosFromToBackend(OperacaoById?.id)
   },[])
 
@@ -183,7 +182,7 @@ export const AccordionItemPostos: React.FC<IAccordion> = ({ isEditing }) => {
           const text = posto.target?.result;
           if (typeof text === 'string') {
             loadCompleteCSV(text);
-            setCurrentDataIndex(dataPerPage);
+            setCurrentDataIndex(datePerpage);
           }
         };
         fileReader.readAsText(file, 'ISO-8859-1');
@@ -258,7 +257,7 @@ export const AccordionItemPostos: React.FC<IAccordion> = ({ isEditing }) => {
         setPostosLocal(prevArray => [...prevArray, data]);
         toast({
           title: 'Sucesso',
-          description: 'Posto adicionado com sucesso',
+          description: 'Posto carregado com sucesso',
           status: 'success',
           position: 'top-right',
           duration: 2000,
@@ -267,7 +266,7 @@ export const AccordionItemPostos: React.FC<IAccordion> = ({ isEditing }) => {
       } else {
         toast({
           title: 'Atenção',
-          description: 'Posto já foi adicionado',
+          description: 'Posto já foi carregado',
           status: 'warning',
           position: 'top-right',
           duration: 2000,
@@ -277,7 +276,7 @@ export const AccordionItemPostos: React.FC<IAccordion> = ({ isEditing }) => {
     } catch (err) {
       toast({
         title: 'Erro',
-        description: 'Falha ao inserir Posto',
+        description: 'Falha ao carregado Posto',
         status: 'error',
         position: 'top-right',
         duration: 2000,

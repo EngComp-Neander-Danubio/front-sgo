@@ -308,7 +308,7 @@ export const RequisitosProvider: React.FC<{ children: ReactNode }> = ({
               requisitoServico.antiguidade.forEach((a, index) => {
                 if (
                   selectedMilitares.length <
-                    requisitoServico.quantity_militars &&
+                    posto.militares_por_posto &&
                   groupedMilitares[a].length === 0
                 ) {
                   const nextAntiguidade =
@@ -348,7 +348,7 @@ export const RequisitosProvider: React.FC<{ children: ReactNode }> = ({
 
               // Filtra militares conforme a lotação e antiguidade, até atingir a quantidade necessária
               while (
-                selectedMilitares.length < requisitoServico.quantity_militars
+                selectedMilitares.length < posto.militares_por_posto
               ) {
                 const militaresComLotacao = remainingMilitares.filter(
                   m =>

@@ -17,11 +17,11 @@ export function getUserLocalStorage(): IUser | null {
 
 export async function LoginRequest(matricula: string, senha: string) {
   try {
-    const request = await axios.post((process.env.VITE_APP_URL_API_SEG || '').concat('login'),
+    const request = await axios.post((process.env.VITE_API_URL || '').concat('/login'),
       {
         matricula: matricula,
         senha: senha,
-        sis_sigla: 'sies',
+        //sis_sigla: 'sies',
       },)
     console.log('LoginRequest', request.data)
     return request.data

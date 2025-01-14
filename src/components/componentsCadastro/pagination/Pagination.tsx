@@ -27,7 +27,7 @@ export const Pagination: React.FC<IPagination> = ({
     <Flex justify="space-between" mt={-9} align={'center'} {...props}>
       <Text fontSize={'14px'} color={'#666666'} fontWeight={'medium'}>
         {totalPages ? Number(firstDataIndex) + 1 : 0} - {' '}
-        {totalPages < dataPerPage ? totalPages : dataPerPage} de {' '}
+        {totalPages < lastDataIndex ? totalPages : lastDataIndex} de {' '}
         {totalPages} Itens
       </Text>
       <Select

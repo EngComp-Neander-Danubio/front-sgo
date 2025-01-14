@@ -66,8 +66,10 @@ export const SolicitacoesPMsProvider: React.FC<{ children: ReactNode }> = ({
   const firstDataIndex = lastDataIndex - dataPerPage;
   const totalData = solicitacoesPM.length;
   const currentData = solicitacoesPM.slice(firstDataIndex, lastDataIndex);
+  const perfil = localStorage.getItem('u')?.includes('id')
   useEffect(() => {
-    loadSolicitacaoPMByApi(1965);
+    if(perfil)
+    loadSolicitacaoPMByApi(Number(perfil));
   }, []);
   const loadSolicitacaoPMById = useCallback(
     async (id: number) => {
@@ -83,7 +85,7 @@ export const SolicitacoesPMsProvider: React.FC<{ children: ReactNode }> = ({
   const loadSolicitacaoPMByApi = useCallback(async (param: number) => {
     try {
       const response = await api.get<SolicitacoesPMData[]>(
-        `solicitacao-efetivo/${param}`,
+        `solicitacao-efetivo/${param}`
       );
       setSolicitacoesPM(response.data);
     } catch (error) {

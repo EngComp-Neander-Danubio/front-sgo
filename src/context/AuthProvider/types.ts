@@ -7,7 +7,7 @@ export interface IUser {
   matricula?: string
   senha?: string,
   nome?: string,
-  id?: string
+  id?: string,
 }
 
 export interface IContext extends IUser {

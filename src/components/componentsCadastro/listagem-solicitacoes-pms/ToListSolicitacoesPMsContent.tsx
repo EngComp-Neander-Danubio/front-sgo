@@ -45,7 +45,7 @@ export const ToListSolicitacoesPMsContent = () => {
       title: 'Id',
     }, */
     {
-      key: 'sps_id',
+      key: 'id',
       title: 'Id Solicitação',
     },
     /* {
@@ -57,7 +57,7 @@ export const ToListSolicitacoesPMsContent = () => {
       title: 'Operação',
     },
     {
-      key: 'sps_status',
+      key: 'status',
       title: 'Status',
     },
     {

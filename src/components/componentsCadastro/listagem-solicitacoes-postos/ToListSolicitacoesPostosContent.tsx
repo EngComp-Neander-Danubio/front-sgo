@@ -11,11 +11,10 @@ import { BotaoAlert } from '../../componentesFicha/registrosMedicos/buttons/butt
 
 type Data = {
   isOpen?: boolean;
-  id?: string;
-  sps_id: number;
-  sps_operacao_id: string;
+  id: number;
+  operacao_id: string;
   solicitacao: string;
-  sps_status: string;
+  status: string;
   prazo_final: Date;
   prazo_inicial: Date;
   unidades_id: number;
@@ -41,18 +40,11 @@ export const ToListSolicitacoesPostosContent: React.FC = () => {
     onClose: onCloseFormRedSolPosto,
   } = useDisclosure();
   const columns: Array<ColumnProps<Data>> = [
-    /* {
-      key: 'id',
-      title: 'Id',
-    }, */
+
     {
-      key: 'sps_id',
+      key: 'id',
       title: 'Id Solicitação',
     },
-    /* {
-      key: 'sps_operacao_id',
-      title: 'Id Operação',
-    }, */
     {
       key: 'nome_operacao',
       title: 'Operação',
@@ -67,16 +59,16 @@ export const ToListSolicitacoesPostosContent: React.FC = () => {
       title: 'Prazo Final',
     },
     {
-      key: 'sps_status',
+      key: 'status',
       title: 'Status',
       render: (_, record) => {
         return (
           <Flex flexDirection="row" gap={2}>
-            {record.sps_status.includes('Pendente') ? (
+            {record.status.includes('Pendente') ? (
               <BotaoAlert text="Pendente" />
-            ) : record.sps_status.includes('Completa') ? (
+            ) : record.status.includes('Completa') ? (
               <BotaoAlert text="Completa" />
-            ) : record.sps_status.includes('Alerta') ? (
+            ) : record.status.includes('Alerta') ? (
               <BotaoAlert text="Alerta" />
             ) : null}
           </Flex>
@@ -92,9 +84,9 @@ export const ToListSolicitacoesPostosContent: React.FC = () => {
             <span key={`visualizar-${record.id}`}>
               <IconeVisualizar
                 key={`${record.id}`}
-                label_tooltip={`${record.sps_id}`}
+                label_tooltip={`${record.id}`}
                 onOpen={async () => {
-                  const idSolicitacao = Number(record.sps_id);
+                  const idSolicitacao = Number(record.id);
                   await loadSolicitacaoPostosById(idSolicitacao);
                   navigate(`/solicitacao-posto-id/${idSolicitacao}`);
                 }}
@@ -103,9 +95,9 @@ export const ToListSolicitacoesPostosContent: React.FC = () => {
             <span key={`redistribuir-${record.id}`}>
               <IconeRedistribuir
                 key={`${record.id}`}
-                label_tooltip={`${record.sps_id}`}
+                label_tooltip={`${record.id}`}
                 onOpen={async () => {
-                  const idSolicitacao = Number(record.sps_id);
+                  const idSolicitacao = Number(record.id);
                   await loadSolicitacaoPostosById(idSolicitacao);
                   onOpenFormRedSolPosto();
                 }}
@@ -129,12 +121,6 @@ export const ToListSolicitacoesPostosContent: React.FC = () => {
           loadLess={loadLessSolicitacoesPostos}
           loadMore={loadMoreSolicitacoesPostos}
         />
-        {/* <Flex
-          flexDirection={'column'}
-          //p={8}
-          transitionDuration="1.0s"
-          w={isOpen ? '86vw' : '94vw'}
-        ></Flex> */}
       </Flex>
       <ModalSolicitacarPostosRed
         isOpen={isOpenFormRedSolPosto}

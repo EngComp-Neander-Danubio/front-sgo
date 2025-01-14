@@ -20,9 +20,12 @@ export const AuthProvider = ({ children }: IAuthProvider) => {
     const response = await LoginRequest(matricula, senha);
     const payload = {
       //userId: response.user.id_usuario,
-      matricula: response.user.matricula,
-      senha: response.user.senha,
+      matricula: response.matricula,
+      //senha: response.user.senha,
+      id: response.id,
       token: response.token,
+      nome: response.nome,
+      opm: response.opm,
     };
     setUser(payload);
     setUserLocalStorage(payload);

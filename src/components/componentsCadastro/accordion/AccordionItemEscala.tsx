@@ -132,7 +132,7 @@ export const AccordionItemEscala: React.FC<IAccordion> = ({ isEditing }) => {
                   >
                     <Flex gap={2} pl={!isOpen ? 0 : 2}>
                       <Text fontWeight={'bold'}>Total:</Text>
-                      {totalMilitar}
+                      {militaresRestantes.length + totalMilitarEscalados}
                       <Text fontWeight={'bold'}>Escalados: </Text>
                       {totalMilitarEscalados}
                       <Text

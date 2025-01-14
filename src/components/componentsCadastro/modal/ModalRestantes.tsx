@@ -13,11 +13,8 @@ import {
 } from '@chakra-ui/react';
 import { Militares_service } from '../../../context/requisitosContext/RequisitosContext';
 import { Pagination } from '../pagination/Pagination';
-import { TableSolicitacoes } from '../table-solicitacoes';
-import { useMilitares } from '../../../context/militaresContext/useMilitares';
 import { IconeDeletar, IconeEditar } from '../../ViewLogin';
 import { DataEfetivo } from '../../../types/typesMilitar';
-import { Militar } from '../../../context/militaresContext/MilitarContext';
 import TableMain, { ColumnProps } from '../TableMain/TableMain';
 import { useState } from 'react';
 
@@ -91,7 +88,7 @@ export const ModalRestantes: React.FC<IModal> = ({
           title: 'Nome',
         },
         {
-          key: 'opm',
+          key: 'opm_sigla',
           title: 'OPM',
         },
 

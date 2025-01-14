@@ -10,11 +10,12 @@ import { IconeSolicitacoes } from '../../componentesGerais/iconesMenuLateral/ico
 import { FooterCetic } from '../../componentsCadastro/footerImgCETIC';
 import { AccordionMenuLateral } from '../../componentesGerais/accordionMenuLateral/AccordionMenuLateral';
 import { useIsOpen } from '../../../context/isOpenContext/useIsOpen';
+import { useAuth } from '../../../context/AuthProvider/useAuth';
 
 export const MenuLateral: React.FC = () => {
   const navigate = useNavigate();
   const { handleOnOpen, isOpen } = useIsOpen();
-  const perfil = 'cgo';
+
   return (
     <>
       <Flex
@@ -118,12 +119,12 @@ export const MenuLateral: React.FC = () => {
               <Icon as={IconeRelatorio} boxSize={5} />,
             ]}
             nameLabels={
-              perfil.includes('cgo')
+              localStorage.getItem('u')?.includes('1902')
                 ? ['Cadastro', 'Consulta', 'Solicitacões', 'Escalas']
                 : ['Solicitacões']
             }
             handleClick={
-              perfil.includes('cgo')
+              localStorage.getItem('u')?.includes('1902')
                 ? [
                     () => navigate('/criar-operacao'),
                     () => navigate('/listar-operacoes'),
@@ -142,7 +143,7 @@ export const MenuLateral: React.FC = () => {
                   ]
             }
             nameLabelSecundarys={
-              perfil.includes('cgo')
+              localStorage.getItem('u')?.includes('1902')
                 ? [
                     ['Cadastrar Operação'],
                     ['Lista de Operações'],
