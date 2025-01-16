@@ -6,6 +6,7 @@ import { IconeRedistribuir } from '../../componentesFicha/registrosMedicos/icone
 import { IconeVisualizar } from '../../componentesFicha/registrosMedicos/icones/iconeVisualizarSolicitacao';
 import TableMain, { ColumnProps } from '../TableMain/TableMain';
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 type Data = {
   id: string;
   sps_id: number;
@@ -25,13 +26,17 @@ export const ToListSolicitacoesPMsContent = () => {
   const {
     solicitacoesPMs,
     totalData,
-    dataPerPage,
     loadLessSolicitacoesPMs,
     loadMoreSolicitacoesPMs,
     loadSolicitacaoPMById,
     firstDataIndex,
     lastDataIndex,
   } = useSolicitacoesPMs();
+  const [datePerpage, setDatePerpage] = useState<number>(1);
+
+        const handlePerPageChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+          setDatePerpage(parseInt(e.target.value));
+        };
   const navigate = useNavigate();
   const totalPages = totalData;
   const {
@@ -40,18 +45,11 @@ export const ToListSolicitacoesPMsContent = () => {
     onClose: onCloseFormRedSolEfetivo,
   } = useDisclosure();
   const columns: Array<ColumnProps<Data>> = [
-    /* {
-      key: 'id',
-      title: 'Id',
-    }, */
+
     {
       key: 'id',
       title: 'Id Solicitação',
     },
-    /* {
-      key: 'sps_operacao_id',
-      title: 'Id Operação',
-    }, */
     {
       key: 'nome_operacao',
       title: 'Operação',
@@ -109,11 +107,12 @@ export const ToListSolicitacoesPMsContent = () => {
         {/* Componente de paginação */}
         <Pagination
           totalPages={totalPages}
-          dataPerPage={dataPerPage}
+          dataPerPage={datePerpage}
           firstDataIndex={firstDataIndex}
           lastDataIndex={lastDataIndex}
           loadLess={loadLessSolicitacoesPMs}
           loadMore={loadMoreSolicitacoesPMs}
+          handlePerPageChange={handlePerPageChange}
         />
         <ModalSolicitacarEfetivoRed
           isOpen={isOpenFormRedSolEfetivo}

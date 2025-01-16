@@ -13,10 +13,10 @@ import {
 } from '@chakra-ui/react';
 import { Militares_service } from '../../../context/requisitosContext/RequisitosContext';
 import { Pagination } from '../pagination/Pagination';
-import { IconeDeletar, IconeEditar } from '../../ViewLogin';
 import { DataEfetivo } from '../../../types/typesMilitar';
 import TableMain, { ColumnProps } from '../TableMain/TableMain';
 import { useState } from 'react';
+import { IconeInserirMilitar } from '../../componentesFicha/registrosMedicos/icones/iconeInserirMilitar/IconeInserirMilitar';
 
 interface IModal {
   isOpen: boolean;
@@ -101,23 +101,8 @@ export const ModalRestantes: React.FC<IModal> = ({
 
             return (
               <Flex flexDirection="row" gap={2}>
-                <span key={`delete-${record.id}`}>
-                  <IconeDeletar
-                    label_tooltip={record.nome_completo}
-                    handleDelete={async () => {
-                      if (index !== undefined && index !== -1) {
-                        //await deletePMByCGO(record.id, index.toString());
-                      } else {
-                        console.error(
-                          'Índice não encontrado para o registro',
-                          record,
-                        );
-                      }
-                    }}
-                  />
-                </span>
                 <span key={`edit-${column.key}`}>
-                  <IconeEditar label_tooltip={record.nome_completo} />
+                  <IconeInserirMilitar label_tooltip={record.posto_grad + ' ' + record.nome_completo} />
                 </span>
               </Flex>
             );
@@ -129,7 +114,7 @@ export const ModalRestantes: React.FC<IModal> = ({
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent
-          maxW="50vw"
+          maxW="fit-content"
           minW="30vw"
           maxH="100vh"
           minH="40vh"

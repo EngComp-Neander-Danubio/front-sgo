@@ -3,11 +3,11 @@ import { MdOutlineCached } from 'react-icons/md';
 interface IIcone extends IconProps {
   label_tooltip?: string;
 }
-export const IconePermutar: React.FC<IIcone> = ({label_tooltip}) => {
+export const IconeInserirMilitar: React.FC<IIcone> = ({label_tooltip}) => {
   return (
     <>
       <Tooltip
-        label={`Permutar ${label_tooltip} entre postos de serviço`}
+        label={`Inserir ${label_tooltip} em um posto de serviço`}
         aria-label="A tooltip"
         placement="top"
       >

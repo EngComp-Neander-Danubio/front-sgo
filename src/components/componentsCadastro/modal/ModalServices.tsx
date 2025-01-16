@@ -17,6 +17,8 @@ import { InputPatternController } from '../inputPatternController/InputPatternCo
 import { Controller, useForm } from 'react-hook-form';
 import { useEffect } from 'react';
 import { SearchIcon } from '@chakra-ui/icons';
+import { CardServiceCopy } from '../cardServices copy/CardServiceCopy';
+
 
 interface IModal {
   isOpen: boolean;
@@ -25,7 +27,7 @@ interface IModal {
 }
 
 export const ModalServices: React.FC<IModal> = ({ isOpen, onClose }) => {
-  const { searchServices: services, searchServicesById } = useRequisitos();
+  const { searchServicesById } = useRequisitos();
   const { control, watch } = useForm();
   const inputUser = watch('searchService');
 
@@ -41,7 +43,7 @@ export const ModalServices: React.FC<IModal> = ({ isOpen, onClose }) => {
 
   return (
     <>
-      <Modal isOpen={isOpen} onClose={onClose}>
+      <Modal isOpen={isOpen} onClose={onClose} closeOnOverlayClick={false}>
         <ModalOverlay />
         <ModalContent maxW="100vw" minW="30vw" maxH="80vh" minH="40vh">
           <ModalHeader flexDirection={'row'}>
@@ -99,13 +101,16 @@ export const ModalServices: React.FC<IModal> = ({ isOpen, onClose }) => {
               minH="40vh"
               bgColor="rgba(248, 249, 250, 1)"
             >
-              <CardService services={services} isOpen={isOpen} />
+              <CardServiceCopy isOpen={isOpen} />
             </Flex>
           </ModalBody>
 
           <ModalFooter>
             <Button colorScheme="red" mr={3} onClick={onClose}>
               Fechar
+            </Button>
+            <Button colorScheme="green" mr={3}>
+              Confirmar
             </Button>
           </ModalFooter>
         </ModalContent>

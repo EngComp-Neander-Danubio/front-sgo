@@ -8,9 +8,6 @@ import React, {
 } from 'react';
 import { useToast } from '@chakra-ui/react';
 import api from '../../services/api';
-import { useOperacao } from '../eventContext/useOperacao';
-import { useAuth } from '../AuthProvider/useAuth';
-import { getUserLocalStorage } from '../AuthProvider/util';
 
 export type SolicitacoesPosto = {
   columns?: string[];
@@ -18,17 +15,14 @@ export type SolicitacoesPosto = {
 };
 
 export interface SolicitacoesPostoData {
-  sps_id: number;
-  sps_operacao_id: string;
+  id: number;
+  operacao_id: string;
   solicitacao: string;
-  sps_status: string;
+  status: string;
   prazo_final: Date;
   prazo_inicial: Date;
   unidades_id: number;
   nome_operacao: string;
-  //bairro: string;
-  //qtd_postos: string | number;
-  [key: string]: any;
 }
 
 export interface IContextSolicitacoesPostoData {
@@ -75,7 +69,7 @@ export const SolicitacoesPostosProvider: React.FC<{ children: ReactNode }> = ({
   const loadSolicitacaoPostosById = useCallback(
     async (id: number) => {
       const itemEncontrado = solicitacoesPostos.find(
-        item => item.sps_id === id,
+        item => item.id === id,
       );
       if (itemEncontrado) {
         setSolicitacaoPostoIndividual(itemEncontrado);

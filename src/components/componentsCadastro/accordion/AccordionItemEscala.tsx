@@ -23,7 +23,7 @@ import { ModalRestantes } from '../modal/ModalRestantes';
 import { ModalServices } from '../modal/ModalServices';
 import { FiSave } from 'react-icons/fi';
 type IForm = {
-  comandante: string;
+  comandante: number;
   dataFinal: Date;
   dataInicio: Date;
   nomeOperacao: string;

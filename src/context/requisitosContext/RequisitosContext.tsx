@@ -44,11 +44,9 @@ export type Postos = {
 };
 
 export type RequisitoServico = {
-  quantity_militars: number;
   quantity_turnos: number;
   aleatoriedade: boolean;
   antiguidade: string[];
-  //modalidade?: string;
   dateFirst: Date;
   dateFinish: Date;
   turnos: {
@@ -70,12 +68,13 @@ export interface IContextRequisitoData {
   dateFirst: Date;
   dateFinished: Date;
   requisitoServico: RequisitoServico;
-  militars: Militares_service[];
   militaresRestantes: Militares_service[];
   services: Service[];
   searchServices: Service[];
   searchServiceLoading: boolean;
-  deleteServices:(servico: Service) => void;
+  removeQtdMilitaresRestantes: (matricula: string) => Promise<void>
+  addQtdMilitaresRestantes: (matricula: string) => Promise<void>
+  deleteMilitarFromService:(servico: Service, matricula: string) => void;
   handleSubmitRequisitos: (data: RequisitoServico) => void;
   handleRandomServices: () => void;
   handleRandomServicesNewTable: () => void;
@@ -94,16 +93,13 @@ export const RequisitosProvider: React.FC<{ children: ReactNode }> = ({
   const { OperacaoById } = useOperacao();
   const [postosLocal, setPostosLocal] = useState<PostoForm[]>([]);
   const [pms, setPMs] = useState<Militares_service[]>([]);
-
-  const [militaresRestantes, setMilitaresRestantes] = useState<
-    Militares_service[]
-  >([]);
-
   useEffect(()=>{
     if(OperacaoById?.id){
       loadPMsFromToBackend(OperacaoById?.id)
       loadPostosFromToBackend(OperacaoById?.id)
     }
+
+
   },[OperacaoById?.id])
   const loadPMsFromToBackend = async (id: string) => {
     try {
@@ -161,7 +157,9 @@ export const RequisitosProvider: React.FC<{ children: ReactNode }> = ({
       }
     };
 
-
+  const [militaresRestantes, setMilitaresRestantes] = useState<
+    Militares_service[]
+  >([]);
   const [totalMilitar, setTotalMilitar] = useState<number>(0);
   const [dateFirst, setDateFirst] = useState<Date>();
   const [dateFinished, setdateFinished] = useState<Date>();
@@ -185,43 +183,81 @@ export const RequisitosProvider: React.FC<{ children: ReactNode }> = ({
   };
   useEffect(() => {
     loadTotalMilitar();
+    //console.log('militares restantes',militaresRestantes);
   }, []);
 
+  const addQtdMilitaresRestantes = useCallback(
+    async (matricula: string) => {
+      const updatedMilitares = pms.filter((m) => m.matricula === matricula);
+      const existAlreadyMilitar = militaresRestantes.some((m) => m.matricula === matricula);
+      setMilitaresRestantes((prev) => [...prev, ...updatedMilitares]);
+      setTotalMilitarEscalados((prev) => prev + 1);
+      if (!existAlreadyMilitar) {
 
-  const deleteServices = useCallback(
-    (servico: Service) => {
-      // Remover o serviço com base na comparação mais precisa
-      const updateServices = services.filter((service) => {
-        // Comparando as datas com getTime() para garantir que estamos comparando os valores
-        const isSameDate = new Date(service.dia).getTime() === new Date(servico.dia).getTime();
-
-        // Comparando o posto e verificando se 'militares' são iguais (ou o que for necessário para comparação)
-        const isSamePosto = service.posto === servico.posto;
-
-        // Você pode precisar de uma comparação mais detalhada dos 'militares'
-        const areMilitaresEqual = JSON.stringify(service.militares) === JSON.stringify(servico.militares);
-
-        return !(isSameDate && isSamePosto && areMilitaresEqual); // Exclui o serviço que coincide
-      });
-
-      // Atualiza o estado com os novos serviços
-      setServices(updateServices);
-
-      // Exibe o toast de sucesso
-      toast({
-        title: 'Exclusão de Posto de Serviço.',
-        description: 'Posto de Serviço excluído com sucesso.',
-        status: 'success',
-        duration: 2000,
-        isClosable: true,
-        position: 'top-right',
-      });
+      }
     },
-    [services, setServices, toast] // Incluindo as dependências relevantes
+    [pms, militaresRestantes]  // Adicionando 'militaresRestantes' no array de dependências
   );
+
+
+  const removeQtdMilitaresRestantes = useCallback(
+    async (matricula: string) => {
+      const updatedMilitares = militaresRestantes.filter((m)=> m.matricula !== matricula)
+      setMilitaresRestantes(updatedMilitares)
+      setTotalMilitarEscalados(prev => prev + 1)
+    },
+    [services, setServices, toast]
+  );
+const deleteMilitarFromService = useCallback(
+  (servico: Service, matricula: string) => {
+    console.log('Chamou deletar', matricula);
+
+    // Atualiza os serviços removendo o militar específico
+    const updatedServices = services.map((service) => {
+      // Verificando se o serviço é o mesmo (mesma data e posto)
+      const isSameService =
+        new Date(service.dia).getTime() === new Date(servico.dia).getTime() &&
+        service.posto === servico.posto;
+
+      if (isSameService) {
+        // Filtra os militares para remover o militar com a matrícula especificada
+        const updatedMilitares = service.militares.filter(
+          (militar) => militar.matricula !== matricula
+        );
+
+        // Retorna o serviço com a lista de militares atualizada
+        return {
+          ...service,
+          militares: updatedMilitares,
+        };
+      }
+      console.log(service)
+      // Caso não seja o serviço que queremos modificar, retornamos o serviço original
+      return service;
+    });
+
+    // Atualiza o estado com os serviços modificados
+    setServices(updatedServices);
+
+    // Exibe o toast de sucesso
+    toast({
+      title: 'Exclusão de Militar no Posto de Serviço.',
+      description: 'Militar excluído com sucesso do serviço.',
+      status: 'success',
+      duration: 2000,
+      isClosable: true,
+      position: 'top-right',
+    });
+  },
+  [services, setServices, toast] // Dependências relevantes
+);
+
 
   const handleRandomServices = () => {
     const generateServices = () => {
+      setTotalMilitar(0)
+      setTotalMilitarEscalados(0)
+      setMilitaresRestantes([])
       const services: Service[] = [];
       let remainingMilitares = [...pms]; // Clona a lista de militares
 
@@ -569,7 +605,9 @@ export const RequisitosProvider: React.FC<{ children: ReactNode }> = ({
       handleRandomServices,
       handleRandomServicesNewTable,
       searchServicesById,
-      deleteServices,
+      deleteMilitarFromService,
+      addQtdMilitaresRestantes,
+      removeQtdMilitaresRestantes,
     }),
     [
 
@@ -586,7 +624,9 @@ export const RequisitosProvider: React.FC<{ children: ReactNode }> = ({
       handleRandomServices,
       handleRandomServicesNewTable,
       searchServicesById,
-      deleteServices,
+      deleteMilitarFromService,
+      addQtdMilitaresRestantes,
+      removeQtdMilitaresRestantes,
     ],
   );
 

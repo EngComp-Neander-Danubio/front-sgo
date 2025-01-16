@@ -2,7 +2,7 @@ import { Flex, useDisclosure } from '@chakra-ui/react';
 import { Pagination } from '../pagination/Pagination';
 import { useSolicitacoesPostos } from '../../../context/solicitacoesPostosContext/useSolicitacoesPostos';
 import { ModalSolicitacarPostosRed } from '../modal/redistribuicao-postos/ModalSolicitarPostosRed';
-import React from 'react';
+import React, { useState } from 'react';
 import TableMain, { ColumnProps } from '../TableMain/TableMain';
 import { IconeRedistribuir } from '../../componentesFicha/registrosMedicos/icones/iconeRedistribuir';
 import { IconeVisualizar } from '../../componentesFicha/registrosMedicos/icones/iconeVisualizarSolicitacao';
@@ -27,7 +27,6 @@ export const ToListSolicitacoesPostosContent: React.FC = () => {
     totalData,
     firstDataIndex,
     lastDataIndex,
-    dataPerPage,
     loadLessSolicitacoesPostos,
     loadMoreSolicitacoesPostos,
     loadSolicitacaoPostosById,
@@ -39,6 +38,11 @@ export const ToListSolicitacoesPostosContent: React.FC = () => {
     onOpen: onOpenFormRedSolPosto,
     onClose: onCloseFormRedSolPosto,
   } = useDisclosure();
+  const [datePerpage, setDatePerpage] = useState<number>(1);
+
+      const handlePerPageChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        setDatePerpage(parseInt(e.target.value));
+      };
   const columns: Array<ColumnProps<Data>> = [
 
     {
@@ -115,11 +119,12 @@ export const ToListSolicitacoesPostosContent: React.FC = () => {
         {/* Componente de paginação */}
         <Pagination
           totalPages={totalData}
-          dataPerPage={dataPerPage}
+          dataPerPage={datePerpage}
           firstDataIndex={firstDataIndex}
           lastDataIndex={lastDataIndex}
           loadLess={loadLessSolicitacoesPostos}
           loadMore={loadMoreSolicitacoesPostos}
+          handlePerPageChange={handlePerPageChange}
         />
       </Flex>
       <ModalSolicitacarPostosRed

@@ -32,7 +32,7 @@ export const Pagination: React.FC<IPagination> = ({
       </Text>
       <Select
         placeholder=''
-        w='60px'
+        w='fit-content'
         color='#A0AEC0'
         onChange={handlePerPageChange}
         value={dataPerPage.toString()}

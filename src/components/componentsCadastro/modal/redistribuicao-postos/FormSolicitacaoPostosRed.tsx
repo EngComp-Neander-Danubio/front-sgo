@@ -8,14 +8,12 @@ import {
   Center,
   Spinner,
   Grid,
-  FlexProps,
 } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 import api from '../../../../services/api';
 import { DatePickerEvent } from '../../formGrandeEvento/DatePickerEvent';
 import { useSolicitacoesPostos } from '../../../../context/solicitacoesPostosContext/useSolicitacoesPostos';
-import { normalizeDate } from '../../../../utils/utils';
 
 type SolicitacaoForm = {
   dataInicio: Date;
@@ -37,6 +35,7 @@ export const FormSolicitacaoPostosRed: React.FC = () => {
   const [startDate, setStartDate] = useState<Date>();
   const [endDate, setEndDate] = useState<Date>();
   const [datasOpmFilhas, setDatasOpmFilhas] = useState<opmSaPM[]>([]);
+
   const handleLoadOpmFilhas = async (param: number) => {
     try {
       const response = await api.get<opmSaPM[]>(`/unidadesfilhas/${param}`);
@@ -103,7 +102,7 @@ export const FormSolicitacaoPostosRed: React.FC = () => {
               w={'10vw'}
             >
               <Text fontWeight={700}>Solicitação:</Text>
-              <Text>N° {solicitacaoPostoIndividual?.sps_id}</Text>
+              <Text>N° {solicitacaoPostoIndividual?.id}</Text>
             </Flex>
           </Flex>
         </Flex>

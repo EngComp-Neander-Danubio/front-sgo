@@ -19,20 +19,15 @@ import moment from 'moment'; // Para manipulação de fuso horário
 
 type IForm = {
   id?: string;
-  comandante: string;
-  dataFinal: Date;
-  dataInicio: Date;
   nomeOperacao: string;
+  comandante: number;
+  dataInicio: Date;
+  dataFinal: Date;
 };
 interface IAccordion {
   isEditing: boolean;
 }
-interface Militar {
-  pes_codigo: number;
-  pes_nome: string;
-  gra_nome: string;
-  unidade_uni_sigla: string;
-}
+
 export const AccordionItemOperacao: React.FC<IAccordion> = ({ isEditing }) => {
   const { isOpen } = useIsOpen();
   const { searchServicesById } = useRequisitos();
