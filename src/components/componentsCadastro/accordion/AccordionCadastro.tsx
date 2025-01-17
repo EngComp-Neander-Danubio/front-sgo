@@ -33,6 +33,7 @@ export const AccordinCadastro: React.FC<IAccordion> = ({ isOpen }) => {
           md: isOpen ? '84vw' : '92vw',
           sm: isOpen ? '84vw' : '92vw',
         }}
+        //w={'100%'}
         transitionDuration="1.0s"
         //border={'1px solid black'}
       >

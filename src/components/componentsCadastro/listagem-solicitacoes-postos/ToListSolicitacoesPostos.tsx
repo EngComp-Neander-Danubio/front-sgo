@@ -26,7 +26,8 @@ export const ToListSolicitacoesPostos: React.FC<IInterface> = ({
         //border={'1px solid black'}
         borderRadius={'8px'}
         borderTopLeftRadius={0}
-        w={isOpen ? '86vw' : '94vw'}
+        //w={isOpen ? '86vw' : '94vw'}
+        w={'100%'}
         transitionDuration="1.0s"
         //h={'75vh'}
         h={'100%'}
@@ -61,8 +62,12 @@ export const ToListSolicitacoesPostos: React.FC<IInterface> = ({
           pt={4}
           gap={2}
           align={{ base: 'flex-start' }}
+          w={'100%'}
         >
-          <Flex p={8} w={isOpen ? '86vw' : '93vw'}>
+          <Flex p={8}
+          //w={isOpen ? '86vw' : '93vw'}
+          w={'100%'}
+          >
             <ToListSolicitacoesPostosContent />
           </Flex>
         </Flex>

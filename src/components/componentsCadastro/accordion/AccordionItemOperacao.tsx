@@ -91,11 +91,13 @@ export const AccordionItemOperacao: React.FC<IAccordion> = ({ isEditing }) => {
             </h2>
             <AccordionPanel
               pb={4}
-              w={{
-                lg: isOpen ? '82vw' : '91vw',
-                md: isOpen ? '82vw' : '91vw',
-                sm: isOpen ? '82vw' : '91vw',
-              }}
+              // w={{
+              //   lg: isOpen ? '82vw' : '91vw',
+              //   md: isOpen ? '82vw' : '91vw',
+              //   sm: isOpen ? '82vw' : '91vw',
+              // }}
+              //
+              w={'100%'}
               transitionDuration="1.0s"
               minH={'20vh'}
             >

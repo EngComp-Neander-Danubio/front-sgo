@@ -15,7 +15,7 @@ export const ConteinerEditarCadastro: React.FC<IFlexCadastrar> = ({
   handleToggle,
 }) => {
   return (
-    <Flex h={'100vh'} flexDirection={'column'} gap={2}>
+    <Flex h={'100vh'} flexDirection={'column'} gap={2} w={'100%'}>
       <BreadCrumb />
       <Flex
         pl={2}
@@ -23,7 +23,8 @@ export const ConteinerEditarCadastro: React.FC<IFlexCadastrar> = ({
         //border={'1px solid black'}
         borderRadius={'8px'}
         borderTopLeftRadius={0}
-        w={isOpen ? '86vw' : '94vw'}
+        //w={isOpen ? '86vw' : '94vw'}
+        w={'100%'}
         transitionDuration="1.0s"
         h={'80vh'}
         position="relative"
@@ -59,6 +60,7 @@ export const ConteinerEditarCadastro: React.FC<IFlexCadastrar> = ({
           pt={4}
           gap={2}
           align={{ base: 'flex-start' }}
+          w={'100%'}
         >
           <Flex
             display={{ base: 'flex', lg: 'flex', md: 'flex', sm: 'block' }}
@@ -73,7 +75,8 @@ export const ConteinerEditarCadastro: React.FC<IFlexCadastrar> = ({
             borderRadius={'8px'}
             bg={'white'}
             //m={4}
-            w={isOpen ? '86vw' : '93vw'} //don't change
+            //w={isOpen ? '86vw' : '93vw'} //don't change
+            w={'100%'}
             transitionDuration="1.0s"
             align={'center'}
             justifyContent={'center'}

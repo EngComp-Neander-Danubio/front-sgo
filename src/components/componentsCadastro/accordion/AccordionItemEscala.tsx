@@ -86,11 +86,12 @@ export const AccordionItemEscala: React.FC<IAccordion> = ({ isEditing }) => {
             </h2>
             <AccordionPanel
               pb={4}
-              w={{
-                lg: isOpen ? '80vw' : '91vw',
-                md: isOpen ? '80vw' : '91vw',
-                sm: isOpen ? '80vw' : '91vw',
-              }}
+              // w={{
+              //   lg: isOpen ? '80vw' : '91vw',
+              //   md: isOpen ? '80vw' : '91vw',
+              //   sm: isOpen ? '80vw' : '91vw',
+              // }}
+              w={'100%'}
               transitionDuration="1.0s"
               //border={'1px solid black'}
             >
@@ -105,11 +106,12 @@ export const AccordionItemEscala: React.FC<IAccordion> = ({ isEditing }) => {
                   flexDirection={'row'}
                   //border={'1px solid black'}
                   justifyContent={'space-between'}
-                  w={{
-                    lg: isOpen ? '82vw' : '88vw',
-                    md: isOpen ? '82vw' : '88vw',
-                    sm: isOpen ? '82vw' : '88vw',
-                  }}
+                  // w={{
+                  //   lg: isOpen ? '82vw' : '88vw',
+                  //   md: isOpen ? '82vw' : '88vw',
+                  //   sm: isOpen ? '82vw' : '88vw',
+                  // }}
+                  w={'100%'}
                   transitionDuration="1.0s"
                   gap={2}
                   h={'fit-content'}
@@ -120,15 +122,17 @@ export const AccordionItemEscala: React.FC<IAccordion> = ({ isEditing }) => {
                     //w={'100%'}
                     align={'center'}
                     justifyContent={'space-between'}
-                    w={{
-                      xl: isOpen ? '83vw' : '88vw',
-                      lg: isOpen ? '83vw' : '88vw',
-                      md: isOpen ? '83vw' : '88vw',
-                      sm: isOpen ? '83vw' : '88vw',
-                    }}
+                    // w={{
+                    //   xl: isOpen ? '83vw' : '88vw',
+                    //   lg: isOpen ? '83vw' : '88vw',
+                    //   md: isOpen ? '83vw' : '88vw',
+                    //   sm: isOpen ? '83vw' : '88vw',
+                    // }}
+                    // w={'100%'}
                     transitionDuration="1.0s"
                     //pr={7}
                     ml={6}
+                    w={'100%'}
                   >
                     <Flex gap={2} pl={!isOpen ? 0 : 2}>
                       <Text fontWeight={'bold'}>Total:</Text>

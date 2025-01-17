@@ -338,22 +338,6 @@ export const AccordionItemEfetivo: React.FC<IAccordion> = ({ isEditing }) => {
       key: 'opm_sigla',
       title: 'OPM',
     },
-    // {
-    //   key: 'ps_matricula' ,
-    //   title: 'Matrícula',
-    // },
-    // {
-    //   key: 'vpa_posto_grad',
-    //   title: 'Posto/Graduação',
-    // },
-    // {
-    //   key: 'vpa_nome_completo',
-    //   title: 'Nome',
-    // },
-    // {
-    //   key: 'vpa_opm_sigla',
-    //   title: 'OPM',
-    // },
     {
       key: 'acoes',
       title: 'Ações',
@@ -378,16 +362,6 @@ export const AccordionItemEfetivo: React.FC<IAccordion> = ({ isEditing }) => {
                 }}
               />
             </span>
-            {/* <span key={`edit-${column.key}`}>
-              <IconeEditar label_tooltip={record.nome_completo}
-              onOpen={
-                () => {
-                  onOpenFormAddMilitarEditing();
-                  loadingOnePMToEditInTable(record)
-
-              }}
-              />
-            </span> */}
           </Flex>
         );
       },
@@ -412,11 +386,12 @@ export const AccordionItemEfetivo: React.FC<IAccordion> = ({ isEditing }) => {
             </h2>
             <AccordionPanel
               pb={4}
-              w={{
-                lg: isOpen ? '82vw' : '91vw',
-                md: isOpen ? '82vw' : '91vw',
-                sm: isOpen ? '82vw' : '91vw',
-              }}
+              // w={{
+              //   lg: isOpen ? '82vw' : '91vw',
+              //   md: isOpen ? '82vw' : '91vw',
+              //   sm: isOpen ? '82vw' : '91vw',
+              // }}
+              w={'100%'}
               transitionDuration="1.0s"
               //maxH={'48vh'}
               minH={pms.length > 0 ? '20vh' : '20vh'}
@@ -431,11 +406,12 @@ export const AccordionItemEfetivo: React.FC<IAccordion> = ({ isEditing }) => {
               >
                 <Flex
                   flexDirection={'row'}
-                  w={{
-                    lg: isOpen ? '85vw' : '90vw',
-                    md: isOpen ? '85vw' : '90vw',
-                    sm: isOpen ? '85vw' : '90vw',
-                  }}
+                  // w={{
+                  //   lg: isOpen ? '85vw' : '90vw',
+                  //   md: isOpen ? '85vw' : '90vw',
+                  //   sm: isOpen ? '85vw' : '90vw',
+                  // }}
+                  w={'100%'}
                   transitionDuration="1.0s"
                   gap={2}
                   //border={'1px solid red'}
@@ -505,6 +481,7 @@ export const AccordionItemEfetivo: React.FC<IAccordion> = ({ isEditing }) => {
             }} */
                 //overflowX={'auto'}
                 // border={'1px solid red'}
+                w={'100%'}
               >
                 <Flex mt={2} flexDirection={'column'} w={'100%'}>
                   <TableMain
