@@ -189,24 +189,21 @@ export const RequisitosProvider: React.FC<{ children: ReactNode }> = ({
   const addQtdMilitaresRestantes = useCallback(
     async (matricula: string) => {
       const updatedMilitares = pms.filter((m) => m.matricula === matricula);
-      const existAlreadyMilitar = militaresRestantes.some((m) => m.matricula === matricula);
       setMilitaresRestantes((prev) => [...prev, ...updatedMilitares]);
       setTotalMilitarEscalados((prev) => prev + 1);
-      if (!existAlreadyMilitar) {
-
-      }
     },
-    [pms, militaresRestantes]  // Adicionando 'militaresRestantes' no array de dependências
+    [pms, militaresRestantes]
   );
 
 
   const removeQtdMilitaresRestantes = useCallback(
     async (matricula: string) => {
       const updatedMilitares = militaresRestantes.filter((m)=> m.matricula !== matricula)
-      setMilitaresRestantes(updatedMilitares)
+      console.log(updatedMilitares);
+      setMilitaresRestantes([...updatedMilitares])
       setTotalMilitarEscalados(prev => prev + 1)
     },
-    [services, setServices, toast]
+    [services, setServices, militaresRestantes]
   );
 const deleteMilitarFromService = useCallback(
   (servico: Service, matricula: string) => {

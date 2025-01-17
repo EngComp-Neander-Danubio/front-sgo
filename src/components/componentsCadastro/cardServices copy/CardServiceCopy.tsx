@@ -20,7 +20,7 @@ import {
   MenuList,
   Center,
 } from '@chakra-ui/react';
-import { Service } from '../../../context/requisitosContext/RequisitosContext';
+import { Militares_service, Service } from '../../../context/requisitosContext/RequisitosContext';
 import React, { useEffect, useState } from 'react';
 import { TdTable } from '../../componentesFicha/table/td';
 import { IconeDeletar } from '../../ViewLogin';
@@ -47,10 +47,6 @@ export const CardServiceCopy: React.FC<ICard> = () => {
       console.log(checkboxData);  // Verificação adicional
     }
   };
-
-  useEffect(()=>{},[checkboxData])
-
-  console.log(checkboxData);
 
   const agruparDatas = (services: Service[]) => {
     const groupedDates: Record<string, Service[]> = {};
@@ -224,11 +220,10 @@ export const CardServiceCopy: React.FC<ICard> = () => {
                                   colorScheme="green"
                                   isChecked={checkboxData.includes(`${m.matricula}`)}
                                   onChange={async (e) => {
-                                    const exitsM = service.militares.some(militar => militar.matricula === m.matricula)
-                                    if (e.target.checked && !exitsM) {
+                                    const exitsM = service.militares.filter(militar => militar.matricula === m.matricula)
+                                    if (e.target.checked) {
                                       service.militares.push(m)
                                       await removeQtdMilitaresRestantes(m.matricula)
-                                      //setCheckboxData((prev) => [...prev, m.matricula]);
                                     }
                                   }}
                                 >
