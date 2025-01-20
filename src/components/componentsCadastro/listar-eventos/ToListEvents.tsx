@@ -33,7 +33,7 @@ export const ToListEvents: React.FC<IToListEventProps> = ({
         borderBottom="1px solid rgba(0, 0, 0, 0.5)"
         boxShadow="0px 4px 4px -2px rgba(0, 0, 0, 0.5)"
         bg={'white'}
-        overflowY={'auto'}
+        //overflowY={'auto'}
       >
         <Flex position="absolute" top={'32px'} ml={10} fontWeight={'700'}>
           <Text

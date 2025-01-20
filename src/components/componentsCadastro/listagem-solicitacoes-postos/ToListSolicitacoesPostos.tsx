@@ -12,11 +12,8 @@ export const ToListSolicitacoesPostos: React.FC<IInterface> = ({
 }) => {
   return (
     <Flex
-      //h={'80vh'}
-      //h={'full'}
       h={'100%'}
       flexDirection={'column'}
-      transitionDuration="1.0s"
       gap={2}
     >
       <BreadCrumb />
@@ -25,17 +22,13 @@ export const ToListSolicitacoesPostos: React.FC<IInterface> = ({
         pr={2}
         //border={'1px solid black'}
         borderRadius={'8px'}
-        borderTopLeftRadius={0}
-        //w={isOpen ? '86vw' : '94vw'}
         w={'100%'}
-        transitionDuration="1.0s"
-        //h={'75vh'}
         h={'100%'}
         position="relative"
         borderBottom="1px solid rgba(0, 0, 0, 0.5)"
         boxShadow="0px 4px 4px -2px rgba(0, 0, 0, 0.5)"
         bg={'white'}
-        overflowY={'auto'}
+
       >
         <Flex position="absolute" top={'32px'} ml={10} fontWeight={'700'}>
           <Text

@@ -30,23 +30,38 @@ export type DataEfetivo = {
   matricula: string;
   posto_grad: string;
 };
+// export const optionsMilitares: Array<{ label: string; value: string; militarRank: Militar }> = [
+//   { label: 'Coronel', value: 'Cel PM', militarRank: Militar.Coronel },
+//   { label: 'Tenente-Coronel', value: 'Ten-Cel PM', militarRank: Militar.TenCoronel },
+//   { label: 'Major', value: 'Maj PM', militarRank: Militar.Major },
+//   { label: 'Capitão', value: 'Cap PM', militarRank: Militar.Capitão },
+//   { label: '1° Tenente', value: '1º Ten PM', militarRank: Militar.PrimeiroTenente },
+//   { label: '2° Tenente', value: '2º Ten PM', militarRank: Militar.SegundoTenente },
+//   { label: 'Sub-Tenente', value: 'St PM', militarRank: Militar.SubTenente },
+//   { label: '1° Sargento', value: '1º Sgt PM', militarRank: Militar.PrimeiroSargento },
+//   { label: '2° Sargento', value: '2º Sgt PM', militarRank: Militar.SegundoSargento },
+//   { label: '3° Sargento', value: '3º Sgt PM', militarRank: Militar.TerceiroSargento },
+//   { label: 'Cabo', value: 'Cb PM', militarRank: Militar.Cabo },
+//   { label: 'Soldado', value: 'Sd PM', militarRank: Militar.Soldado },
+//   { label: 'Aluno-Soldado', value: 'Al Sd PM', militarRank: Militar.AlunoSoldado },
+//   { label: 'Aleatório', value: 'aleatorio', militarRank: Militar.Aleatorio },
+// ];
 export const optionsMilitares: Array<{ label: string; value: string; militarRank: Militar }> = [
-  { label: 'Coronel', value: 'Cel PM', militarRank: Militar.Coronel },
-  { label: 'Tenente-Coronel', value: 'Ten-Cel PM', militarRank: Militar.TenCoronel },
-  { label: 'Major', value: 'Maj PM', militarRank: Militar.Major },
-  { label: 'Capitão', value: 'Cap PM', militarRank: Militar.Capitão },
-  { label: '1° Tenente', value: '1º Ten PM', militarRank: Militar.PrimeiroTenente },
-  { label: '2° Tenente', value: '2º Ten PM', militarRank: Militar.SegundoTenente },
-  { label: 'Sub-Tenente', value: 'St PM', militarRank: Militar.SubTenente },
-  { label: '1° Sargento', value: '1º Sgt PM', militarRank: Militar.PrimeiroSargento },
-  { label: '2° Sargento', value: '2º Sgt PM', militarRank: Militar.SegundoSargento },
-  { label: '3° Sargento', value: '3º Sgt PM', militarRank: Militar.TerceiroSargento },
-  { label: 'Cabo', value: 'Cb PM', militarRank: Militar.Cabo },
-  { label: 'Soldado', value: 'Sd PM', militarRank: Militar.Soldado },
+  { label: 'Coronel', value: 'CEL', militarRank: Militar.Coronel },
+  { label: 'Tenente-Coronel', value: 'TC', militarRank: Militar.TenCoronel },
+  { label: 'Major', value: 'MAJ', militarRank: Militar.Major },
+  { label: 'Capitão', value: 'CAP', militarRank: Militar.Capitão },
+  { label: '1° Tenente', value: '1°TEN', militarRank: Militar.PrimeiroTenente },
+  { label: '2° Tenente', value: '2°TEN', militarRank: Militar.SegundoTenente },
+  { label: 'Sub-Tenente', value: 'ST', militarRank: Militar.SubTenente },
+  { label: '1° Sargento', value: '1°SGT', militarRank: Militar.PrimeiroSargento },
+  { label: '2° Sargento', value: '2°SGT', militarRank: Militar.SegundoSargento },
+  { label: '3° Sargento', value: '3°SGT', militarRank: Militar.TerceiroSargento },
+  { label: 'Cabo', value: 'CB', militarRank: Militar.Cabo },
+  { label: 'Soldado', value: 'SD', militarRank: Militar.Soldado },
   { label: 'Aluno-Soldado', value: 'Al Sd PM', militarRank: Militar.AlunoSoldado },
   { label: 'Aleatório', value: 'aleatorio', militarRank: Militar.Aleatorio },
 ];
-
 export const columnsMapMilitar: {
   [key: string]: string;
 } = {

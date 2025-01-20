@@ -507,11 +507,6 @@ export const AccordionItemPostos: React.FC<IAccordion> = ({ isEditing }) => {
             </h2>
             <AccordionPanel
               pb={4}
-              // w={{
-              //   lg: isOpen ? '82vw' : '91vw',
-              //   md: isOpen ? '82vw' : '91vw',
-              //   sm: isOpen ? '82vw' : '91vw',
-              // }}
               w={'100%'}
               transitionDuration="1.0s"
               minH={postosLocal.length > 0 ? '20vh' : '20vh'}
@@ -525,11 +520,6 @@ export const AccordionItemPostos: React.FC<IAccordion> = ({ isEditing }) => {
               >
                 <Flex
                   flexDirection={'row'}
-                  // w={{
-                  //   lg: isOpen ? '85vw' : '90vw',
-                  //   md: isOpen ? '85vw' : '90vw',
-                  //   sm: isOpen ? '85vw' : '90vw',
-                  // }}
                   w={'100%'}
                   transitionDuration="1.0s"
                   gap={2}
@@ -588,12 +578,6 @@ export const AccordionItemPostos: React.FC<IAccordion> = ({ isEditing }) => {
                 gap={4}
                 flexDirection={'column'}
                 align={'center'}
-                /* w={{
-              lg: isOpen ? '78vw' : '98vw',
-              md: isOpen ? '78vw' : '98vw',
-              sm: isOpen ? '78vw' : '98vw',
-              }} */
-                //overflowX={'auto'}
                 // border={'1px solid red'}
                 w={'100%'}
               >

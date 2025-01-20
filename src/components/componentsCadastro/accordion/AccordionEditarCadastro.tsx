@@ -24,13 +24,7 @@ export const AccordinEditarCadastro: React.FC<IAccordion> = ({ isOpen }) => {
     <>
       <Accordion
         alignItems={'center'}
-        w={{
-          xl: isOpen ? '82vw' : '92vw',
-          lg: isOpen ? '82vw' : '92vw',
-          md: isOpen ? '82vw' : '92vw',
-          sm: isOpen ? '82vw' : '92vw',
-        }}
-        //w={'100%'}
+        w={'100%'}
         transitionDuration="1.0s"
         h={'full'}
         //border={'1px solid black'}

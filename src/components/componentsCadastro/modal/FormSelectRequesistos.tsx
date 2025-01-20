@@ -138,7 +138,7 @@ export const FormSelectRequesitos: React.FC<ISwicht> = ({ isOpen }) => {
         p={4}
         //border={'1px solid red'}
       >
-        {/* <Flex flexDirection={'column'} justify={'center'}>
+        <Flex flexDirection={'column'} justify={'center'}>
           <FormLabel fontWeight={'bold'}>
             Quantidade militares por posto?
           </FormLabel>
@@ -176,7 +176,7 @@ export const FormSelectRequesitos: React.FC<ISwicht> = ({ isOpen }) => {
               </Flex>
             )}
           />
-        </Flex> */}
+        </Flex>
 
         <Flex flexDirection={'column'} justify={'center'}>
           <FormLabel fontWeight={'bold'}>Distribuição aleatória</FormLabel>
@@ -234,9 +234,7 @@ export const FormSelectRequesitos: React.FC<ISwicht> = ({ isOpen }) => {
                       field: { onChange, onBlur, value, ref },
                       fieldState: { error },
                     }) => {
-                      /* const options = switchGrad
-                      ? optionsMilitares.filter(m => Number(m.militarRank) >= 7)
-                      : optionsMilitares; */
+
                       const options = optionsMilitares;
 
                       return (
@@ -259,6 +257,10 @@ export const FormSelectRequesitos: React.FC<ISwicht> = ({ isOpen }) => {
             </Flex>
           </Flex>
         )}
+        {/* /* const options = switchGrad
+                      ? optionsMilitares.filter(m => Number(m.militarRank) >= 7)
+                      : optionsMilitares; */
+                      }
         <Flex flexDirection="column">
           <FormLabel fontWeight="bold">Data Inicial</FormLabel>
           <Controller

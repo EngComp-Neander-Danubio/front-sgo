@@ -98,7 +98,7 @@ export const AccordionItemOperacao: React.FC<IAccordion> = ({ isEditing }) => {
               // }}
               //
               w={'100%'}
-              transitionDuration="1.0s"
+              //transitionDuration="1.0s"
               minH={'20vh'}
             >
               <FormProvider {...methodsInput}>

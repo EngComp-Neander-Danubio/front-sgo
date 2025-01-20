@@ -21,19 +21,16 @@ import {
   Center,
   Portal,
   Divider,
-  Icon,
   Grid,
 } from '@chakra-ui/react';
-import { Militares_service, Service } from '../../../context/requisitosContext/RequisitosContext';
+import { Service } from '../../../context/requisitosContext/RequisitosContext';
 import React, { useEffect, useState } from 'react';
 import { TdTable } from '../../componentesFicha/table/td';
 import { IconeDeletar } from '../../ViewLogin';
 import { IconeMore } from '../../componentesFicha/registrosMedicos/icones/iconeMais/IconeMore';
 import { handleSortByPostoGrad } from '../../../types/typesMilitar';
 import { useRequisitos } from '../../../context/requisitosContext/useRequesitos';
-import { AddIcon } from '@chakra-ui/icons';
 import { GiRank3 } from 'react-icons/gi';
-import { TextCadastro } from '../textCadastro';
 
 interface ICard extends CardProps {
   isOpen: boolean;
@@ -120,6 +117,7 @@ export const CardServiceCopy: React.FC<ICard> = () => {
           key={date}
           flexDirection="column"
           w="100%"
+          //border={'1px solid red'}
         >
           <Heading size="lg" mb={2} w="100%" pl={2}>
             {`${date}`}
@@ -128,6 +126,7 @@ export const CardServiceCopy: React.FC<ICard> = () => {
             templateColumns={{ base: '1fr', sm: '1fr', md: 'repeat(2, 1fr)' }} // Responsivo: 1 card por linha em telas pequenas, 2 cards por linha em telas médias e grandes
             gap={4} // Espaço entre os cards
             w="100%"
+
           >
             {services.map((service, index) => (
               <Card

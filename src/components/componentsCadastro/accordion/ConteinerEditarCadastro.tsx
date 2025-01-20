@@ -23,7 +23,6 @@ export const ConteinerEditarCadastro: React.FC<IFlexCadastrar> = ({
         //border={'1px solid black'}
         borderRadius={'8px'}
         borderTopLeftRadius={0}
-        //w={isOpen ? '86vw' : '94vw'}
         w={'100%'}
         transitionDuration="1.0s"
         h={'80vh'}
@@ -31,7 +30,6 @@ export const ConteinerEditarCadastro: React.FC<IFlexCadastrar> = ({
         borderBottom="1px solid rgba(0, 0, 0, 0.5)"
         boxShadow="0px 4px 4px -2px rgba(0, 0, 0, 0.5)"
         bg={'white'}
-        overflowY={'auto'}
       >
         <Flex
           position="absolute"
@@ -67,8 +65,8 @@ export const ConteinerEditarCadastro: React.FC<IFlexCadastrar> = ({
             borderRadius={'8px'}
             bg={'white'}
             //m={4}
-            //w={isOpen ? '86vw' : '93vw'} //don't change
-            w={'100%'}
+            w={isOpen ? '84vw' : '91vw'} //don't change
+            //w={'100%'}
             transitionDuration="1.0s"
             align={'center'}
             justifyContent={'center'}
