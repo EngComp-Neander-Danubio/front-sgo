@@ -33,14 +33,6 @@ export const ConteinerEditarCadastro: React.FC<IFlexCadastrar> = ({
         bg={'white'}
         overflowY={'auto'}
       >
-        {/*  <Flex
-          position="absolute"
-          top={0}
-          left={0}
-          width="32px"
-          height="32px"
-          bg={'#D9D9D9'}
-        /> */}
         <Flex
           position="absolute"
           top={'32px'}

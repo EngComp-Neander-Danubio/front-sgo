@@ -183,7 +183,6 @@ export const RequisitosProvider: React.FC<{ children: ReactNode }> = ({
   };
   useEffect(() => {
     loadTotalMilitar();
-    //console.log('militares restantes',militaresRestantes);
   }, []);
 
   const addQtdMilitaresRestantes = useCallback(
@@ -293,8 +292,6 @@ const deleteMilitarFromService = useCallback(
                       groupedMilitares[beforeAntiguidade][0].posto_grad,
                   )?.militarRank,
                 };
-                //console.log('aux1', aux);
-                //console.log('aux2', aux2);
                 if (
                   aux?.militarRank &&
                   aux2?.militarRank &&

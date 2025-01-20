@@ -19,6 +19,9 @@ import {
   MenuItem,
   MenuList,
   Center,
+  Portal,
+  Divider,
+  Icon,
 } from '@chakra-ui/react';
 import { Militares_service, Service } from '../../../context/requisitosContext/RequisitosContext';
 import React, { useEffect, useState } from 'react';
@@ -27,6 +30,9 @@ import { IconeDeletar } from '../../ViewLogin';
 import { IconeMore } from '../../componentesFicha/registrosMedicos/icones/iconeMais/IconeMore';
 import { handleSortByPostoGrad } from '../../../types/typesMilitar';
 import { useRequisitos } from '../../../context/requisitosContext/useRequesitos';
+import { AddIcon } from '@chakra-ui/icons';
+import { GiRank3 } from 'react-icons/gi';
+import { TextCadastro } from '../textCadastro';
 
 interface ICard extends CardProps {
   isOpen: boolean;
@@ -109,45 +115,6 @@ export const CardServiceCopy: React.FC<ICard> = () => {
     setGroupedServices(updatedGroupedServices);
   };
 
-  const handleAddMilitar = async () => {
-    // Cria uma cópia do estado 'groupedServices' para atualização
-    const updatedGroupedServices: Record<string, Service[]> = { ...groupedServices };
-
-    // Vamos percorrer as matrículas selecionadas em 'checkboxData'
-     checkboxData.forEach(mat => {
-      // Encontra o militar correspondente a cada matrícula de 'militaresRestantes'
-      const militarToAdd = militaresRestantes.find(militar => militar.matricula === mat);
-
-      // Verifica se o militar foi encontrado
-      if (militarToAdd) {
-        // Itera sobre todos os serviços para adicionar o militar
-        Object.entries(updatedGroupedServices).forEach(([date, services]) => {
-          updatedGroupedServices[date] = services.map(service => {
-            // Verifica se o militar já existe no serviço
-            const existingMilitar = service.militares.find(m => m.matricula === mat);
-            if(existingMilitar)
-            removeQtdMilitaresRestantes(existingMilitar?.matricula)
-
-            // Se o militar não estiver presente no serviço, adiciona
-            if (!existingMilitar) {
-              const updatedMilitares = [...service.militares, militarToAdd];
-              return {
-                ...service,
-                militares: updatedMilitares,
-              };
-            }
-
-            // Caso o militar já exista no serviço, retorna o serviço sem alterações
-            return service;
-          }).filter(service => service.militares.length > 0); // Remove serviços sem militares
-        });
-      }
-    });
-
-    // Atualiza o estado de 'groupedServices' com os novos dados
-    setGroupedServices(updatedGroupedServices);
-  };
-
   return (
     <Flex
       gap={1}
@@ -200,39 +167,61 @@ export const CardServiceCopy: React.FC<ICard> = () => {
                     justifyContent="space-between"
                   >
                     <Flex align="center" justify="space-between">
-                      <Flex gap={2} boxSize={'max-content'}>
-                      <Menu closeOnBlur={true} closeOnSelect={false} placement='auto' computePositionOnMount>
-                          <MenuButton
-                            as={IconButton}
-                            aria-label="Options"
-                            icon={<IconeMore _hover={{ cursor: 'pointer' }} />}
-                            variant="outline"
-                            color="#A0AEC0"
-                            border={'none'}
-                            _hover={{ bgColor: 'none' }}
-                          />
-                          <MenuList overflowY={'auto'} h={'40vh'} border={'1px solid red'} gap={2}>
-                            <Center> Militares Disponíveis</Center>
-                            {militaresRestantes.map((m, index) => (
-                              <MenuItem key={m.matricula} >
-                                <Checkbox
-                                  key={index}
-                                  colorScheme="green"
-                                  isChecked={checkboxData.includes(`${m.matricula}`)}
-                                  onChange={async (e) => {
-                                    const exitsM = service.militares.filter(militar => militar.matricula === m.matricula)
-                                    if (e.target.checked) {
-                                      service.militares.push(m)
-                                      await removeQtdMilitaresRestantes(m.matricula)
-                                    }
-                                  }}
-                                >
-                                  {m.posto_grad + ' ' + m.matricula + ' ' + m.nome_completo + ' ' + m.opm_sigla}
-                                </Checkbox>
-                              </MenuItem>
-                            ))}
-                          </MenuList>
-                        </Menu>
+                      <Flex gap={2}>
+                      <Menu
+                        closeOnBlur={true}
+                        closeOnSelect={false}
+                        placement="auto"
+                        matchWidth={true}
+                        flip
+                        isLazy
+                        preventOverflow={true}
+
+                      >
+                      <MenuButton
+                        as={IconButton}
+                        aria-label="Options"
+                        icon={<IconeMore _hover={{ cursor: 'pointer' }} />}
+                        variant="outline"
+                        color="#A0AEC0"
+                        border="none"
+                        _hover={{ bgColor: 'none' }}
+                      />
+                      <Portal>
+                      <MenuList
+                        overflowY="auto"
+                        //border="1px solid red"
+                        gap={2}
+                        zIndex={9999}
+                        boxSize={'max-content'}
+                        //borderBottom="1px solid rgba(0, 0, 0, 0.5)"
+                        boxShadow="4px 4px 4px 0px rgba(0, 0, 0, 0.5)"
+                        >
+                        <Center  fontWeight={'bold'} h={'3vh'} color={'rgba(0, 0, 0, 0.48)'} >Militares Disponíveis</Center>
+                        <Divider className='gradient-border'/>
+                        {militaresRestantes.length > 0 ? militaresRestantes.map((m,_) => (
+                          <MenuItem key={m.matricula}>
+                            <Checkbox
+                              key={m.matricula}
+                              icon={<GiRank3/>}
+                              colorScheme="green"
+                              //isChecked={checkboxData.includes(`${m.matricula}`)}
+                              onChange={async (e) => {
+                                 if (e.target.checked) {
+                                  service.militares.push(m)
+                                  await removeQtdMilitaresRestantes(m.matricula)
+                                }
+                              }}
+                              >
+                              {m.posto_grad + ' ' + m.matricula + ' ' + m.nome_completo + ' ' + m.opm_sigla}
+                            </Checkbox>
+                          </MenuItem>
+                        )) : (
+                          <Text textAlign={'center'} fontFamily={'Roboto'}>Nenhum Militar disponível</Text>
+                        )}
+                      </MenuList>
+                        </Portal>
+                    </Menu>
                       </Flex>
                     </Flex>
                   </Heading>
