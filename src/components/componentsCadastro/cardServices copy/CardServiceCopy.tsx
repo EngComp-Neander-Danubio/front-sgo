@@ -22,6 +22,7 @@ import {
   Portal,
   Divider,
   Icon,
+  Grid,
 } from '@chakra-ui/react';
 import { Militares_service, Service } from '../../../context/requisitosContext/RequisitosContext';
 import React, { useEffect, useState } from 'react';
@@ -39,20 +40,8 @@ interface ICard extends CardProps {
 }
 
 export const CardServiceCopy: React.FC<ICard> = () => {
-  const [checkboxData, setCheckboxData] = useState<string[]>([]);
   const { searchServices, dateFirst, dateFinished, searchServices: services, militaresRestantes, addQtdMilitaresRestantes, removeQtdMilitaresRestantes } = useRequisitos();
   const [groupedServices, setGroupedServices] = useState<Record<string, Service[]>>({});
-
-  const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>, label: string) => {
-    if (e.target.checked) {
-      setCheckboxData((prev) => [...prev, label]); // Adiciona a matrícula ao array
-      console.log(checkboxData);  // Verificação adicional
-
-    } else {
-      setCheckboxData((prev) => prev.filter(item => item !== label)); // Remove do array se desmarcado
-      console.log(checkboxData);  // Verificação adicional
-    }
-  };
 
   const agruparDatas = (services: Service[]) => {
     const groupedDates: Record<string, Service[]> = {};
@@ -117,48 +106,39 @@ export const CardServiceCopy: React.FC<ICard> = () => {
 
   return (
     <Flex
-      gap={1}
-      w={'100%'}
-      mb={4}
+      gap={4} // Aumentei o gap entre os cards
+      w="100%"
       align="center"
       justify="center"
       flexWrap="wrap"
       justifyContent="space-between"
       overflowY="auto"
-      overflowX="auto"
       h={services?.length > 0 || searchServices.length > 0 ? '100vh' : '60vh'}
-      ml={4}
-      mt={4}
     >
       {Object.entries(groupedServices).map(([date, services]) => (
         <Flex
           key={date}
-          flexDirection="row"
-          flexWrap={'wrap'}
+          flexDirection="column"
           w="100%"
-          overflowY={'auto'}
         >
-          <Heading size="lg" mb={4} w="100%">
+          <Heading size="lg" mb={2} w="100%" pl={2}>
             {`${date}`}
           </Heading>
-          {services.map((service, index) => (
-            <Flex
-              key={index} // Ajuste aqui para garantir que cada item tenha uma chave única
-              flexDirection="row"
-              gap={2}
-              w={'49%'}
-              mb={4}
-              align="center"
-              justify="center"
-            >
+          <Grid
+            templateColumns={{ base: '1fr', sm: '1fr', md: 'repeat(2, 1fr)' }} // Responsivo: 1 card por linha em telas pequenas, 2 cards por linha em telas médias e grandes
+            gap={4} // Espaço entre os cards
+            w="100%"
+          >
+            {services.map((service, index) => (
               <Card
+                key={index}
                 direction={{
                   base: 'column',
                   sm: 'row',
                 }}
                 overflow="hidden"
                 variant="outline"
-                w="full"
+                w="full" // Alterado para "full" para garantir que o card ocupe 100% do espaço disponível
               >
                 <CardBody>
                   <Heading
@@ -167,7 +147,6 @@ export const CardServiceCopy: React.FC<ICard> = () => {
                     justifyContent="space-between"
                   >
                     <Flex align="center" justify="space-between">
-                      <Flex gap={2}>
                       <Menu
                         closeOnBlur={true}
                         closeOnSelect={false}
@@ -176,53 +155,54 @@ export const CardServiceCopy: React.FC<ICard> = () => {
                         flip
                         isLazy
                         preventOverflow={true}
-
                       >
-                      <MenuButton
-                        as={IconButton}
-                        aria-label="Options"
-                        icon={<IconeMore _hover={{ cursor: 'pointer' }} />}
-                        variant="outline"
-                        color="#A0AEC0"
-                        border="none"
-                        _hover={{ bgColor: 'none' }}
-                      />
-                      <Portal>
-                      <MenuList
-                        overflowY="auto"
-                        //border="1px solid red"
-                        gap={2}
-                        zIndex={9999}
-                        boxSize={'max-content'}
-                        //borderBottom="1px solid rgba(0, 0, 0, 0.5)"
-                        boxShadow="4px 4px 4px 0px rgba(0, 0, 0, 0.5)"
-                        >
-                        <Center  fontWeight={'bold'} h={'3vh'} color={'rgba(0, 0, 0, 0.48)'} >Militares Disponíveis</Center>
-                        <Divider className='gradient-border'/>
-                        {militaresRestantes.length > 0 ? militaresRestantes.map((m,_) => (
-                          <MenuItem key={m.matricula}>
-                            <Checkbox
-                              key={m.matricula}
-                              icon={<GiRank3/>}
-                              colorScheme="green"
-                              //isChecked={checkboxData.includes(`${m.matricula}`)}
-                              onChange={async (e) => {
-                                 if (e.target.checked) {
-                                  service.militares.push(m)
-                                  await removeQtdMilitaresRestantes(m.matricula)
-                                }
-                              }}
-                              >
-                              {m.posto_grad + ' ' + m.matricula + ' ' + m.nome_completo + ' ' + m.opm_sigla}
-                            </Checkbox>
-                          </MenuItem>
-                        )) : (
-                          <Text textAlign={'center'} fontFamily={'Roboto'}>Nenhum Militar disponível</Text>
-                        )}
-                      </MenuList>
+                        <MenuButton
+                          as={IconButton}
+                          aria-label="Options"
+                          icon={<IconeMore _hover={{ cursor: 'pointer' }} />}
+                          variant="outline"
+                          color="#A0AEC0"
+                          border="none"
+                          _hover={{ bgColor: 'none' }}
+                        />
+                        <Portal>
+                          <MenuList
+                            gap={2}
+                            zIndex={9999}
+                            boxSize={'max-content'}
+                            boxShadow="4px 4px 4px 0px rgba(0, 0, 0, 0.5)"
+                          >
+                            <Center fontWeight={'bold'} h={'3vh'}>
+                              Militares Disponíveis
+                            </Center>
+                            <Divider className="gradient-border" />
+                            {militaresRestantes.length > 0 ? (
+                              militaresRestantes.map((m) => (
+                                <MenuItem key={m.matricula}>
+                                  <Checkbox
+                                    size="md"
+                                    key={m.matricula}
+                                    icon={<GiRank3 />}
+                                    colorScheme="green"
+                                    onChange={async (e) => {
+                                      if (e.target.checked) {
+                                        service.militares.push(m);
+                                        await removeQtdMilitaresRestantes(m.matricula);
+                                      }
+                                    }}
+                                  >
+                                    {m.posto_grad + ' ' + m.matricula + ' ' + m.nome_completo + ' ' + m.opm_sigla}
+                                  </Checkbox>
+                                </MenuItem>
+                              ))
+                            ) : (
+                              <Text size="sm" textAlign={'center'} fontFamily={'Roboto'}>
+                                Nenhum Militar disponível
+                              </Text>
+                            )}
+                          </MenuList>
                         </Portal>
-                    </Menu>
-                      </Flex>
+                      </Menu>
                     </Flex>
                   </Heading>
                   <Flex flexDirection="row" gap={1}>
@@ -250,10 +230,7 @@ export const CardServiceCopy: React.FC<ICard> = () => {
                     <Text fontWeight="bold">Modalidade:</Text>
                     <Text>{service.modalidade}</Text>
                   </Flex>
-                  <TableContainer
-                    w={'100%'}
-                    fontSize={'12px'}
-                  >
+                  <TableContainer w={'100%'} fontSize={'12px'}>
                     <Table
                       variant="simple"
                       size="sm"
@@ -273,7 +250,7 @@ export const CardServiceCopy: React.FC<ICard> = () => {
                       <Tbody>
                         {handleSortByPostoGrad(service.militares, '2').map(
                           (militar) => (
-                            <Tr key={militar.matricula}> {/* Use a chave única do militar */}
+                            <Tr key={militar.matricula}>
                               <Td>{militar.posto_grad}</Td>
                               <Td>{militar.nome_completo}</Td>
                               <Td>{militar.matricula}</Td>
@@ -286,7 +263,9 @@ export const CardServiceCopy: React.FC<ICard> = () => {
                                       cursor: 'pointer',
                                     }}
                                     label_tooltip="militar"
-                                    handleDelete={async () => handleDeletarMilitar(militar.matricula)}
+                                    handleDelete={async () =>
+                                      handleDeletarMilitar(militar.matricula)
+                                    }
                                   />,
                                 ]}
                               />
@@ -298,10 +277,11 @@ export const CardServiceCopy: React.FC<ICard> = () => {
                   </TableContainer>
                 </CardBody>
               </Card>
-            </Flex>
-          ))}
+            ))}
+          </Grid>
         </Flex>
       ))}
     </Flex>
   );
+
 };

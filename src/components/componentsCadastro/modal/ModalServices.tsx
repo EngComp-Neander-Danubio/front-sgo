@@ -11,7 +11,6 @@ import {
   Flex,
   Icon,
 } from '@chakra-ui/react';
-import { CardService } from '../cardServices/CardService';
 import { useRequisitos } from '../../../context/requisitosContext/useRequesitos';
 import { InputPatternController } from '../inputPatternController/InputPatternController';
 import { Controller, useForm } from 'react-hook-form';
@@ -88,18 +87,13 @@ export const ModalServices: React.FC<IModal> = ({ isOpen, onClose }) => {
           <ModalCloseButton />
           <ModalBody>
             <Flex
-              w={'100%'}
-              flexDirection={'row'}
-              align={'center'}
-              justify={'center'}
-            >
-              <Flex></Flex>
-            </Flex>
-            <Flex
-              overflowY={'auto'}
               maxH="60vh"
               minH="40vh"
               bgColor="rgba(248, 249, 250, 1)"
+              justify={'center'}
+              w={'100%'}
+              flexDirection={'column'}
+              //border={'1px solid red'}
             >
               <CardServiceCopy isOpen={isOpen} />
             </Flex>
