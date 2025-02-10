@@ -24,7 +24,7 @@ import {
   Grid,
 } from '@chakra-ui/react';
 import { Service } from '../../../context/requisitosContext/RequisitosContext';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { TdTable } from '../../componentesFicha/table/td';
 import { IconeDeletar } from '../../ViewLogin';
 import { IconeMore } from '../../componentesFicha/registrosMedicos/icones/iconeMais/IconeMore';
@@ -34,10 +34,19 @@ import { GiRank3 } from 'react-icons/gi';
 
 interface ICard extends CardProps {
   isOpen: boolean;
+  handleServicesToConfirm: React.Dispatch<React.SetStateAction<Service[]>>
 }
 
-export const CardServiceCopy: React.FC<ICard> = () => {
-  const { searchServices, dateFirst, dateFinished, searchServices: services, militaresRestantes, addQtdMilitaresRestantes, removeQtdMilitaresRestantes } = useRequisitos();
+export const CardServiceCopy: React.FC<ICard> = ({handleServicesToConfirm}) => {
+  const {
+    dateFirst,
+    dateFinished,
+    searchServices: services,
+    militaresRestantes,
+    addQtdMilitaresRestantes,
+    removeQtdMilitaresRestantes,
+    setServices
+  } = useRequisitos();
   const [groupedServices, setGroupedServices] = useState<Record<string, Service[]>>({});
 
   const agruparDatas = (services: Service[]) => {
@@ -84,6 +93,18 @@ export const CardServiceCopy: React.FC<ICard> = () => {
     setGroupedServices(grouped);
   }, [dateFirst, dateFinished, services]);
 
+  // const handleServices = useCallback(async () => {
+  //     Object.entries(groupedServices).forEach(([date, services]) => {
+  //     services.forEach(service => {
+  //       console.log('service', service);
+  //       setServices(service as unknown as Service[]);
+  //     });
+  //   });
+  // }, [groupedServices]);
+
+  // useEffect(() => {
+  //   handleServices();
+  // }, [groupedServices]);
 
   //OK
   const handleDeletarMilitar = async (mat: string) => {
@@ -101,6 +122,7 @@ export const CardServiceCopy: React.FC<ICard> = () => {
     setGroupedServices(updatedGroupedServices);
   };
 
+
   return (
     <Flex
       gap={4} // Aumentei o gap entre os cards
@@ -110,7 +132,7 @@ export const CardServiceCopy: React.FC<ICard> = () => {
       flexWrap="wrap"
       justifyContent="space-between"
       overflowY="auto"
-      h={services?.length > 0 || searchServices.length > 0 ? '100vh' : '60vh'}
+      h={services?.length > 0 ? '100vh' : '60vh'}
     >
       {Object.entries(groupedServices).map(([date, services]) => (
         <Flex
@@ -123,7 +145,7 @@ export const CardServiceCopy: React.FC<ICard> = () => {
             {`${date}`}
           </Heading>
           <Grid
-            templateColumns={{ base: '1fr', sm: '1fr', md: 'repeat(2, 1fr)' }} // Responsivo: 1 card por linha em telas pequenas, 2 cards por linha em telas médias e grandes
+            templateColumns={{ base: '1fr', sm: '1fr', md: 'repeat(2, 1fr)' }}
             gap={4} // Espaço entre os cards
             w="100%"
 
@@ -137,7 +159,7 @@ export const CardServiceCopy: React.FC<ICard> = () => {
                 }}
                 overflow="hidden"
                 variant="outline"
-                w="full" // Alterado para "full" para garantir que o card ocupe 100% do espaço disponível
+                w="full"
               >
                 <CardBody>
                   <Heading

@@ -37,6 +37,8 @@ const TableMain = <T,>({ data, columns }: Props<T>) => {
 
   const rows = !data?.length ? (
     <Tr>{null}</Tr>
+
+    
   ) : (
     data?.map((row, index) => {
       return (

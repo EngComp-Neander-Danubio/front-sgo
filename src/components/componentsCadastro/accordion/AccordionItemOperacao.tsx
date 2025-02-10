@@ -29,21 +29,7 @@ interface IAccordion {
 }
 
 export const AccordionItemOperacao: React.FC<IAccordion> = ({ isEditing }) => {
-  const { isOpen } = useIsOpen();
-  const { searchServicesById } = useRequisitos();
-  const { watch } = useForm();
-  const inputUser = watch('searchService');
-
-  useEffect(() => {
-    const handler = setTimeout(() => {
-      searchServicesById(inputUser);
-    }, 100);
-
-    return () => {
-      clearTimeout(handler);
-    };
-  }, [inputUser]);
-  const { updateOperacao, uploadOperacao, OperacaoById } = useOperacao();
+    const { updateOperacao, uploadOperacao, OperacaoById } = useOperacao();
   const methodsInput = useForm<IForm>({
     resolver: yupResolver(eventoSchema),
   });
@@ -91,12 +77,6 @@ export const AccordionItemOperacao: React.FC<IAccordion> = ({ isEditing }) => {
             </h2>
             <AccordionPanel
               pb={4}
-              // w={{
-              //   lg: isOpen ? '82vw' : '91vw',
-              //   md: isOpen ? '82vw' : '91vw',
-              //   sm: isOpen ? '82vw' : '91vw',
-              // }}
-              //
               w={'100%'}
               //transitionDuration="1.0s"
               minH={'20vh'}

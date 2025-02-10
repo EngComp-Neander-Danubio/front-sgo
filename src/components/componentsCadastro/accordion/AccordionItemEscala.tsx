@@ -8,6 +8,7 @@ import {
   AccordionItem,
   useDisclosure,
   Text,
+  useToast,
 } from '@chakra-ui/react';
 import { BotaoCadastrar } from '../botaoCadastrar';
 import { useIsOpen } from '../../../context/isOpenContext/useIsOpen';
@@ -22,6 +23,9 @@ import { ModalRequesitos } from '../modal/ModalRequesitos';
 import { ModalRestantes } from '../modal/ModalRestantes';
 import { ModalServices } from '../modal/ModalServices';
 import { FiSave } from 'react-icons/fi';
+import { useState, useCallback } from 'react';
+import { Service } from '../../../context/requisitosContext/RequisitosContext';
+import api from '../../../services/api';
 type IForm = {
   comandante: number;
   dataFinal: Date;
@@ -60,13 +64,38 @@ export const AccordionItemEscala: React.FC<IAccordion> = ({ isEditing }) => {
   const methodsInput = useForm<IForm>({
     resolver: yupResolver(eventoSchema),
   });
-
+  const [services, setServices] = useState<Service[]>([]);
+  const toast = useToast();
   const { reset } = methodsInput;
-  const onSubmit = async (data: IForm) => {
-    //await uploadEvent(data);
-    reset();
-  };
-
+  
+  const saveEscala = useCallback(
+    async () => {
+      try {
+        await api.post('/operacao', services);
+        toast({
+          title: 'Sucesso',
+          description: 'Escala salva com sucesso',
+          status: 'success',
+          position: 'top-right',
+          duration: 2000,
+          isClosable: true,
+        });
+      } catch (error) {
+        //console.error('error:', error);
+        toast({
+          title: 'Erro',
+          description: 'Falha ao salva escala',
+          status: 'error',
+          position: 'top-right',
+          duration: 2000,
+          isClosable: true,
+        });
+      } finally {
+      }
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [],
+  );
   return (
     <>
       <AccordionItem>
@@ -190,7 +219,7 @@ export const AccordionItemEscala: React.FC<IAccordion> = ({ isEditing }) => {
 
                 <Flex>
                 <Button
-                    type="submit"
+                    //type="submit"
                           color={'white'}
                           rightIcon={<FiSave size={'16px'} />}
                           backgroundColor={'#38A169'}
@@ -205,7 +234,8 @@ export const AccordionItemEscala: React.FC<IAccordion> = ({ isEditing }) => {
                             cursor: 'pointer',
                             transition: '.5s',
                             //borderRadius: '10px',
-                          }}>
+                          }}
+                          onClick={saveEscala}>
                       {!isEditing ? 'Salvar' : 'Editar'}
                     </Button>
                 </Flex>

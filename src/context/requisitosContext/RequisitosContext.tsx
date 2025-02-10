@@ -79,6 +79,8 @@ export interface IContextRequisitoData {
   handleRandomServices: () => void;
   handleRandomServicesNewTable: () => void;
   searchServicesById: (param?: string) => Promise<Service>;
+  handleServicesToConfirm: (data: Service) => Promise<void>;
+  setServices: React.Dispatch<React.SetStateAction<Service[]>>
   totalMilitar: number;
   totalMilitarEscalados: number;
 }
@@ -170,17 +172,19 @@ export const RequisitosProvider: React.FC<{ children: ReactNode }> = ({
   const [services, setServices] = useState<Service[]>([]);
   const [searchServices, setsearchServices] = useState<Service[]>([]);
   const [requisitoServico, setRequisitoServico] = useState<RequisitoServico>();
-  const toast = useToast();
 
   const handleSubmitRequisitos = useCallback((data: RequisitoServico) => {
     setRequisitoServico(data);
   }, []);
+
   const loadTotalMilitar = () => {
     setTotalMilitar(pms.length);
   };
+
   const loadTotalMilitarEscalados = (int: number) => {
     setTotalMilitarEscalados(p => p + int);
   };
+
   useEffect(() => {
     loadTotalMilitar();
   }, []);
@@ -204,49 +208,8 @@ export const RequisitosProvider: React.FC<{ children: ReactNode }> = ({
     },
     [services, setServices, militaresRestantes]
   );
-const deleteMilitarFromService = useCallback(
-  (servico: Service, matricula: string) => {
-    console.log('Chamou deletar', matricula);
+  //servicesToConfirm
 
-    // Atualiza os serviços removendo o militar específico
-    const updatedServices = services.map((service) => {
-      // Verificando se o serviço é o mesmo (mesma data e posto)
-      const isSameService =
-        new Date(service.dia).getTime() === new Date(servico.dia).getTime() &&
-        service.posto === servico.posto;
-
-      if (isSameService) {
-        // Filtra os militares para remover o militar com a matrícula especificada
-        const updatedMilitares = service.militares.filter(
-          (militar) => militar.matricula !== matricula
-        );
-
-        // Retorna o serviço com a lista de militares atualizada
-        return {
-          ...service,
-          militares: updatedMilitares,
-        };
-      }
-      console.log(service)
-      // Caso não seja o serviço que queremos modificar, retornamos o serviço original
-      return service;
-    });
-
-    // Atualiza o estado com os serviços modificados
-    setServices(updatedServices);
-
-    // Exibe o toast de sucesso
-    toast({
-      title: 'Exclusão de Militar no Posto de Serviço.',
-      description: 'Militar excluído com sucesso do serviço.',
-      status: 'success',
-      duration: 2000,
-      isClosable: true,
-      position: 'top-right',
-    });
-  },
-  [services, setServices, toast] // Dependências relevantes
-);
 
 
   const handleRandomServices = () => {
@@ -548,9 +511,7 @@ const deleteMilitarFromService = useCallback(
         setSearchServiceLoading(true);
         return;
       }
-
       const lowercasedParam = param.toLowerCase();
-
       const result: Service[] = services.filter(service => {
         const diaAsString = service.dia.toISOString().toLowerCase(); // Converte a data para string no formato ISO e para minúsculas
         const turnoAsString = service.turno
@@ -599,9 +560,9 @@ const deleteMilitarFromService = useCallback(
       handleRandomServices,
       handleRandomServicesNewTable,
       searchServicesById,
-      deleteMilitarFromService,
       addQtdMilitaresRestantes,
       removeQtdMilitaresRestantes,
+      setServices,
     }),
     [
 
@@ -618,9 +579,9 @@ const deleteMilitarFromService = useCallback(
       handleRandomServices,
       handleRandomServicesNewTable,
       searchServicesById,
-      deleteMilitarFromService,
       addQtdMilitaresRestantes,
       removeQtdMilitaresRestantes,
+      setServices,
     ],
   );
 

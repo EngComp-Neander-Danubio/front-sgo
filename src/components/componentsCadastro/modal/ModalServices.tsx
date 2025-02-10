@@ -10,14 +10,16 @@ import {
   Center,
   Flex,
   Icon,
+  useToast,
 } from '@chakra-ui/react';
 import { useRequisitos } from '../../../context/requisitosContext/useRequesitos';
 import { InputPatternController } from '../inputPatternController/InputPatternController';
 import { Controller, useForm } from 'react-hook-form';
-import { useEffect } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { SearchIcon } from '@chakra-ui/icons';
 import { CardServiceCopy } from '../cardServices copy/CardServiceCopy';
-
+import { Service } from '../../../context/requisitosContext/RequisitosContext';
+import api from '../../../services/api';
 
 interface IModal {
   isOpen: boolean;
@@ -26,10 +28,11 @@ interface IModal {
 }
 
 export const ModalServices: React.FC<IModal> = ({ isOpen, onClose }) => {
-  const { searchServicesById } = useRequisitos();
+  const { searchServicesById, services } = useRequisitos();
   const { control, watch } = useForm();
   const inputUser = watch('searchService');
-
+  const toast = useToast();
+  const [servicesToConfirm, setServicesToConfirm] = useState<Service[]>([]);
   useEffect(() => {
     const handler = setTimeout(() => {
       searchServicesById(inputUser);
@@ -40,6 +43,28 @@ export const ModalServices: React.FC<IModal> = ({ isOpen, onClose }) => {
     };
   }, [inputUser]);
 
+  const sendServicesToBackend = useCallback(async () => {
+    try {
+      await api.post('/escala', services);
+      toast({
+        title: 'Sucesso',
+        description: 'Escala salva com sucesso',
+        status: 'success',
+        position: 'top-right',
+        duration: 2000,
+        isClosable: true,
+      });
+    } catch (error) {
+      toast({
+        title: 'Erro',
+        description: 'Falha ao salvar Escala',
+        status: 'error',
+        position: 'top-right',
+        duration: 2000,
+        isClosable: true,
+      });
+    }
+  }, []);
   return (
     <>
       <Modal isOpen={isOpen} onClose={onClose} closeOnOverlayClick={false}>
@@ -95,7 +120,7 @@ export const ModalServices: React.FC<IModal> = ({ isOpen, onClose }) => {
               flexDirection={'column'}
               //border={'1px solid red'}
             >
-              <CardServiceCopy isOpen={isOpen} />
+              <CardServiceCopy handleServicesToConfirm={setServicesToConfirm} isOpen={isOpen} />
             </Flex>
           </ModalBody>
 
@@ -103,7 +128,7 @@ export const ModalServices: React.FC<IModal> = ({ isOpen, onClose }) => {
             <Button colorScheme="red" mr={3} onClick={onClose}>
               Fechar
             </Button>
-            <Button colorScheme="green" mr={3}>
+            <Button colorScheme="green" mr={3} onClick={sendServicesToBackend}>
               Confirmar
             </Button>
           </ModalFooter>

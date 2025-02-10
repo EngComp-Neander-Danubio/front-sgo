@@ -12,6 +12,7 @@ import { SolicitacaoPostos } from '../pages/views/page-solicitacoes-postos';
 import { ViewSolicitacaoPMs } from '../pages/views/page-viewSolicitacao-pms';
 import { ViewSolicitacaoPostos } from '../pages/views/page-viewSolicitacao-postos';
 import PrivateRoute from '../protected-routes/protectedRoutes';
+import { Escalas } from '../pages/views/page-escalas/Escalas';
 
 export const Rotas = () => {
   return (
@@ -86,6 +87,14 @@ export const Rotas = () => {
           element={
             <PrivateRoute>
               <ViewSolicitacaoPMs />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/escalas"
+          element={
+            <PrivateRoute>
+              <Escalas />
             </PrivateRoute>
           }
         />
