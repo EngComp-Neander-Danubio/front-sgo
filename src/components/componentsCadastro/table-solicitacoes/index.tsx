@@ -13,10 +13,10 @@ import { ThTable } from './th';
 import { TdTable } from './td';
 import { BotaoAlert, IconeDeletar, IconeEditar } from '../../ViewLogin';
 import { useNavigate } from 'react-router-dom';
-import { IconeVisualizar } from '../../componentesFicha/registrosMedicos/icones/iconeVisualizarSolicitacao';
-import { IconeRedistribuir } from '../../componentesFicha/registrosMedicos/icones/iconeRedistribuir';
-import { useSolicitacoesPostos } from '../../../context/solicitacoesPostosContext/useSolicitacoesPostos';
 import { useSolicitacoesPMs } from '../../../context/solicitacoesPMsContext/useSolicitacoesPMs';
+import { useSolicitacoesPostos } from '../../../context/solicitacoesPostosContext/useSolicitacoesPostos';
+import { IconeVisualizar } from '../../componentesGerais/icones/iconeVisualizarSolicitacao';
+import { IconeRedistribuir } from '../../componentesGerais/icones/iconeRedistribuir';
 
 interface ITable {
   isOpen?: boolean;

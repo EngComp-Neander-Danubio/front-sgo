@@ -6,9 +6,9 @@ import {
   useToast,
   VStack,
 } from '@chakra-ui/react';
-import { TitlePerfil } from '../../componentesFicha/dadosDaFicha/titlePerfil';
-import { DashButtons } from '../../componentesFicha/registrosMedicos/header';
-import { TitleSolicitacoes } from '../../componentesFicha/registrosMedicos/title';
+import { TitlePerfil } from '../../componentesGerais/titlePerfil';
+import { DashButtons } from '../../componentesGerais/header';
+import { TitleSolicitacoes } from '../../componentesGerais/title';
 import { DadosFicha } from '../../ViewLogin';
 import { TableSolicitacoes } from '../table-solicitacoes';
 import { columnsMapMilitar } from '../../../types/typesMilitar';

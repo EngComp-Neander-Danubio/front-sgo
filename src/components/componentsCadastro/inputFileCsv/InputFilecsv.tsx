@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { BotaoUploadLote } from '../botaoSubmeterLote/BotaoUploadLote';
-import { TableFicha } from '../../componentesFicha/table';
+import { TableFicha } from '../../componentesGerais/table';
 
 type Data = {
   Zona: string;
@@ -78,8 +78,7 @@ export const InputFilecsv: React.FC = () => {
       <TableFicha
         isOpen={array.length > 0}
         columns={headerKeys}
-        registers={array}
-      />
+        registers={array} currentPosition={0} rowsPerLoad={0}      />
     </>
   );
 };

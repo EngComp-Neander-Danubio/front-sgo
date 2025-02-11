@@ -4,10 +4,10 @@ import { useSolicitacoesPostos } from '../../../context/solicitacoesPostosContex
 import { ModalSolicitacarPostosRed } from '../modal/redistribuicao-postos/ModalSolicitarPostosRed';
 import React, { useState } from 'react';
 import TableMain, { ColumnProps } from '../TableMain/TableMain';
-import { IconeRedistribuir } from '../../componentesFicha/registrosMedicos/icones/iconeRedistribuir';
-import { IconeVisualizar } from '../../componentesFicha/registrosMedicos/icones/iconeVisualizarSolicitacao';
+import { IconeRedistribuir } from '../../componentesGerais/icones/iconeRedistribuir';
+import { IconeVisualizar } from '../../componentesGerais/icones/iconeVisualizarSolicitacao';
 import { useNavigate } from 'react-router-dom';
-import { BotaoAlert } from '../../componentesFicha/registrosMedicos/buttons/buttonAlert';
+import { BotaoAlert } from '../../componentesGerais/buttons/buttonAlert';
 
 type Data = {
   isOpen?: boolean;

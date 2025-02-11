@@ -21,9 +21,9 @@ import {
 } from '@chakra-ui/react';
 import { Service } from '../../../context/requisitosContext/RequisitosContext';
 import React, { useEffect, useState } from 'react';
-import { TdTable } from '../../componentesFicha/table/td';
+import { TdTable } from '../../componentesGerais/table/td';
 import { IconeDeletar } from '../../ViewLogin';
-import { IconeMore } from '../../componentesFicha/registrosMedicos/icones/iconeMais/IconeMore';
+import { IconeMore } from '../../componentesGerais/icones/iconeMais/IconeMore';
 import { handleSortByPostoGrad } from '../../../types/typesMilitar';
 import { useRequisitos } from '../../../context/requisitosContext/useRequesitos';
 

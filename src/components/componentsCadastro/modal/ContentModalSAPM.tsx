@@ -46,6 +46,11 @@ export const ContentModalSAPM: React.FC = () => {
   const [dataGraCmd, setDataGraCmd] = useState<opmSaPM[]>([]);
   const [datasOpmFilhas, setDatasOpmFilhas] = useState<opmSaPM[]>([]);
   const [checkboxStates, setCheckboxStates] = useState<number[]>([]);
+  const [datePerpage, setDatePerpage] = useState<number>(1);
+  
+    const handlePerPageChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+      setDatePerpage(parseInt(e.target.value));
+    };
   const handleDeleteAllOpmCancel = async () => {
     setDatasOpmFilhas([]);
   };
@@ -328,8 +333,7 @@ export const ContentModalSAPM: React.FC = () => {
                   firstDataIndex={firstDataIndex}
                   lastDataIndex={lastDataIndex}
                   loadLess={loadLessSolicitacoesOPMPMs}
-                  loadMore={loadMoreSolicitacoesOPMPMs}
-                />
+                  loadMore={loadMoreSolicitacoesOPMPMs} handlePerPageChange={handlePerPageChange}                />
               </Flex>
             </Flex>
           </TabPanel>

@@ -16,7 +16,7 @@ import { Pagination } from '../pagination/Pagination';
 import { DataEfetivo } from '../../../types/typesMilitar';
 import TableMain, { ColumnProps } from '../TableMain/TableMain';
 import { useState } from 'react';
-import { IconeInserirMilitar } from '../../componentesFicha/registrosMedicos/icones/iconeInserirMilitar/IconeInserirMilitar';
+import { IconeInserirMilitar } from '../../componentesGerais/icones/iconeInserirMilitar/IconeInserirMilitar';
 
 interface IModal {
   isOpen: boolean;

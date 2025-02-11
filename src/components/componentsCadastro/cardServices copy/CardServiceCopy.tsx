@@ -25,12 +25,12 @@ import {
 } from '@chakra-ui/react';
 import { Service } from '../../../context/requisitosContext/RequisitosContext';
 import React, { useCallback, useEffect, useState } from 'react';
-import { TdTable } from '../../componentesFicha/table/td';
 import { IconeDeletar } from '../../ViewLogin';
-import { IconeMore } from '../../componentesFicha/registrosMedicos/icones/iconeMais/IconeMore';
+import { IconeMore } from '../../componentesGerais/icones/iconeMais/IconeMore';
 import { handleSortByPostoGrad } from '../../../types/typesMilitar';
 import { useRequisitos } from '../../../context/requisitosContext/useRequesitos';
 import { GiRank3 } from 'react-icons/gi';
+import { TdTable } from '../../componentesGerais/table/td';
 
 interface ICard extends CardProps {
   isOpen: boolean;

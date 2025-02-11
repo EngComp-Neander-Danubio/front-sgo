@@ -1,8 +1,7 @@
 import { IconProps, Tooltip } from '@chakra-ui/react';
 import React from 'react';
 import { BiPencil } from 'react-icons/bi';
-import { ModalFormAddPosto } from '../../../../componentsCadastro/modal/ModalFormAddPosto';
-import { LuPlusCircle } from 'react-icons/lu';
+import { ModalFormAddPosto } from 'import { LuPlusCircle } from 'react-icons/lu';
 interface IIcone extends IconProps {
   label_tooltip?: string;
   isOpen?: boolean;

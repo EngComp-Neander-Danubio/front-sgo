@@ -4,8 +4,8 @@ import { useSolicitacoesPostos } from '../../../context/solicitacoesPostosContex
 import { ModalSolicitacarPostosRed } from '../modal/redistribuicao-postos/ModalSolicitarPostosRed';
 import React, { useEffect, useState } from 'react';
 import TableMain, { ColumnProps } from '../TableMain/TableMain';
-import { IconeRedistribuir } from '../../componentesFicha/registrosMedicos/icones/iconeRedistribuir';
-import { IconeVisualizar } from '../../componentesFicha/registrosMedicos/icones/iconeVisualizarSolicitacao';
+import { IconeRedistribuir } from '../../componentesGerais/icones/iconeRedistribuir';
+import { IconeVisualizar } from '../../componentesGerais/icones/iconeVisualizarSolicitacao';
 import { useNavigate } from 'react-router-dom';
 import { useOperacao } from '../../../context/eventContext/useOperacao';
 import { PostoForm } from '../../../context/postosContext/PostosContex';

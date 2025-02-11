@@ -5,9 +5,9 @@ import {
   useToast,
   VStack,
 } from '@chakra-ui/react';
-import { DashButtons } from '../../componentesFicha/registrosMedicos/header';
-import { TitlePerfil } from '../../componentesFicha/dadosDaFicha/titlePerfil';
-import { TitleSolicitacoes } from '../../componentesFicha/registrosMedicos/title';
+import { DashButtons } from '../../componentesGerais/header';
+import { TitlePerfil } from '../../componentesGerais/titlePerfil';
+import { TitleSolicitacoes } from '../../componentesGerais/title';
 import {
   DadosFicha,
   IconeDeletar,
@@ -65,7 +65,7 @@ export const SolicitacaoPostosContent: React.FC<ISolicitacaoPostosContent> = pro
   const hasMore = lastDataIndex < postosLocal.length;
   useEffect(() => {
     loadPostosFromSolicitacaoToBackend(
-      Number(solicitacaoPostoIndividual?.sps_id),
+      Number(solicitacaoPostoIndividual?.id),
     );
   }, []);
   const loadPostosFromSolicitacaoToBackend = async (id: number) => {
@@ -389,8 +389,8 @@ export const SolicitacaoPostosContent: React.FC<ISolicitacaoPostosContent> = pro
         postos_servicos: postosLocal.map(
           ({ militares_por_posto, numero, modalidade, ...rest }) => ({
             ...rest,
-            operacao_id: solicitacaoPostoIndividual?.sps_operacao_id,
-            solicitacao_id: solicitacaoPostoIndividual?.sps_id,
+            operacao_id: solicitacaoPostoIndividual?.operacao_id,
+            solicitacao_id: solicitacaoPostoIndividual?.solicitacao,
             uni_codigo: solicitacaoPostoIndividual?.unidades_id,
             militares_por_posto: Number(militares_por_posto),
             numero: Number(numero),
@@ -454,7 +454,7 @@ export const SolicitacaoPostosContent: React.FC<ISolicitacaoPostosContent> = pro
         >
           <DadosFicha
             operacao={solicitacaoPostoIndividual?.nome_operacao}
-            solicitacao={solicitacaoPostoIndividual?.sps_operacao_id}
+            solicitacao={solicitacaoPostoIndividual?.operacao_id}
             prazo_final={solicitacaoPostoIndividual?.prazo_final}
             prazo_inicial={solicitacaoPostoIndividual?.prazo_inicial}
             marginLeft={{
@@ -510,8 +510,9 @@ export const SolicitacaoPostosContent: React.FC<ISolicitacaoPostosContent> = pro
               firstDataIndex={firstDataIndex}
               lastDataIndex={lastDataIndex}
               loadLess={loadLessSolicitacoesOPMPostos}
-              loadMore={loadMoreSolicitacoesOPMPostos}
-            />
+              loadMore={loadMoreSolicitacoesOPMPostos} handlePerPageChange={function (e: React.ChangeEvent<HTMLSelectElement>): void {
+                throw new Error('Function not implemented.');
+              } }            />
           </Flex>
         </Flex>
         <Flex
