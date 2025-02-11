@@ -15,9 +15,8 @@ import { Controller, useFormContext } from 'react-hook-form';
 import { optionsOPMs } from '../../../types/typesOPM';
 import { SelectPattern } from './SelectPattern';
 import { AccordionCheckbox } from '../acordion-checkbox/AccordionCheckbox';
-import { columnsMapMilitar, DataEfetivo } from '../../../types/typesMilitar';
+import { DataEfetivo } from '../../../types/typesMilitar';
 import { useSolicitacoesOPMPMs } from '../../../context/solicitacoesOPMPMsContext/useSolicitacoesOPMPMs';
-import { TableSolicitacoes } from '../table-solicitacoes';
 import { Pagination } from '../pagination/Pagination';
 import { useCallback, useEffect, useState } from 'react';
 import api from '../../../services/api';
@@ -40,14 +39,14 @@ type opmSaPM = {
   opm_filha: opmSaPM[];
 };
 export const ContentModalSAPM: React.FC = () => {
-  const { control, getValues, setValue, watch } = useFormContext<
+  const { control, setValue, watch } = useFormContext<
     SolicitacaoForm
   >();
   const [dataGraCmd, setDataGraCmd] = useState<opmSaPM[]>([]);
   const [datasOpmFilhas, setDatasOpmFilhas] = useState<opmSaPM[]>([]);
   const [checkboxStates, setCheckboxStates] = useState<number[]>([]);
   const [datePerpage, setDatePerpage] = useState<number>(1);
-  
+
     const handlePerPageChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
       setDatePerpage(parseInt(e.target.value));
     };
@@ -235,7 +234,7 @@ export const ContentModalSAPM: React.FC = () => {
                     name="select_opm"
                     control={control}
                     render={({
-                      field: { onChange, onBlur, value, ref },
+                      field: { onChange, onBlur },
                       fieldState: { error },
                     }) => {
                       return (
@@ -272,7 +271,6 @@ export const ContentModalSAPM: React.FC = () => {
                 >
                   <Button
                     onClick={() => {
-                      const v = getValues('select_opm');
                     }}
                     bgColor="#38A169"
                     _hover={{

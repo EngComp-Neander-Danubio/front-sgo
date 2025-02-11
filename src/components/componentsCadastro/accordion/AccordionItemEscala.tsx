@@ -10,7 +10,6 @@ import {
   Text,
   useToast,
 } from '@chakra-ui/react';
-import { BotaoCadastrar } from '../botaoCadastrar';
 import { useIsOpen } from '../../../context/isOpenContext/useIsOpen';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -59,7 +58,7 @@ export const AccordionItemEscala: React.FC<IAccordion> = ({ isEditing }) => {
     onOpen: onOpenModalServices,
     onClose: onCloseModalServices,
   } = useDisclosure();
-  const { totalMilitarEscalados, militaresRestantes, handleRandomServices, totalMilitar,} = useRequisitos();
+  const { totalMilitarEscalados, militaresRestantes, handleRandomServices,} = useRequisitos();
 
   const methodsInput = useForm<IForm>({
     resolver: yupResolver(eventoSchema),

@@ -35,7 +35,6 @@ interface ITable {
 }
 
 export const TableSolicitacoes: React.FC<ITable> = ({
-  isOpen,
   isActions,
   isView,
   columns,

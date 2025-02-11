@@ -15,7 +15,6 @@ import { BotaoCadastrar } from '../botaoCadastrar';
 import { InputCSVpapparse } from '../inputCSVpapaparse/InputCSVpapaparse';
 import { Pagination } from '../pagination/Pagination';
 import TableMain, { ColumnProps } from '../TableMain/TableMain';
-import { useIsOpen } from '../../../context/isOpenContext/useIsOpen';
 import { IconeDeletar } from '../../ViewLogin';
 import { ModalSolicitarEfetivo } from '../modal/ModalSolicitarEfetivo';
 import { ModalSAPM } from '../modal/ModalSAPM';
@@ -32,7 +31,6 @@ interface IAccordion {
   isEditing: boolean;
 }
 export const AccordionItemEfetivo: React.FC<IAccordion> = ({ isEditing }) => {
-  const { isOpen } = useIsOpen();
 
   const {
     isOpen: isOpenModalSolicitarMilitares,
