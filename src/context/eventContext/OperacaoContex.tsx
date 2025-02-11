@@ -176,7 +176,7 @@ export const OperacaosProvider: React.FC<{ children: ReactNode }> = ({
     async (id: string) => {
       setOperacaoById(Operacaos.find(e => e.id === id));
     },
-    [Operacaos],
+    [Operacaos,OperacaoById],
   );
   const updateOperacao = useCallback(
     async (data: Operacao, id: string) => {

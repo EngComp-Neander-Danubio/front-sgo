@@ -7,13 +7,11 @@ import {
   AccordionItem,
 } from '@chakra-ui/react';
 import { BotaoCadastrar } from '../botaoCadastrar';
-import { useIsOpen } from '../../../context/isOpenContext/useIsOpen';
 import { FormProvider, useForm } from 'react-hook-form';
 import { FormGrandeEvento } from '../formGrandeEvento/FormGrandeEvento';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useEffect } from 'react';
 import { useOperacao } from '../../../context/eventContext/useOperacao';
-import { useRequisitos } from '../../../context/requisitosContext/useRequesitos';
 import { eventoSchema } from '../../../types/yupEvento/yupEvento';
 import moment from 'moment'; // Para manipulação de fuso horário
 
@@ -26,36 +24,48 @@ type IForm = {
 };
 interface IAccordion {
   isEditing: boolean;
+  handleIsLoadingPostos?: () => Promise<void>
 }
 
-export const AccordionItemOperacao: React.FC<IAccordion> = ({ isEditing }) => {
+export const AccordionItemOperacao: React.FC<IAccordion> = ({ isEditing, handleIsLoadingPostos }) => {
     const { updateOperacao, uploadOperacao, OperacaoById } = useOperacao();
   const methodsInput = useForm<IForm>({
     resolver: yupResolver(eventoSchema),
   });
 
   const onSubmit = async (data: IForm) => {
-    if(!isEditing) {
-      await uploadOperacao(data);
-    }else{
-      if(OperacaoById?.id)
-      await updateOperacao(data, OperacaoById?.id)
-    }
+    try {
+      if (!isEditing) {
+        await uploadOperacao(data);
+        if(handleIsLoadingPostos) handleIsLoadingPostos()
+      } else {
+        if (OperacaoById?.id) {
+          await updateOperacao(data, OperacaoById?.id);
+        }
+      }
+    } catch (error) {
+      console.error('Erro ao salvar ou editar operação:', error);
+         }
   };
+
   const { setValue } = methodsInput;
   useEffect(() => {
     if (OperacaoById && isEditing) {
-        setValue('nomeOperacao', OperacaoById?.nomeOperacao);
-        setValue('comandante', OperacaoById?.comandante);
-        if (OperacaoById?.dataInicio) {
-          setValue('dataInicio', new Date(moment(OperacaoById.dataInicio).utc().format('DD-MMM-YYYY HH:mm:ss')));
-        }
-        if (OperacaoById?.dataFinal) {
-          setValue('dataFinal', new Date(moment(OperacaoById.dataFinal).utc().format('DD-MMM-YYYY HH:mm:ss')));
-        }
+      if (OperacaoById?.nomeOperacao) {
+        setValue('nomeOperacao', OperacaoById.nomeOperacao);
+      }
+      if (OperacaoById?.comandante) {
+        setValue('comandante', OperacaoById.comandante);
+      }
+      if (OperacaoById?.dataInicio) {
+        setValue('dataInicio', new Date(moment(OperacaoById.dataInicio).utc().format('DD-MMM-YYYY HH:mm:ss')));
+      }
+      if (OperacaoById?.dataFinal) {
+        setValue('dataFinal', new Date(moment(OperacaoById.dataFinal).utc().format('DD-MMM-YYYY HH:mm:ss')));
       }
     }
-  , [isEditing, setValue]);
+  }, [isEditing, setValue, OperacaoById]);
+
 
   return (
     <>

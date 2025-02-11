@@ -14,7 +14,6 @@ import { TableSolicitacoes } from '../table-solicitacoes';
 import { columnsMapMilitar } from '../../../types/typesMilitar';
 import { ModalFormAddMilitar } from '../formEfetivo/ModalFormAddMilitar';
 import { Pagination } from '../pagination/Pagination';
-import { useSolicitacoesOPMPMs } from '../../../context/solicitacoesOPMPMsContext/useSolicitacoesOPMPMs';
 import { IoIosSend } from 'react-icons/io';
 import { useSolicitacoesPMs } from '../../../context/solicitacoesPMsContext/useSolicitacoesPMs';
 import { Militar } from '../../../context/solicitacoesOPMPMsContext/SolicitacoesOPMPMsContext';
@@ -26,26 +25,25 @@ interface IFlexCadastrar {
 }
 export const SolicitacaoPMsContent: React.FC<IFlexCadastrar> = ({
   isOpen,
-  handleToggle,
 }) => {
   const toast = useToast();
   const [file, setFile] = useState<File | null>(null);
   const [pms, setPMs] = useState<Militar[]>([]);
-  const [pmsDaPlanilha, setPMsDaPlanilha] = useState<Militar[]>([]);
-
   const [currentDataIndex, setCurrentDataIndex] = useState(0);
-  const [dataPerPage] = useState(5); // Defina o número de registros por página
+  const [datePerpage, setDatePerpage] = useState<number>(1);
+
+    const handlePerPageChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+      setDatePerpage(parseInt(e.target.value));
+    };
   const [, setIsLoading] = useState<boolean>(false);
-  const lastDataIndex = (currentDataIndex + 1) * dataPerPage;
-  const firstDataIndex = lastDataIndex - dataPerPage;
+  const lastDataIndex = (currentDataIndex + 1) * datePerpage;
+  const firstDataIndex = lastDataIndex - datePerpage;
   const totalData = pms.length;
   const currentData = pms.slice(firstDataIndex, lastDataIndex);
   const hasMore = lastDataIndex < pms.length;
   const { solicitacaoPMIndividual } = useSolicitacoesPMs();
   const {
-    isOpen: isOpenAlertSolicitacao,
     onOpen: onOpenAlertSolicitacao,
-    onClose: onCloseAlertSolicitacao,
   } = useDisclosure();
   const {
     isOpen: isOpenFormAddMilitar,
@@ -424,11 +422,12 @@ export const SolicitacaoPMsContent: React.FC<IFlexCadastrar> = ({
             />
             <Pagination
               totalPages={totalData}
-              dataPerPage={dataPerPage}
+              dataPerPage={datePerpage}
               firstDataIndex={firstDataIndex}
               lastDataIndex={lastDataIndex}
               loadLess={loadLessSolicitacoesOPMPMs}
               loadMore={loadMoreSolicitacoesOPMPMs}
+              handlePerPageChange={handlePerPageChange}
             />
           </Flex>
         </Flex>

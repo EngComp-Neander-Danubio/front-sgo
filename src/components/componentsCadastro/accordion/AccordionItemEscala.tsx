@@ -66,7 +66,7 @@ export const AccordionItemEscala: React.FC<IAccordion> = ({ isEditing }) => {
   const [services, setServices] = useState<Service[]>([]);
   const toast = useToast();
   const { reset } = methodsInput;
-  
+
   const saveEscala = useCallback(
     async () => {
       try {

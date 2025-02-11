@@ -1,13 +1,12 @@
 import { Accordion, AccordionProps } from '@chakra-ui/react';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { useOperacao } from '../../../context/eventContext/useOperacao';
 import { AccordionItemEfetivo } from './AccordionItemEfetivo';
 import { AccordionItemEscala } from './AccordionItemEscala';
 import { AccordionItemOperacao } from './AccordionItemOperacao';
 import { AccordionItemPostos } from './AccordionItemPostos';
-import { usePostos } from '../../../context/postosContext/usePostos';
-import { useMilitares } from '../../../context/militaresContext/useMilitares';
+
 interface IAccordion extends AccordionProps {
   handleSubmit?: () => void;
   isOpen: boolean;
@@ -17,8 +16,19 @@ interface IAccordion extends AccordionProps {
 
 export const AccordinEditarCadastro: React.FC<IAccordion> = ({ isOpen }) => {
   const { OperacaoById } = useOperacao();
-  const { postosLocal} = usePostos();
-  const { pms} = useMilitares();
+      const [IsLoadingPostos, setIsLoadingPostos] = useState<boolean>(false);
+        const [IsLoadingEfetivo, setIsLoadingEfetivo] = useState<boolean>(false);
+        const [IsLoadingEscala, setIsLoadingEscala] = useState<boolean>(false);
+         const handleIsLoadingPostos = async () => {
+          setIsLoadingPostos(true);
+        };
+
+        const handleIsLoadingEfetivo = async () => {
+          setIsLoadingEfetivo(true);
+        };
+        const handleIsLoadingEscala = async () => {
+          setIsLoadingEscala(true);
+        };
 
   return (
     <>
@@ -29,18 +39,21 @@ export const AccordinEditarCadastro: React.FC<IAccordion> = ({ isOpen }) => {
         h={'full'}
         //border={'1px solid black'}
       >
-        <AccordionItemOperacao isEditing />
-        {OperacaoById?.id && (
-          <>
-          <AccordionItemPostos isEditing />
-          </>
-        )}
-        {postosLocal && (
-          <AccordionItemEfetivo isEditing />
-        )}
-        {pms && (
-            <AccordionItemEscala isEditing />
-        )}
+
+       <AccordionItemOperacao isEditing handleIsLoadingPostos={handleIsLoadingPostos}/>
+                  {OperacaoById?.id && (
+                  <AccordionItemPostos
+                    isEditing
+                    handleIsLoadingEfetivo={handleIsLoadingEfetivo}
+                  />
+                )}
+                {IsLoadingEfetivo && (
+                  <AccordionItemEfetivo
+                    isEditing
+                    handleIsLoadingEscala={handleIsLoadingEscala}
+                  />
+                )}
+               {IsLoadingEscala && <AccordionItemEscala isEditing />}
       </Accordion>
     </>
   );

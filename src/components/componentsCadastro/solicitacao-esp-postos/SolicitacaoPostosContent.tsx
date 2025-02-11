@@ -22,28 +22,14 @@ import { optionsModalidade } from '../../../types/typesModalidade';
 import { useCallback, useEffect, useState } from 'react';
 import { readString } from 'react-papaparse';
 import TableMain, { ColumnProps } from '../TableMain/TableMain';
-import { useNavigate } from 'react-router-dom';
 import { DataPostos } from '../../../types/typesPostos';
 interface ISolicitacaoPostosContent {
   isOpen: boolean;
   handleToggle: () => void;
 }
-type Data = {
-  id?: string;
-  sps_id: number;
-  sps_operacao_id: string;
-  solicitacao: string;
-  sps_status: string;
-  prazo_final: Date;
-  prazo_inicial: Date;
-  unidades_id: number;
-  nome_operacao: string;
-};
 export const SolicitacaoPostosContent: React.FC<ISolicitacaoPostosContent> = props => {
   const {
-    isOpen: isOpenAlertSolicitacao,
     onOpen: onOpenAlertSolicitacao,
-    onClose: onCloseAlertSolicitacao,
   } = useDisclosure();
   const {
     isOpen: isOpenFormAddPosto,
@@ -53,7 +39,6 @@ export const SolicitacaoPostosContent: React.FC<ISolicitacaoPostosContent> = pro
 
   const { solicitacaoPostoIndividual } = useSolicitacoesPostos();
   const toast = useToast();
-  const navigate = useNavigate();
   const [file, setFile] = useState<File | null>(null);
   const [postosLocal, setPostosLocal] = useState<DataPostos[]>([]);
   const [currentDataIndex, setCurrentDataIndex] = useState(0);
@@ -510,7 +495,7 @@ export const SolicitacaoPostosContent: React.FC<ISolicitacaoPostosContent> = pro
               firstDataIndex={firstDataIndex}
               lastDataIndex={lastDataIndex}
               loadLess={loadLessSolicitacoesOPMPostos}
-              loadMore={loadMoreSolicitacoesOPMPostos} handlePerPageChange={function (e: React.ChangeEvent<HTMLSelectElement>): void {
+              loadMore={loadMoreSolicitacoesOPMPostos} handlePerPageChange={function (): void {
                 throw new Error('Function not implemented.');
               } }            />
           </Flex>

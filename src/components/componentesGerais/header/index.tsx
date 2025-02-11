@@ -2,7 +2,6 @@ import { Button, Flex, Tooltip } from '@chakra-ui/react';
 import React from 'react';
 import { InputBuscaFicha } from '../inputs/inputBusca';
 import { InputCSVpapparse } from '../../componentsCadastro/inputCSVpapaparse/InputCSVpapaparse';
-import { BiPencil } from 'react-icons/bi';
 import { HiPencil } from 'react-icons/hi';
 import { FiSave } from 'react-icons/fi';
 interface IFunction {

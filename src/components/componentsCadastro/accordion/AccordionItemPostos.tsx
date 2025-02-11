@@ -30,12 +30,12 @@ import { readString } from 'react-papaparse';
 import api from '../../../services/api';
 interface IAccordion {
   isEditing: boolean;
+  handleIsLoadingEfetivo?: () => Promise<void>
 }
-export const AccordionItemPostos: React.FC<IAccordion> = ({ isEditing }) => {
+export const AccordionItemPostos: React.FC<IAccordion> = ({ isEditing,handleIsLoadingEfetivo }) => {
   const [isLoading, setIsLoading] = useState(false);
   const { isOpen } = useIsOpen();
   const {
-    sendPostoToBackendEmLote,
     loadingOnePostoToEditInTable,
     postoById
   } = usePostos();
@@ -60,8 +60,10 @@ export const AccordionItemPostos: React.FC<IAccordion> = ({ isEditing }) => {
 
   const handlePostos = async (): Promise<void> => {
     await sendPostoToBackendEmLote(postosLocal, OperacaoById?.id ? OperacaoById?.id : '');
+
   };
   const toast = useToast();
+  //const {handleIsLoadingPostos} = useIsLoading();
   const [file, setFile] = useState<File | null>(null);
   const [postosLocal, setPostosLocal] = useState<PostoForm[]>([]);
   const [currentDataIndex, setCurrentDataIndex] = useState(0);
@@ -75,6 +77,49 @@ export const AccordionItemPostos: React.FC<IAccordion> = ({ isEditing }) => {
   const totalData = postosLocal.length;
   const currentData = postosLocal.slice(firstDataIndex, lastDataIndex);
   const hasMore = lastDataIndex < postosLocal.length;
+
+  const sendPostoToBackendEmLote = useCallback(async (dados: PostoForm[], id: string) => {
+    const DadosFiltered = dados.filter((d) => !('id' in d));
+    const postos_servicos = {
+      postos_servicos: DadosFiltered.map(
+        ({ militares_por_posto, numero, bairro, local, cidade, endereco, modalidade, id: postoId, ...rest }) => {
+          return {
+            operacao_id: id,
+            militares_por_posto: Number(militares_por_posto),
+            local,
+            numero: Number(numero),
+            bairro,
+            endereco,
+            cidade,
+            modalidade: optionsModalidade.find(m => m.value === modalidade)?.label || null,
+          };
+        }
+      ),
+    };
+    try {
+      await api.post('/criar-postos', postos_servicos);
+      if(handleIsLoadingEfetivo) handleIsLoadingEfetivo();
+      toast({
+        title: 'Sucesso',
+        description: 'Postos salvos com sucesso',
+        status: 'success',
+        position: 'top-right',
+        duration: 2000,
+        isClosable: true,
+      });
+    } catch (error) {
+      console.error('Falha ao salvar postos:', error);
+
+      toast({
+        title: 'Erro',
+        description: 'Falha ao salvar os postos',
+        status: 'error',
+        position: 'top-right',
+        duration: 2000,
+        isClosable: true,
+      });
+    }
+  }, [optionsModalidade, api, toast]);
 
   const loadPostosFromToBackend = async (id: string) => {
     try {
@@ -95,7 +140,9 @@ export const AccordionItemPostos: React.FC<IAccordion> = ({ isEditing }) => {
           ),
         );
         setPostosLocal(newPostos);
-
+        //handleIsLoadingPostos();
+        if(handleIsLoadingPostos)
+          handleIsLoadingPostos()
       } catch (err) {
         if (err instanceof Error) {
           console.error(`Erro ao carregar postos: ${err.message}`);
@@ -490,7 +537,7 @@ export const AccordionItemPostos: React.FC<IAccordion> = ({ isEditing }) => {
 
   return (
     <>
-      <AccordionItem>
+      <AccordionItem >
         {({ isExpanded }) => (
           <>
             <h2>

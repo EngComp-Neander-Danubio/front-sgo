@@ -24,7 +24,7 @@ import {
   Grid,
 } from '@chakra-ui/react';
 import { Service } from '../../../context/requisitosContext/RequisitosContext';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { IconeDeletar } from '../../ViewLogin';
 import { IconeMore } from '../../componentesGerais/icones/iconeMais/IconeMore';
 import { handleSortByPostoGrad } from '../../../types/typesMilitar';
@@ -37,16 +37,14 @@ interface ICard extends CardProps {
   handleServicesToConfirm: React.Dispatch<React.SetStateAction<Service[]>>
 }
 
-export const CardServiceCopy: React.FC<ICard> = ({handleServicesToConfirm}) => {
+export const CardServiceCopy: React.FC<ICard> = () => {
   const {
     dateFirst,
     dateFinished,
     searchServices: services,
     militaresRestantes,
     addQtdMilitaresRestantes,
-    removeQtdMilitaresRestantes,
-    setServices
-  } = useRequisitos();
+    removeQtdMilitaresRestantes  } = useRequisitos();
   const [groupedServices, setGroupedServices] = useState<Record<string, Service[]>>({});
 
   const agruparDatas = (services: Service[]) => {

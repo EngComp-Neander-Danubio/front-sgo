@@ -29,8 +29,9 @@ import api from '../../../services/api';
 import { readString } from 'react-papaparse';
 interface IAccordion {
   isEditing: boolean;
+  handleIsLoadingEfetivo?: () => Promise<void>
 }
-export const AccordionItemEfetivo: React.FC<IAccordion> = ({ isEditing }) => {
+export const AccordionItemEfetivo: React.FC<IAccordion> = ({ isEditing,handleIsLoadingEfetivo }) => {
 
   const {
     isOpen: isOpenModalSolicitarMilitares,
@@ -57,6 +58,7 @@ export const AccordionItemEfetivo: React.FC<IAccordion> = ({ isEditing }) => {
     sendPMToBackendEmLote(pms, OperacaoById?.id ? OperacaoById?.id : '')
   }
   const toast = useToast();
+  //const {handleIsLoadingEfetivo} = useIsLoading();
   const [file, setFile] = useState<File | null>(null);
   const [pms, setPMs] = useState<Militar[]>([]);
   const [currentDataIndex, setCurrentDataIndex] = useState(0);
@@ -90,7 +92,9 @@ export const AccordionItemEfetivo: React.FC<IAccordion> = ({ isEditing }) => {
           ),
       );
       setPMs(newPMs);
-
+      //handleIsLoadingEfetivo();
+      if(handleIsLoadingEfetivo)
+        handleIsLoadingEfetivo();
     } catch (err) {
       if (err instanceof Error) {
         console.error(`Erro ao carregar PPMM: ${err.message}`);
@@ -123,6 +127,8 @@ export const AccordionItemEfetivo: React.FC<IAccordion> = ({ isEditing }) => {
         duration: 2000,
         isClosable: true,
       });
+      if(handleIsLoadingEfetivo)
+        handleIsLoadingEfetivo();
     } catch (error) {
       console.error('Falha ao salvar PPMM:', error);
 

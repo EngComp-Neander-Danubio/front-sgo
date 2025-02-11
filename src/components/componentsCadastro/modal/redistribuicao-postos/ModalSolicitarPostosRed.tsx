@@ -10,13 +10,11 @@ import {
   Center,
   useToast,
 } from '@chakra-ui/react';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { FormSolicitacaoPostosRed } from './FormSolicitacaoPostosRed';
 import { solicitacaoPostosSchemaRed } from '../../../../types/yupSolicitacaoPostosRed/yupSolicitacaoPostosRed';
-import { useSolicitacoesPostos } from '../../../../context/solicitacoesPostosContext/useSolicitacoesPostos';
-import { formatDate, normalizeDate } from '../../../../utils/utils';
 import moment from 'moment';
 import { useOperacao } from '../../../../context/eventContext/useOperacao';
 

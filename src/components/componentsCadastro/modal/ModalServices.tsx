@@ -90,7 +90,7 @@ export const ModalServices: React.FC<IModal> = ({ isOpen, onClose }) => {
                 name="searchService"
                 control={control}
                 render={({
-                  field: { onChange, onBlur, value, ref },
+                  field: { onChange, onBlur, value },
                   fieldState: { error },
                 }) => (
                   <InputPatternController
