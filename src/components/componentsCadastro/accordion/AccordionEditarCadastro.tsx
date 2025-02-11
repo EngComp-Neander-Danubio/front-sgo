@@ -13,15 +13,10 @@ interface IAccordion extends AccordionProps {
   handleToggle: () => void;
 }
 
-
-export const AccordinEditarCadastro: React.FC<IAccordion> = ({ isOpen }) => {
+export const AccordinEditarCadastro: React.FC<IAccordion> = () => {
   const { OperacaoById } = useOperacao();
-      const [IsLoadingPostos, setIsLoadingPostos] = useState<boolean>(false);
         const [IsLoadingEfetivo, setIsLoadingEfetivo] = useState<boolean>(false);
         const [IsLoadingEscala, setIsLoadingEscala] = useState<boolean>(false);
-         const handleIsLoadingPostos = async () => {
-          setIsLoadingPostos(true);
-        };
 
         const handleIsLoadingEfetivo = async () => {
           setIsLoadingEfetivo(true);
@@ -40,7 +35,7 @@ export const AccordinEditarCadastro: React.FC<IAccordion> = ({ isOpen }) => {
         //border={'1px solid black'}
       >
 
-       <AccordionItemOperacao isEditing handleIsLoadingPostos={handleIsLoadingPostos}/>
+       <AccordionItemOperacao isEditing/>
                   {OperacaoById?.id && (
                   <AccordionItemPostos
                     isEditing

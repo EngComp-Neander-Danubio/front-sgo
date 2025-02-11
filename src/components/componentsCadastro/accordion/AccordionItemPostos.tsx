@@ -17,7 +17,6 @@ import { InputCSVpapparse } from '../inputCSVpapaparse/InputCSVpapaparse';
 import { Pagination } from '../pagination/Pagination';
 import TableMain, { ColumnProps } from '../TableMain/TableMain';
 import { usePostos } from '../../../context/postosContext/usePostos';
-import { useIsOpen } from '../../../context/isOpenContext/useIsOpen';
 import { DataPostos } from '../../../types/typesPostos';
 import { IconeDeletar, IconeEditar } from '../../ViewLogin';
 import { ModalSolicitacarPostos } from '../modal/ModalSolicitarPostos';
@@ -34,7 +33,6 @@ interface IAccordion {
 }
 export const AccordionItemPostos: React.FC<IAccordion> = ({ isEditing,handleIsLoadingEfetivo }) => {
   const [isLoading, setIsLoading] = useState(false);
-  const { isOpen } = useIsOpen();
   const {
     loadingOnePostoToEditInTable,
     postoById
@@ -63,7 +61,6 @@ export const AccordionItemPostos: React.FC<IAccordion> = ({ isEditing,handleIsLo
 
   };
   const toast = useToast();
-  //const {handleIsLoadingPostos} = useIsLoading();
   const [file, setFile] = useState<File | null>(null);
   const [postosLocal, setPostosLocal] = useState<PostoForm[]>([]);
   const [currentDataIndex, setCurrentDataIndex] = useState(0);
@@ -81,9 +78,12 @@ export const AccordionItemPostos: React.FC<IAccordion> = ({ isEditing,handleIsLo
   const sendPostoToBackendEmLote = useCallback(async (dados: PostoForm[], id: string) => {
     const DadosFiltered = dados.filter((d) => !('id' in d));
     const postos_servicos = {
+      solicitacao_id: 41,
       postos_servicos: DadosFiltered.map(
-        ({ militares_por_posto, numero, bairro, local, cidade, endereco, modalidade, id: postoId, ...rest }) => {
+        ({ militares_por_posto, numero, bairro, local, cidade, endereco, modalidade }) => {
           return {
+            solicitacao_id: 41,
+            uni_codigo: 2116,
             operacao_id: id,
             militares_por_posto: Number(militares_por_posto),
             local,
@@ -140,9 +140,8 @@ export const AccordionItemPostos: React.FC<IAccordion> = ({ isEditing,handleIsLo
           ),
         );
         setPostosLocal(newPostos);
-        //handleIsLoadingPostos();
-        if(handleIsLoadingPostos)
-          handleIsLoadingPostos()
+        if(handleIsLoadingEfetivo)
+          handleIsLoadingEfetivo()
       } catch (err) {
         if (err instanceof Error) {
           console.error(`Erro ao carregar postos: ${err.message}`);

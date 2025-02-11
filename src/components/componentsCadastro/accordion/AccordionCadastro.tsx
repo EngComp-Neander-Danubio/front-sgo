@@ -1,11 +1,9 @@
-import { Accordion, AccordionProps, FlexboxProps } from '@chakra-ui/react';
-import React, { useEffect, useState } from 'react';
+import { Accordion, AccordionProps } from '@chakra-ui/react';
+import React, { useState } from 'react';
 import { AccordionItemPostos } from './AccordionItemPostos';
 import { AccordionItemEfetivo } from './AccordionItemEfetivo';
 import { AccordionItemEscala } from './AccordionItemEscala';
 import { AccordionItemOperacao } from './AccordionItemOperacao';
-import { useOperacao } from '../../../context/eventContext/useOperacao';
-import { is } from 'date-fns/locale';
 
 interface IAccordion extends AccordionProps {
   handleSubmit: () => void;
@@ -14,7 +12,6 @@ interface IAccordion extends AccordionProps {
 }
 
 export const AccordinCadastro: React.FC<IAccordion> = ({ isOpen }) => {
-  const { OperacaoById } = useOperacao();
   const [IsLoadingPostos, setIsLoadingPostos] = useState<boolean>(false);
   const [IsLoadingEfetivo, setIsLoadingEfetivo] = useState<boolean>(false);
   const [IsLoadingEscala, setIsLoadingEscala] = useState<boolean>(false);

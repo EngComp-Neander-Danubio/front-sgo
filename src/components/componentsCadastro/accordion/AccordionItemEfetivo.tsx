@@ -29,9 +29,9 @@ import api from '../../../services/api';
 import { readString } from 'react-papaparse';
 interface IAccordion {
   isEditing: boolean;
-  handleIsLoadingEfetivo?: () => Promise<void>
+  handleIsLoadingEscala?: () => Promise<void>
 }
-export const AccordionItemEfetivo: React.FC<IAccordion> = ({ isEditing,handleIsLoadingEfetivo }) => {
+export const AccordionItemEfetivo: React.FC<IAccordion> = ({ isEditing,handleIsLoadingEscala }) => {
 
   const {
     isOpen: isOpenModalSolicitarMilitares,
@@ -92,9 +92,8 @@ export const AccordionItemEfetivo: React.FC<IAccordion> = ({ isEditing,handleIsL
           ),
       );
       setPMs(newPMs);
-      //handleIsLoadingEfetivo();
-      if(handleIsLoadingEfetivo)
-        handleIsLoadingEfetivo();
+      if(handleIsLoadingEscala)
+        handleIsLoadingEscala();
     } catch (err) {
       if (err instanceof Error) {
         console.error(`Erro ao carregar PPMM: ${err.message}`);
@@ -127,8 +126,8 @@ export const AccordionItemEfetivo: React.FC<IAccordion> = ({ isEditing,handleIsL
         duration: 2000,
         isClosable: true,
       });
-      if(handleIsLoadingEfetivo)
-        handleIsLoadingEfetivo();
+      if(handleIsLoadingEscala)
+        handleIsLoadingEscala();
     } catch (error) {
       console.error('Falha ao salvar PPMM:', error);
 
