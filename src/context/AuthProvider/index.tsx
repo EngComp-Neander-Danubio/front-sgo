@@ -62,15 +62,18 @@ export const AuthProvider = ({ children }: IAuthProvider) => {
 
     try {
       const decodedToken: IDecodedToken = jwtDecode(userAuth.token);
+      // Garantir que a comparação entre o exp (segundos) e o tempo atual (milissegundos convertido para segundos)
       if (!decodedToken || decodedToken.exp < Date.now() / 1000) {
         logout();
         return false;
       }
       return true;
     } catch (error) {
+      console.error('Erro ao decodificar token:', error);  // Log para depuração
       return false;
     }
   }
+
 
   return (
     <AuthContext.Provider

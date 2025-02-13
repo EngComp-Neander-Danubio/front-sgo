@@ -7,9 +7,10 @@ interface IProps {
 }
 
 export default function PrivateRoute({ children }: IProps) {
-  const { token } = useAuth();
-
-  if (!token) {
+  const { isTokenValid } = useAuth();
+  const tokenData = isTokenValid();
+  console.log('token exists',tokenData)
+  if (!tokenData) {
     return <Navigate to="/login-sgo" />;
   }
 

@@ -1,5 +1,4 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { Ficha } from '../pages/views/ficha';
 import { Login } from '../pages/views/login/Login';
 import { PageAddGrandeEvento } from '../pages/views/page-Add-Grande-Evento/PageAddGrandeEvento';
 import { PostoServico } from '../pages/views/page-cadastrar-posto-de-servico/PostoServico';

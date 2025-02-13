@@ -14,7 +14,6 @@ import { SolicitacoesOPMPostosProvider } from './context/solicitacoesOPMPostosCo
 import { SolicitacoesOPMPMsProvider } from './context/solicitacoesOPMPMsContext/SolicitacoesOPMPMsContext.tsx';
 import { theme } from './theme.tsx';
 import { IsOpenProvider } from './context/isOpenContext/UseIsOpenContext.tsx';
-import { IsLoadingProvider } from './context/isLoadingContext/UseIsLoadingContext.tsx';
 
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker
